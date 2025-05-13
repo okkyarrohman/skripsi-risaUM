@@ -6,11 +6,11 @@
     <title>@yield('title', 'Welcome')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col min-h-screen bg-white text-gray-900">
+<body class="flex flex-col min-h-screen bg-white text-gray-900 ">
 
     @include('partials.navbar')
 
-    <main class="flex-grow container mx-auto p-6">
+    <main class="flex-grow container mx-auto">
         @yield('content')
     </main>
 
