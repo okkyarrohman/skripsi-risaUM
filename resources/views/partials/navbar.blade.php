@@ -1,5 +1,5 @@
 <nav class="bg-[#1E3A8A] text-white shadow">
-    <div class="container mx-auto flex items-center justify-between px-8 py-4">
+    <div class="container mx-auto flex items-center justify-between px-8 py-3">
         {{-- Brand name with line break --}}
         <div class="leading-tight">
             <div class="flex items-center gap-1 text-2xl font-bold">

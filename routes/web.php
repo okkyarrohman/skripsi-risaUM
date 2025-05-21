@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AudioController;
+use App\Http\Controllers\Admin\KoleksiController;
+use App\Http\Controllers\Admin\MahasiswaController;
+use App\Http\Controllers\Admin\PermintaanController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController; // Added this line
@@ -19,5 +23,17 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Admin Dashboard Controller
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Kelola Data Koleksi
+    Route::get('/koleksi', [KoleksiController::class, 'index'])->name('admin.koleksi');
+
+    // Data Audio
+    Route::get('/audio', [AudioController::class, 'index'])->name('admin.audio');
+
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
+
+    // Permintaan Full Akses
+    Route::get('/permintaan', [PermintaanController::class, 'index'])->name('admin.permintaan');
 });

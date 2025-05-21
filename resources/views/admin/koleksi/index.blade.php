@@ -3,5 +3,5 @@
 @section('title', $title)
 
 @section('content')
-<h1>Dashboard</h1>
+<h1>Koleksi</h1>
 @endsection

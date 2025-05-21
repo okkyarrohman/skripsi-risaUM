@@ -12,23 +12,29 @@
     
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col min-h-screen bg-white text-gray-900 ">
+<body class="flex flex-col min-h-screen bg-white text-gray-900">
 
+    {{-- Navbar --}}
     @include('partials.admin.navbar')
 
     <div class="flex flex-1">
         {{-- Sidebar --}}
-        <aside class="w-64 bg-gray-100 p-4 border-r border-gray-200">
+        <aside class="w-64 bg-[#06003F] p-4 border-r">
             @include('partials.admin.sidebar')
         </aside>
 
-        {{-- Main Content --}}
-        <main class="flex-1 p-4">
-            @yield('content')
-        </main>
+        {{-- Main content with footer inside --}}
+        <div class="flex flex-col flex-1 justify-between">
+            <main class="p-4 flex-grow">
+                @yield('content')
+            </main>
+
+            <footer class="bg-gray-100 border-t border-gray-200 text-center">
+                @include('partials.admin.footer')
+            </footer>
+        </div>
     </div>
 
-    @include('partials.admin.footer')
-
 </body>
+
 </html>
