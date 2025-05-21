@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-semibold">Data Koleksi Abstrak</h1>
+    <h1 class="text-2xl font-semibold text-[#06003F]">Data Koleksi Abstrak</h1>
     <div class="flex space-x-4">
         <!-- Tambah Data Button -->
         <a href="{{ route('admin.koleksi.create') }}" class="px-4 py-2 text-white rounded-lg shadow hover:opacity-90 transition" style="background-color: #090445;">
@@ -55,34 +55,49 @@
     </button>
 </div>
 
-<!-- Card Container -->
-<div class="bg-white rounded-lg shadow-md p-6 py-4">
-    <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Judul Tugas Akhir</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Penulis</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Program Studi</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun Terbit</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Unggah</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-                @foreach ($collections as $collection)
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $collection->judul_tugas_akhir }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $collection->nama_penulis }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $collection->program_studi }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $collection->tahun_terbit }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $collection->tanggal_unggah->format('d M Y') }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $collection->status }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+{{-- Table --}}
+<h1 class="text-2xl font-semibold text-[#06003F] py-4 pt-8">Kelola Data Koleksi</h1>
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+            <tr>
+                <th scope="col" class="px-6 py-3">No.</th>
+                <th scope="col" class="px-6 py-3">Judul Tugas Akhir</th>
+                <th scope="col" class="px-6 py-3">Nama Penulis</th>
+                <th scope="col" class="px-6 py-3">Nama Pembimbing</th>
+                <th scope="col" class="px-6 py-3">Program Studi</th>
+                <th scope="col" class="px-6 py-3">Fakultas</th>
+                <th scope="col" class="px-6 py-3">Tahun Terbit</th>
+                <th scope="col" class="px-6 py-3">Detail</th>
+                <th scope="col" class="px-6 py-3">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($collections as $index => $collection)
+            <tr class="bg-white border-b border-gray-200 hover:bg-gray-100">
+                <td class="px-6 py-4">{{ $collections->firstItem() + $index }}</td>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    {{ $collection->judul_tugas_akhir }}
+                </th>
+                <td class="px-6 py-4">{{ $collection->nama_penulis }}</td>
+                <td class="px-6 py-4">{{ $collection->nama_pembimbing }}</td>
+                <td class="px-6 py-4">{{ $collection->program_studi }}</td>
+                <td class="px-6 py-4">{{ $collection->fakultas }}</td>
+                <td class="px-6 py-4">{{ $collection->tahun_terbit }}</td>
+                <td class="px-6 py-4">
+                    <a href="{{ route('admin.koleksi.show', $collection->id) }}" class="text-blue-600 hover:underline">Detail</a>
+                </td>
+                <td class="px-6 py-4">
+                    <form action="{{ route('admin.koleksi.destroy', $collection->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 <div class="mt-4 flex items-center justify-between text-sm text-gray-700">
@@ -92,9 +107,6 @@
         <span class="font-semibold">{{ $collections->lastItem() }}</span> dari
         <span class="font-semibold">{{ $collections->total() }}</span> data
     </div>
-
-    <!-- Center: Dash -->
-    <div>-</div>
 
     <!-- Right: Pagination links -->
     <div>

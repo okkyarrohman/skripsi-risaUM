@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title')</title>
 
-    {{-- Font --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    
+    {{-- Fonts & Tailwind CSS --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap" rel="stylesheet" />
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col min-h-screen bg-white text-gray-900">
+<body class="flex flex-col min-h-screen bg-white text-gray-900 font-sans">
+
     {{-- Navbar --}}
-    <header class="w-full fixed top-0 z-50">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#1E3A8A] text-white shadow flex items-center justify-between px-4 h-16">
         @include('partials.admin.navbar')
     </header>
 
-    <div class="flex flex-1 pt-18"> {{-- Adjust 'pt-16' based on navbar height (e.g., 64px = 16 * 4px) --}}
+
+    <div class="flex flex-1 pt-16"> {{-- pt-16 = navbar height --}}
         {{-- Sidebar --}}
-        <aside class="fixed top-18 left-0 w-64 h-[calc(100vh-4rem)] bg-[#06003F] p-4 border-r z-40 overflow-y-auto">
+        <aside id="sidebar" class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-[#06003F] p-4 border-r border-gray-800 overflow-y-auto
+                                   transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-40">
             @include('partials.admin.sidebar')
         </aside>
 
-        {{-- Main content with footer inside --}}
-        <div class="flex flex-col flex-1 ml-64">
-            <main class="p-4 flex-grow">
-                @yield('content')
-            </main>
-
-            <footer class="bg-gray-100 border-t border-gray-200 text-center">
-                @include('partials.admin.footer')
-            </footer>
-        </div>
+        {{-- Main content --}}
+        <main class="flex-1 ml-0 lg:ml-64 p-4 overflow-auto">
+            @yield('content')
+        </main>
     </div>
-</body>
 
+    <footer class="bg-gray-800 text-white">
+            @include('partials.admin.footer')
+        </div>
+    </footer>
+
+    <script>
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    </script>
+</body>
 </html>
