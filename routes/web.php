@@ -27,7 +27,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 
     // Kelola Data Koleksi
-    Route::get('/koleksi', [KoleksiController::class, 'index'])->name('admin.koleksi');
+    Route::resource('koleksi', KoleksiController::class)->names('admin.koleksi');
+    Route::get('/koleksi/import', [KoleksiController::class, 'import'])->name('admin.koleksi.import');
 
     // Data Audio
     Route::get('/audio', [AudioController::class, 'index'])->name('admin.audio');

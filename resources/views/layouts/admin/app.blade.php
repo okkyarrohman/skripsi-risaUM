@@ -13,18 +13,19 @@
     @vite('resources/css/app.css')
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900">
-
     {{-- Navbar --}}
-    @include('partials.admin.navbar')
+    <header class="w-full fixed top-0 z-50">
+        @include('partials.admin.navbar')
+    </header>
 
-    <div class="flex flex-1">
+    <div class="flex flex-1 pt-18"> {{-- Adjust 'pt-16' based on navbar height (e.g., 64px = 16 * 4px) --}}
         {{-- Sidebar --}}
-        <aside class="w-64 bg-[#06003F] p-4 border-r">
+        <aside class="fixed top-18 left-0 w-64 h-[calc(100vh-4rem)] bg-[#06003F] p-4 border-r z-40 overflow-y-auto">
             @include('partials.admin.sidebar')
         </aside>
 
         {{-- Main content with footer inside --}}
-        <div class="flex flex-col flex-1 justify-between">
+        <div class="flex flex-col flex-1 ml-64">
             <main class="p-4 flex-grow">
                 @yield('content')
             </main>
@@ -34,7 +35,6 @@
             </footer>
         </div>
     </div>
-
 </body>
 
 </html>

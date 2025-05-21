@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
-
 use App\Models\Collection;
 
 class CollectionSeeder extends Seeder
@@ -14,19 +13,21 @@ class CollectionSeeder extends Seeder
      */
     public function run(): void
     {
-        Collection::create([
-            'judul_tugas_akhir' => 'Sistem Informasi Perpustakaan',
-            'nama_penulis' => 'Ahmad Fauzi',
-            'nama_pembimbing' => 'Dr. Budi Santoso',
-            'program_studi' => 'Teknik Informatika',
-            'fakultas' => 'Fakultas Teknik',
-            'tahun_terbit' => 2023,
-            'abstrak_indo' => 'Penelitian ini membahas tentang ...',
-            'abstrak_eng' => 'This research discusses ...',
-            'nomer_reg' => 'TI-2023-001',
-            'kata_kunci' => 'perpustakaan, sistem informasi, database',
-            'tanggal_unggah' => Carbon::now()->toDateString(),
-            'status' => 'Dipublikasikan',
-        ]);
+        for ($i = 1; $i <= 50; $i++) {
+            Collection::create([
+                'judul_tugas_akhir' => "Sistem Informasi Perpustakaan Vol. $i",
+                'nama_penulis' => "Ahmad Fauzi $i",
+                'nama_pembimbing' => "Dr. Budi Santoso",
+                'program_studi' => 'Teknik Informatika',
+                'fakultas' => 'Fakultas Teknik',
+                'tahun_terbit' => 2023,
+                'abstrak_indo' => "Penelitian ini membahas tentang topik ke-$i ...",
+                'abstrak_eng' => "This research discusses topic number $i ...",
+                'nomer_reg' => "TI-2023-" . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'kata_kunci' => 'perpustakaan, sistem informasi, database',
+                'tanggal_unggah' => Carbon::now()->subDays(50 - $i)->toDateString(),
+                'status' => 'Dipublikasikan',
+            ]);
+        }
     }
 }

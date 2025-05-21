@@ -14,7 +14,7 @@ class KoleksiController extends Controller
     public function index()
     {
         $title = "Admin - Data Koleksi";
-        $collections = Collection::all(); // You can pass data if needed
+        $collections = Collection::orderBy('created_at', 'desc')->paginate(10); // Paginate 10 per page
 
         return view('admin.koleksi.index', compact('title', 'collections'));
     }

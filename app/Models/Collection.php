@@ -27,5 +27,9 @@ class Collection extends Model
         'status',
     ];
 
-    protected $dates = ['deleted_at', 'tanggal_unggah'];
+   protected $casts = [
+        'deleted_at' => 'datetime',
+        'tanggal_unggah' => 'datetime',
+    ];
+
 }
