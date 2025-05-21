@@ -14,7 +14,7 @@
 <body class="flex flex-col min-h-screen bg-white text-gray-900 font-sans">
 
     {{-- Navbar --}}
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#1E3A8A] text-white shadow flex items-center justify-between px-4 h-16">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#1E3A8A]">
         @include('partials.admin.navbar')
     </header>
 
