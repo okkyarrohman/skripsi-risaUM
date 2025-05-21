@@ -4,7 +4,7 @@
         {{-- Logo & Copyright --}}
         <div class="flex flex-col items-center justify-center text-center">
             <img src="{{ asset('images/logoum.png') }}" alt="Logo" class="h-36 mb-2">
-            <p class="text-xl font-bold text-white">VoiceLibM</p>
+            <p class="text-xl font-bold text-white">VoiceLib</p>
             <p class="text-xs text-white">&copy; {{ date('Y') }}</p>
         </div>
 
