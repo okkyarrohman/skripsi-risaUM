@@ -13,7 +13,7 @@ class CollectionSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 500; $i++) {
             Collection::create([
                 'judul_tugas_akhir' => "Sistem Informasi Perpustakaan Vol. $i",
                 'nama_penulis' => "Ahmad Fauzi $i",

@@ -85,9 +85,22 @@
     </div>
 </div>
 
-<!-- Pagination Links -->
-<div class="mt-4">
-    {{ $collections->links('pagination::tailwind') }}
+<div class="mt-4 flex items-center justify-between text-sm text-gray-700">
+    <!-- Left: Showing items summary -->
+    <div>
+        Menampilkan <span class="font-semibold">{{ $collections->firstItem() }}</span> -
+        <span class="font-semibold">{{ $collections->lastItem() }}</span> dari
+        <span class="font-semibold">{{ $collections->total() }}</span> data
+    </div>
+
+    <!-- Center: Dash -->
+    <div>-</div>
+
+    <!-- Right: Pagination links -->
+    <div>
+        {{ $collections->links('vendor.pagination.custom-tailwind') }}
+    </div>
 </div>
+
 
 @endsection
