@@ -10,7 +10,11 @@ class AuthController extends Controller
 {
     public function showLoginForm()
     {
-         $title = 'Login';
+        if (auth()->check()) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        $title = 'Login';
         return view('auth.login', compact('title'));
     }
 
@@ -20,7 +24,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->route('admin.dashboard'); // Redirect to admin.index
         }
 
         return back()->withErrors([

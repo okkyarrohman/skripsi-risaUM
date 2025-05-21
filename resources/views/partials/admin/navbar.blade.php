@@ -12,27 +12,31 @@
             <div class="text-md font-bold">UPT Perpustakaan UM</div>
         </div>
 
-        <div class="space-x-8 text-sm sm:text-base font-bold">
-            <a href="{{ route('landing.index') }}" 
-            class="relative inline-block pb-1
-                    {{ request()->routeIs('landing.index') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
-            Beranda
-            </a>
+
+        <div class="space-x-8 text-sm sm:text-base font-bold flex items-center">
+
             <a href="{{ route('landing.guide') }}" 
             class="relative inline-block pb-1
                     {{ request()->routeIs('landing.guide') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
-            Panduan
+                Panduan Admin
             </a>
-            <a href="{{ route('landing.about') }}" 
+
+            <a href="{{ route('landing.guide') }}" 
             class="relative inline-block pb-1
-                    {{ request()->routeIs('landing.about') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
-            Tentang Kami
+                    {{ request()->routeIs('landing.guide') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
+                {{ auth()->check() ? auth()->user()->name : 'Guest' }}
             </a>
-            <a href="{{ route('login') }}" 
-            class="relative inline-block pb-1
-                    {{ request()->is('login') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
-            Masuk Admin
-            </a>
+
+            <form action="{{ route('auth.logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="submit" 
+                        class="relative inline-flex items-center pb-1 bg-transparent border-none text-white hover:border-b-3 hover:border-white cursor-pointer font-bold text-sm sm:text-base">
+                    Logout
+                    <svg class="w-6 h-6 ml-2 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                    </svg>
+                </button>
+            </form>
         </div>
     </div>
 </nav>

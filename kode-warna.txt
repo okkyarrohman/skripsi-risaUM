@@ -1,0 +1,8 @@
+======= Landing Page =======
+Warna Background = bg-[#1E3A8A]
+Warna Text (bold) = text-[#06003F]
+Warna Text (normal) = text-[#000000]
+Warna Button = bg-[#090445]
+
+======= Admin =======
+Background Login = bg-[#06003F]
