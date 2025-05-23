@@ -68,36 +68,90 @@
                 <th scope="col" class="px-6 py-3">Program Studi</th>
                 <th scope="col" class="px-6 py-3">Fakultas</th>
                 <th scope="col" class="px-6 py-3">Tahun Terbit</th>
+                <th scope="col" class="px-6 py-3">Tanggal Unggah</th> <!-- New Upload Date header -->
                 <th scope="col" class="px-6 py-3">Detail</th>
                 <th scope="col" class="px-6 py-3">Aksi</th>
+                <th scope="col" class="px-6 py-3">Status</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($collections as $index => $collection)
             <tr class="bg-white border-b border-gray-200 hover:bg-gray-100">
                 <td class="px-6 py-4">{{ $collections->firstItem() + $index }}</td>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    {{ $collection->judul_tugas_akhir }}
-                </th>
+                <td class="px-6 py-4">{{ $collection->judul_tugas_akhir }}</td>
                 <td class="px-6 py-4">{{ $collection->nama_penulis }}</td>
                 <td class="px-6 py-4">{{ $collection->nama_pembimbing }}</td>
                 <td class="px-6 py-4">{{ $collection->program_studi }}</td>
                 <td class="px-6 py-4">{{ $collection->fakultas }}</td>
                 <td class="px-6 py-4">{{ $collection->tahun_terbit }}</td>
+                <td class="px-6 py-4">{{ $collection->tanggal_unggah ? $collection->tanggal_unggah->format('Y-d-m') : '-' }}</td> <!-- Upload Date cell -->
                 <td class="px-6 py-4">
-                    <a href="{{ route('admin.koleksi.show', $collection->id) }}" class="text-blue-600 hover:underline">Detail</a>
+                    <a href="{{ route('admin.koleksi.show', $collection->id) }}"
+                    class="inline-flex items-center px-3 py-1 border border-black text-black bg-white rounded hover:bg-gray-100 transition"
+                    title="Detail">
+                        <!-- Eye Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                        Detail
+                    </a>
                 </td>
                 <td class="px-6 py-4">
-                    <form action="{{ route('admin.koleksi.destroy', $collection->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                <!-- Edit Button -->
+                <div class="mb-2">
+                    <a href="{{ route('admin.koleksi.edit', $collection->id) }}" class="text-blue-600 hover:text-blue-800" title="Edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="mb-2">
+                    <a href="" class="text-yellow-500 hover:text-yellow-700" title="Swap">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v6h6M20 20v-6h-6M4 10l6-6M20 14l-6 6" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Delete Button -->
+                <div>
+                    <form action="" method="POST" onsubmit="return confirm('Are you sure?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                        <button type="submit" class="text-red-600 hover:text-red-800" title="Delete">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </form>
+                </div>
+            </td>
+
+                <td class="px-6 py-4">
+                    @php
+                        $status = $collection->status ?? 'N/A';
+                        $statusClass = match($status) {
+                            'Dipublikasikan' => 'bg-green-100 text-green-800 border border-green-400',
+                            'pending' => 'bg-yellow-100 text-yellow-800 border border-yellow-400',
+                            'rejected' => 'bg-red-100 text-red-800 border border-red-400',
+                            default => 'bg-gray-100 text-gray-800 border border-gray-400',
+                        };
+                    @endphp
+
+                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full {{ $statusClass }}">
+                        {{ ucfirst($status) }}
+                    </span>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+
 </div>
 
 <div class="mt-4 flex items-center justify-between text-sm text-gray-700">

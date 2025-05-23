@@ -23,6 +23,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Admin Dashboard Controller
 Route::prefix('admin')->middleware(['auth'])->group(function () {
+    
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/guide-admin', [AdminDashboardController::class, 'guideAdmin'])->name('admin.guide');
