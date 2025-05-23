@@ -11,4 +11,17 @@ class AdminDashboardController extends Controller
         $title = 'Admin - Dashboard';
         return view('admin.index', compact('title'));
     }
+
+    public function guideAdmin(Request $request)
+    {
+        $title = 'Admin - Panduan Admin';
+        return view('admin.guide', compact('title'));
+    }
+
+    public function profile()
+    {
+        $title = 'Admin - Profile';
+        return view('admin.profile', compact('title'));
+    }
+
 }

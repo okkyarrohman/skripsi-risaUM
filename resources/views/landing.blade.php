@@ -32,7 +32,7 @@
     </section>
 
     {{-- Section: About / Tentang Kami --}}
-    <section class="py-12 md:py-20 bg-gray-100">
+    <section class="py-8 md:py-12 bg-gray-100">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-[#06003F] mb-8">Tentang Kami</h2>
             <div class="max-w-3xl mx-auto">
