@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="md:w-1/2 w-full">
-                <img src="{{ asset('images/hero.png') }}" alt="VoiceLib Illustration" class="w-full rounded-xl shadow-lg">
+                <img src="{{ asset('images/hero.webp') }}" alt="VoiceLib Illustration" class="w-full rounded-xl shadow-lg">
             </div>
         </div>
         <div class="container mx-auto px-4 py-12 text-center">
