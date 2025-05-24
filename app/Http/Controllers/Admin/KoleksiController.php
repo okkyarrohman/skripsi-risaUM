@@ -25,15 +25,38 @@ class KoleksiController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.koleksi.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'judul_tugas_akhir' => 'required',
+            'nama_penulis' => 'required',
+            'nama_pembimbing' => 'required',
+            'program_studi' => 'required',
+            'fakultas' => 'required',
+            'tahun_terbit' => 'required|digits:4',
+            'abstrak_indo' => 'required',
+            'abstrak_eng' => 'required',
+            'nomer_reg' => 'required',
+            'kata_kunci' => 'required',
+            'tanggal_unggah' => 'required|date',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                            ->withErrors($validator)
+                            ->withInput();
+        }
+
+        Collection::create($request->all());
+
+        return redirect()->route('admin.koleksi.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
