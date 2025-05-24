@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite('resources/css/app.css')
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 font-sans">
@@ -37,14 +39,18 @@
         </div>
     </footer>
 
+    @yield('script')
+    @if (session('success'))
     <script>
-        // Sidebar toggle for mobile
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
         });
     </script>
+    @endif
+
 </body>
 </html>

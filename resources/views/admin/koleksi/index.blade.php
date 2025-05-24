@@ -2,6 +2,30 @@
 
 @section('title', $title)
 
+@section('script')
+<script>
+    document.querySelectorAll('.delete-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Apakah kamu yakin?',
+                text: "Aksi ini tidak bisa dibatalkan!.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batalkan'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+@endsection
+
 @section('content')
 <div class="flex items-center justify-between mb-6">
     <h1 class="text-2xl font-semibold text-[#06003F]">Data Koleksi Abstrak</h1>
@@ -87,7 +111,7 @@
                 <td class="px-6 py-4">{{ $collection->tanggal_unggah ? $collection->tanggal_unggah->format('Y-d-m') : '-' }}</td> <!-- Upload Date cell -->
                 <td class="px-6 py-4">
                     <a href="{{ route('admin.koleksi.show', $collection->id) }}"
-                    class="inline-flex items-center px-3 py-1 border border-black text-black bg-white rounded hover:bg-gray-100 transition"
+                    class="inline-flex items-center px-3 py-1 border border-gray-300 text-black bg-white rounded hover:bg-gray-100 transition"
                     title="Detail">
                         <!-- Eye Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,50 +124,60 @@
                     </a>
                 </td>
                 <td class="px-6 py-4">
-                <!-- Edit Button -->
-                <div class="mb-2">
-                    <a href="{{ route('admin.koleksi.edit', $collection->id) }}" class="text-blue-600 hover:text-blue-800" title="Edit">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Swap Button -->
-                <div class="mb-2">
-                    <a href="" class="text-yellow-500 hover:text-yellow-700" title="Swap">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v6h6M20 20v-6h-6M4 10l6-6M20 14l-6 6" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Delete Button -->
-                <div>
-                    <form action="" method="POST" onsubmit="return confirm('Are you sure?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-800" title="Delete">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    <!-- Edit Button -->
+                    <div class="mb-2">
+                        <a href="{{ route('admin.koleksi.edit', $collection->id) }}" class="text-blue-600 hover:text-blue-800" title="Edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                             </svg>
-                        </button>
-                    </form>
-                </div>
-            </td>
+                        </a>
+                    </div>
 
-                <td class="px-6 py-4">
+                    <!-- Delete Button -->
+                    <div class="py-1">
+                        <form action="{{ route('admin.koleksi.destroy', $collection->id) }}" method="POST" class="delete-form">
+                            @csrf
+                            @method('DELETE')
+                            <button 
+                                type="submit" 
+                                class="text-red-600 hover:text-red-800 cursor-pointer" 
+                                title="Delete"
+                            >
+                                <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    viewBox="0 0 24 24" 
+                                    fill="currentColor" 
+                                    class="size-5"
+                                >
+                                    <path 
+                                        fill-rule="evenodd" 
+                                        d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" 
+                                        clip-rule="evenodd" 
+                                    />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Swap Button -->
+                    <div class="">
+                        <a href="" class="" title="Swap">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                                <path fill-rule="evenodd" d="M12 5.25c1.213 0 2.415.046 3.605.135a3.256 3.256 0 0 1 3.01 3.01c.044.583.077 1.17.1 1.759L17.03 8.47a.75.75 0 1 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l3-3a.75.75 0 0 0-1.06-1.06l-1.752 1.751c-.023-.65-.06-1.296-.108-1.939a4.756 4.756 0 0 0-4.392-4.392 49.422 49.422 0 0 0-7.436 0A4.756 4.756 0 0 0 3.89 8.282c-.017.224-.033.447-.046.672a.75.75 0 1 0 1.497.092c.013-.217.028-.434.044-.651a3.256 3.256 0 0 1 3.01-3.01c1.19-.09 2.392-.135 3.605-.135Zm-6.97 6.22a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 1 0 1.06 1.06l1.752-1.751c.023.65.06 1.296.108 1.939a4.756 4.756 0 0 0 4.392 4.392 49.413 49.413 0 0 0 7.436 0 4.756 4.756 0 0 0 4.392-4.392c.017-.223.032-.447.046-.672a.75.75 0 0 0-1.497-.092c-.013.217-.028.434-.044.651a3.256 3.256 0 0 1-3.01 3.01 47.953 47.953 0 0 1-7.21 0 3.256 3.256 0 0 1-3.01-3.01 47.759 47.759 0 0 1-.1-1.759L6.97 15.53a.75.75 0 0 0 1.06-1.06l-3-3Z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </td>
+                <td class="px-6 py-4 align-middle">
                     @php
                         $status = $collection->status ?? 'N/A';
                         $statusClass = match($status) {
-                            'Dipublikasikan' => 'bg-green-100 text-green-800 border border-green-400',
-                            'pending' => 'bg-yellow-100 text-yellow-800 border border-yellow-400',
-                            'rejected' => 'bg-red-100 text-red-800 border border-red-400',
+                            'Tersedia' => 'bg-green-100 text-green-800 border border-green-400',
                             default => 'bg-gray-100 text-gray-800 border border-gray-400',
                         };
                     @endphp
 
-                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full {{ $statusClass }}">
+                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full whitespace-nowrap {{ $statusClass }}">
                         {{ ucfirst($status) }}
                     </span>
                 </td>

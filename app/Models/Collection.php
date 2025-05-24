@@ -29,7 +29,7 @@ class Collection extends Model
 
    protected $casts = [
         'deleted_at' => 'datetime',
-        'tanggal_unggah' => 'datetime',
+        'tanggal_unggah' => 'date',
     ];
 
 }

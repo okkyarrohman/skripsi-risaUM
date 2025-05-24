@@ -1,3 +1,12 @@
+@section('scipt')
+<script>
+    document.getElementById('mobileMenuToggle').addEventListener('click', function () {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('hidden');
+    });
+</script>
+@endsection
+
 <nav class="bg-[#1E3A8A] text-white shadow">
     <div class="container mx-auto flex items-center justify-between px-4 py-3">
         {{-- Brand --}}
@@ -45,34 +54,26 @@
 
     {{-- Mobile Menu --}}
     <div id="mobileMenu" class="lg:hidden hidden px-4 pb-3 flex flex-col gap-2 bg-[#1E3A8A] text-sm font-bold">
-    <a href="{{ route('landing.index') }}"
-       class="relative pb-1 border-b-3 transition-all duration-200
-              {{ request()->routeIs('landing.index') ? 'border-white' : 'border-transparent hover:border-white' }}">
-        Beranda
-    </a>
-    <a href="{{ route('landing.guide') }}"
-       class="relative pb-1 border-b-3 transition-all duration-200
-              {{ request()->routeIs('landing.guide') ? 'border-white' : 'border-transparent hover:border-white' }}">
-        Panduan
-    </a>
-    <a href="{{ route('landing.about') }}"
-       class="relative pb-1 border-b-3 transition-all duration-200
-              {{ request()->routeIs('landing.about') ? 'border-white' : 'border-transparent hover:border-white' }}">
-        Tentang Kami
-    </a>
-    <a href="{{ route('login') }}"
-       class="relative pb-1 border-b-3 transition-all duration-200
-              {{ request()->is('login') ? 'border-white' : 'border-transparent hover:border-white' }}">
-        Masuk Admin
-    </a>
-</div>
+        <a href="{{ route('landing.index') }}"
+        class="relative pb-1 border-b-3 transition-all duration-200
+                {{ request()->routeIs('landing.index') ? 'border-white' : 'border-transparent hover:border-white' }}">
+            Beranda
+        </a>
+        <a href="{{ route('landing.guide') }}"
+        class="relative pb-1 border-b-3 transition-all duration-200
+                {{ request()->routeIs('landing.guide') ? 'border-white' : 'border-transparent hover:border-white' }}">
+            Panduan
+        </a>
+        <a href="{{ route('landing.about') }}"
+        class="relative pb-1 border-b-3 transition-all duration-200
+                {{ request()->routeIs('landing.about') ? 'border-white' : 'border-transparent hover:border-white' }}">
+            Tentang Kami
+        </a>
+        <a href="{{ route('login') }}"
+        class="relative pb-1 border-b-3 transition-all duration-200
+                {{ request()->is('login') ? 'border-white' : 'border-transparent hover:border-white' }}">
+            Masuk Admin
+        </a>
+    </div>
 
 </nav>
-
-<script>
-    docu
-    ent.getElementById('mobileMenuToggle').addEventListener('click', function () {
-        const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
-    });
-</script>

@@ -1,3 +1,15 @@
+@section('script')
+<script>
+    // Sidebar toggle for mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+    });
+</script>
+@endsection
+
 <nav class="space-y-2 text-white">
     <h2 class="text-lg font-semibold mb-4">Admin Menu</h2>
 
