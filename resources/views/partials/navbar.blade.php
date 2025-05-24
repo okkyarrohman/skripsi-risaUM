@@ -1,4 +1,4 @@
-@section('scipt')
+@section('script')
 <script>
     document.getElementById('mobileMenuToggle').addEventListener('click', function () {
         const menu = document.getElementById('mobileMenu');
