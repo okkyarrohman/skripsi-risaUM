@@ -2,12 +2,12 @@
 <script>
     document.getElementById('mobileMenuToggle').addEventListener('click', function () {
         const menu = document.getElementById('mobileMenu');
-        menu.classList.toggle('hidden');
+        menu.classList.toggle('-translate-x-full');
     });
 </script>
 @endsection
 
-<nav class="bg-[#1E3A8A] text-white shadow">
+<nav class="bg-[#1E3A8A] text-white shadow relative">
     <div class="container mx-auto flex items-center justify-between px-4 py-3">
         {{-- Brand --}}
         <a href="{{ route('landing.index') }}" class="block no-underline text-inherit">
@@ -53,27 +53,26 @@
     </div>
 
     {{-- Mobile Menu --}}
-    <div id="mobileMenu" class="lg:hidden hidden px-4 pb-3 flex flex-col gap-2 bg-[#1E3A8A] text-sm font-bold">
+    <div id="mobileMenu" class="lg:hidden -translate-x-full transform transition-transform duration-300 absolute top-full left-0 w-full px-4 pb-3 flex flex-col gap-2 bg-[#1E3A8A] text-sm font-bold z-50">
         <a href="{{ route('landing.index') }}"
-        class="relative pb-1 border-b-3 transition-all duration-200
+            class="relative pb-1 border-b-3 transition-all duration-200
                 {{ request()->routeIs('landing.index') ? 'border-white' : 'border-transparent hover:border-white' }}">
             Beranda
         </a>
         <a href="{{ route('landing.guide') }}"
-        class="relative pb-1 border-b-3 transition-all duration-200
+            class="relative pb-1 border-b-3 transition-all duration-200
                 {{ request()->routeIs('landing.guide') ? 'border-white' : 'border-transparent hover:border-white' }}">
             Panduan
         </a>
         <a href="{{ route('landing.about') }}"
-        class="relative pb-1 border-b-3 transition-all duration-200
+            class="relative pb-1 border-b-3 transition-all duration-200
                 {{ request()->routeIs('landing.about') ? 'border-white' : 'border-transparent hover:border-white' }}">
             Tentang Kami
         </a>
         <a href="{{ route('login') }}"
-        class="relative pb-1 border-b-3 transition-all duration-200
+            class="relative pb-1 border-b-3 transition-all duration-200
                 {{ request()->is('login') ? 'border-white' : 'border-transparent hover:border-white' }}">
             Masuk Admin
         </a>
     </div>
-
 </nav>
