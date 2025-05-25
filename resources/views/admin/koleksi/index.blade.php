@@ -9,7 +9,7 @@
     <!-- Tambah Data Button -->
     <a href="{{ route('admin.koleksi.create') }}"
        class="px-4 py-2 text-white rounded-lg shadow hover:opacity-90 transition bg-[#090445] text-center">
-      + Tambah Data
+      + Tambah Data Baru
     </a>
 
     <!-- Import Data Button with Icon -->
@@ -88,9 +88,12 @@
                 <td class="px-6 py-4">{{ $collection->tahun_terbit }}</td>
                 <td class="px-6 py-4">{{ $collection->tanggal_unggah ? $collection->tanggal_unggah->format('Y-d-m') : '-' }}</td> <!-- Upload Date cell -->
                 <td class="px-6 py-4">
-                    <a href="{{ route('admin.koleksi.show', $collection->id) }}"
-                    class="inline-flex items-center px-3 py-1 border border-gray-300 text-black bg-white rounded hover:bg-gray-100 transition"
-                    title="Detail">
+                    <button
+                        onclick="openModal({{ $collection->id }})"
+                        class="inline-flex items-center px-3 py-1 border border-gray-300 text-black bg-white rounded hover:bg-gray-100 transition"
+                        title="Detail"
+                        type="button"
+                    >
                         <!-- Eye Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -99,7 +102,7 @@
                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                         Detail
-                    </a>
+                    </button>
                 </td>
                 <td class="px-6 py-4">
                     <!-- Edit Button -->
@@ -180,5 +183,18 @@
     </div>
 </div>
 
+{{-- Modal --}}
+@foreach ($collections as $collection)
+    <x-collection-detail-modal :collection="$collection" />
+@endforeach
+
+<script>
+    function openModal(id) {
+        document.getElementById(`modal-${id}`).classList.remove('hidden');
+    }
+    function closeModal(id) {
+        document.getElementById(`modal-${id}`).classList.add('hidden');
+    }
+</script>
 
 @endsection

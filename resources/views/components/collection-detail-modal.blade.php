@@ -1,11 +1,23 @@
-@extends('layouts.admin.app')
+@props(['collection'])
 
-@section('title', $title)
+<div id="modal-{{ $collection->id }}" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center">
+    <!-- Backdrop -->
+    <div
+        class="absolute top-0 left-0 w-full h-full bg-gray-100/10 bg-opacity-20 backdrop-blur-xs"
+        onclick="closeModal({{ $collection->id }})"
+    ></div>
+    <!-- Modal content wrapper -->
+    <div class="relative bg-white shadow-md rounded-lg p-8 space-y-6 max-w-6xl w-full max-h-[90vh] overflow-auto mx-4">
+        <button
+            onclick="closeModal({{ $collection->id }})"
+            class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-3xl leading-none cursor-pointer"
+            aria-label="Close modal"
+        >
+            &times;
+        </button>
 
-@section('content')
-<div class="max-w-6xl mx-auto py-8">
-    <div class="bg-white shadow-md rounded-lg p-8 space-y-6">
-        <h2 class="text-2xl font-bold mb-6">Detail Koleksi</h2>
+        <h2 class="text-2xl font-bold mb-6">Detail Metadata Koleksi</h2>
+
         {{-- Row 1 --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <div class="flex flex-col md:flex-row md:items-center md:justify-end md:space-x-4">
@@ -81,9 +93,25 @@
             <label class="font-medium md:text-right w-full md:w-48 whitespace-nowrap pt-2">Abstrak (English)</label>
             <textarea rows="4" readonly class="border border-gray-300 rounded px-3 py-2 bg-gray-100 flex-grow">{{ $collection->abstrak_eng }}</textarea>
         </div>
+
         <div class="flex justify-end space-x-4 pt-6">
-            <a href="{{ route('admin.koleksi.index') }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Kembali</a>
+            <div onclick="closeModal({{ $collection->id }})" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100 cursor-pointer">Kembali</div>
         </div>
     </div>
 </div>
-@endsection
+
+<script>
+    function openModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        if (modal) {
+            modal.classList.remove('hidden');
+        }
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById(`modal-${id}`);
+        if (modal) {
+            modal.classList.add('hidden');
+        }
+    }
+</script>

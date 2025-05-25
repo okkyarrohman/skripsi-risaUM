@@ -12,7 +12,6 @@
         <li>Pada menu <strong>Dashboard</strong>, Anda dapat melihat ringkasan aktivitas sistem.</li>
         <li>Gunakan menu <strong>Kelola Data Koleksi</strong> untuk menambahkan, mengedit, atau menghapus data tugas akhir.</li>
         <li>Pada menu <strong>Data Audio</strong>, Anda dapat mengunggah atau mengelola file audio abstrak.</li>
-        <li>Gunakan menu <strong>Data Mahasiswa</strong> untuk memverifikasi atau melihat informasi mahasiswa tuna netra yang telah terdaftar.</li>
         <li>Pada menu <strong>Permintaan Full Akses</strong>, tinjau permintaan teks lengkap dari mahasiswa dan verifikasi kelayakannya.</li>
         <li>Setelah verifikasi, kirim tautan dokumen lengkap ke WhatsApp mahasiswa sesuai permintaan.</li>
     </ol>
