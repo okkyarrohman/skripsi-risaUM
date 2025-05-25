@@ -33,7 +33,7 @@ class KoleksiController extends Controller
      */
    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'judul_tugas_akhir' => 'required',
             'nama_penulis' => 'required',
             'nama_pembimbing' => 'required',
@@ -46,13 +46,26 @@ class KoleksiController extends Controller
             'kata_kunci' => 'required',
             'tanggal_unggah' => 'required|date',
             'status' => 'required',
+        ],
+        [
+            'required' => ':attribute wajib diisi.',
+            'digits' => ':attribute harus berupa :digits digit angka.',
+            'date' => ':attribute harus berupa tanggal yang valid.',
+        ],
+        [
+            'judul_tugas_akhir' => 'Judul Tugas Akhir',
+            'nama_penulis' => 'Nama Penulis',
+            'nama_pembimbing' => 'Nama Pembimbing',
+            'program_studi' => 'Program Studi',
+            'fakultas' => 'Fakultas',
+            'tahun_terbit' => 'Tahun Terbit',
+            'abstrak_indo' => 'Abstrak (Indonesia)',
+            'abstrak_eng' => 'Abstrak (English)',
+            'nomer_reg' => 'Nomor Registrasi',
+            'kata_kunci' => 'Kata Kunci',
+            'tanggal_unggah' => 'Tanggal Unggah',
+            'status' => 'Status',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                            ->withErrors($validator)
-                            ->withInput();
-        }
 
         Collection::create($request->all());
 
@@ -81,7 +94,7 @@ class KoleksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'judul_tugas_akhir' => 'required',
             'nama_penulis' => 'required',
             'nama_pembimbing' => 'required',
@@ -94,13 +107,28 @@ class KoleksiController extends Controller
             'kata_kunci' => 'required',
             'tanggal_unggah' => 'required|date',
             'status' => 'required',
+        ], 
+        [
+            // Custom messages
+            'required' => ':attribute wajib diisi.',
+            'digits' => ':attribute harus berupa :digits digit angka.',
+            'date' => ':attribute harus berupa tanggal yang valid.',
+        ], 
+        [
+            // Custom attribute names
+            'judul_tugas_akhir' => 'Judul Tugas Akhir',
+            'nama_penulis' => 'Nama Penulis',
+            'nama_pembimbing' => 'Nama Pembimbing',
+            'program_studi' => 'Program Studi',
+            'fakultas' => 'Fakultas',
+            'tahun_terbit' => 'Tahun Terbit',
+            'abstrak_indo' => 'Abstrak (Indonesia)',
+            'abstrak_eng' => 'Abstrak (English)',
+            'nomer_reg' => 'Nomor Registrasi',
+            'kata_kunci' => 'Kata Kunci',
+            'tanggal_unggah' => 'Tanggal Unggah',
+            'status' => 'Status',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                            ->withErrors($validator)
-                            ->withInput();
-        }
 
         $collection = Collection::findOrFail($id);
         $collection->update($request->all());

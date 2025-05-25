@@ -105,7 +105,7 @@
 
             <div class="flex justify-end space-x-4 pt-6">
                 <a href="{{ route('admin.koleksi.index') }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Batal</a>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 cursor-pointer">Simpan Koleksi</button>
+                <button type="submit" id="tambah-btn" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 cursor-pointer">Tambah Koleksi</button>
             </div>
         </form>
     </div>
