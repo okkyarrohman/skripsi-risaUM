@@ -78,14 +78,19 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-end md:space-x-4 space-y-1 md:space-y-0">
                     <label for="tanggal_unggah" class="font-medium md:text-right w-full md:w-48 whitespace-nowrap">Tanggal Unggah</label>
-                    <input 
-                        type="date" 
+                    <p 
                         id="tanggal_unggah" 
-                        name="tanggal_unggah" 
-                        value="{{ old('tanggal_unggah', $collection->tanggal_unggah ? $collection->tanggal_unggah->format('Y-m-d') : '') }}" 
-                        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">
+                        class=" flex-grow  text-gray-700">
+                        {{ $collection->tanggal_unggah ? $collection->tanggal_unggah->format('Y-m-d') : '-' }}
+                    </p>
                 </div>
-
+                <input 
+                class="hidden"
+                type="date" readonly
+                id="tanggal_unggah" 
+                name="tanggal_unggah" 
+                value="{{ old('tanggal_unggah', $collection->tanggal_unggah ? $collection->tanggal_unggah->format('Y-m-d') : '') }}" 
+                                        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-end md:space-x-4 space-y-1 md:space-y-0">
                     <label for="status" class="font-medium md:text-right w-full md:w-48 whitespace-nowrap">Status</label>
                     <select id="status" name="status" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">

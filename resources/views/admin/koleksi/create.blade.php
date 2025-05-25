@@ -75,7 +75,7 @@
 
             {{-- Row 5: Tanggal Unggah + Status --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-end md:space-x-4 space-y-1 md:space-y-0">
+                <div class="invisible flex-col md:flex-row md:items-center md:justify-end md:space-x-4 space-y-1 md:space-y-0">
                     <label for="tanggal_unggah" class="font-medium md:text-right w-full md:w-48 whitespace-nowrap">Tanggal Unggah</label>
                     <input 
                         type="date" 

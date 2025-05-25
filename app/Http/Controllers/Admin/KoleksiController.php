@@ -44,13 +44,11 @@ class KoleksiController extends Controller
             'abstrak_eng' => 'required',
             'nomer_reg' => 'required',
             'kata_kunci' => 'required',
-            'tanggal_unggah' => 'required|date',
             'status' => 'required',
         ],
         [
             'required' => ':attribute wajib diisi.',
             'digits' => ':attribute harus berupa :digits digit angka.',
-            'date' => ':attribute harus berupa tanggal yang valid.',
         ],
         [
             'judul_tugas_akhir' => 'Judul Tugas Akhir',
@@ -63,11 +61,14 @@ class KoleksiController extends Controller
             'abstrak_eng' => 'Abstrak (English)',
             'nomer_reg' => 'Nomor Registrasi',
             'kata_kunci' => 'Kata Kunci',
-            'tanggal_unggah' => 'Tanggal Unggah',
             'status' => 'Status',
         ]);
 
-        Collection::create($request->all());
+        $data = $request->all();
+        // Set tanggal_unggah to current date/time (same as created_at)
+        $data['tanggal_unggah'] = now();
+
+        Collection::create($data);
 
         return redirect()->route('admin.koleksi.index')->with('success', 'Data berhasil ditambahkan!');
     }
