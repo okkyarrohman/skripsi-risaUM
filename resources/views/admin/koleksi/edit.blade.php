@@ -107,7 +107,7 @@
             </div>
 
             <div class="flex justify-end space-x-4 pt-6">
-                <a href="{{ route('admin.koleksi.index') }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Batal</a>
+                <a href="{{ route('admin.koleksi.index') }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Kembali</a>
                 <button
                     id="ubah-btn"
                     type="button"

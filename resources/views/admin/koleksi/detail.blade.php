@@ -82,6 +82,9 @@
             <label class="font-medium md:text-right w-full md:w-48 whitespace-nowrap pt-2">Abstrak (English)</label>
             <textarea rows="4" readonly class="border border-gray-300 rounded px-3 py-2 bg-gray-100 flex-grow">{{ $collection->abstrak_eng }}</textarea>
         </div>
+        <div class="flex justify-end space-x-4 pt-6">
+            <a href="{{ route('admin.koleksi.index') }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Kembali</a>
+        </div>
     </div>
 </div>
 @endsection
