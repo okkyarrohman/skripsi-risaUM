@@ -13,7 +13,7 @@ class CollectionSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 1; $i <= 500; $i++) {
+        for ($i = 1; $i <= 1000; $i++) {
             Collection::create([
                 'judul_tugas_akhir' => "Sistem Informasi Perpustakaan Vol. $i",
                 'nama_penulis' => "Ahmad Fauzi $i",
@@ -26,7 +26,7 @@ class CollectionSeeder extends Seeder
                 'nomer_reg' => "TI-2023-" . str_pad($i, 3, '0', STR_PAD_LEFT),
                 'kata_kunci' => 'perpustakaan, sistem informasi, database',
                 'tanggal_unggah' => Carbon::now()->subDays(50 - $i)->toDateString(),
-                'status' => 'Dipublikasikan',
+                'status' => 'Belum Tersedia',
             ]);
         }
     }
