@@ -28,14 +28,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/guide-admin', [AdminDashboardController::class, 'guideAdmin'])->name('admin.guide');
     Route::get('/profile', [AdminDashboardController::class, 'profile'])->name('admin.profile');
-
+    
     // Kelola Data Koleksi
     Route::resource('koleksi', KoleksiController::class)->names('admin.koleksi');
-    Route::get('/koleksi/import', [KoleksiController::class, 'import'])->name('admin.koleksi.import');
+    Route::get('/show/koleksi/import', [KoleksiController::class, 'showImport'])->name('admin.koleksi.show.import');
+    Route::post('/store/koleksi/import', [KoleksiController::class, 'storeImport'])->name('admin.koleksi.store.import');
+
+
 
     // Data Audio
     Route::get('/audio', [AudioController::class, 'index'])->name('admin.audio');
 
+    // Data Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
 
     // Permintaan Full Akses

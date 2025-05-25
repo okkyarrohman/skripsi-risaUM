@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
+use Log;
+use Str;
 
 class KoleksiController extends Controller
 {
@@ -153,4 +157,112 @@ class KoleksiController extends Controller
         return redirect()->route('admin.koleksi.index')
                         ->with('success', 'Koleksi berhasil dihapus.');
     }
+
+    public function showImport()
+    {
+        $title = "Admin - Import Koleksi";
+
+        return view('admin.koleksi.import', compact('title'));
+    }
+
+    public function storeImport(Request $request)
+    {
+        $request->validate([
+            'csv_file' => 'required|file|mimes:csv,txt|max:2048',
+        ], [
+            'csv_file.required' => 'File CSV wajib diunggah.',
+            'csv_file.file' => 'File yang diunggah tidak valid.',
+            'csv_file.mimes' => 'Format file harus berupa .csv atau .txt.',
+            'csv_file.max' => 'Ukuran file tidak boleh lebih dari 2MB.',
+        ]);
+
+        $file = $request->file('csv_file');
+        $handle = fopen($file->getRealPath(), 'r');
+
+        $header = fgetcsv($handle);
+        if (!$header) {
+            return back()->withErrors(['File CSV kosong atau tidak valid.']);
+        }
+
+        // Normalize headers (e.g., "Judul Tugas Akhir" -> "judul_tugas_akhir")
+        $normalizedHeader = array_map(function ($head) {
+            return Str::snake(trim($head));
+        }, $header);
+
+        $rows = [];
+        $rowNumber = 1;
+
+        while (($data = fgetcsv($handle)) !== false) {
+            $rowNumber++;
+
+            // Skip rows with wrong column count
+            if (count($data) != count($normalizedHeader)) {
+                Log::warning("Row $rowNumber skipped: column count mismatch.", [
+                    'expected' => count($normalizedHeader),
+                    'actual' => count($data),
+                    'data' => $data,
+                ]);
+                continue;
+            }
+
+            $assoc = array_combine($normalizedHeader, $data);
+            if (!$assoc) {
+                Log::warning("Row $rowNumber skipped: failed to combine header and data.", [
+                    'data' => $data,
+                ]);
+                continue;
+            }
+
+            try {
+                if (isset($assoc['tanggal_unggah']) && !empty(trim($assoc['tanggal_unggah']))) {
+                    $tanggalUnggah = Carbon::parse($assoc['tanggal_unggah']);
+                } else {
+                    $tanggalUnggah = Carbon::now();
+                }
+            } catch (\Exception $e) {
+                Log::warning("Row $rowNumber: Invalid tanggal_unggah format. Using current date.", [
+                    'value' => $assoc['tanggal_unggah'] ?? null,
+                ]);
+                $tanggalUnggah = Carbon::now();
+            }
+
+            $rows[] = [
+                'judul_tugas_akhir' => $assoc['judul_tugas_akhir'] ?? null,
+                'nama_penulis' => $assoc['nama_penulis'] ?? null,
+                'nama_pembimbing' => $assoc['nama_pembimbing'] ?? null,
+                'program_studi' => $assoc['program_studi'] ?? null,
+                'fakultas' => $assoc['fakultas'] ?? null,
+                'tahun_terbit' => $assoc['tahun_terbit'] ?? null,
+                'abstrak_indo' => $assoc['abstrak_indo'] ?? null,
+                'abstrak_eng' => $assoc['abstrak_eng'] ?? null,
+                'nomer_reg' => $assoc['nomer_reg'] ?? null,
+                'kata_kunci' => $assoc['kata_kunci'] ?? null,
+                'tanggal_unggah' => $tanggalUnggah,
+                'status' => $assoc['status'] ?? 'draft',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        fclose($handle);
+
+        if (empty($rows)) {
+            return back()->withErrors(['Tidak ada data valid yang dapat diimpor dari file CSV.']);
+        }
+
+        try {
+            DB::beginTransaction();
+            Collection::insert($rows);
+            DB::commit();
+
+            return redirect()->route('admin.koleksi.index')->with('success', 'Data berhasil diimpor.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('CSV import error: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->withErrors(['Impor gagal. Silakan periksa file CSV dan coba lagi.']);
+        }
+    }
+
 }
