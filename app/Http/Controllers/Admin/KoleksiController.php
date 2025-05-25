@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Collection;
 use Illuminate\Http\Request;
-use Validator;
 
 class KoleksiController extends Controller
 {
@@ -25,7 +24,8 @@ class KoleksiController extends Controller
      */
     public function create()
     {
-        return view('admin.koleksi.create');
+        $title = "Admin - Tambah Koleksi";
+        return view('admin.koleksi.create', compact('title'));
     }
 
     /**
@@ -77,7 +77,10 @@ class KoleksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $title = "Admin - Detail Koleksi";
+        $collection = Collection::findOrFail($id);
+
+        return view('admin.koleksi.detail', compact('title', 'collection'));
     }
 
     /**
@@ -85,8 +88,10 @@ class KoleksiController extends Controller
      */
     public function edit($id)
     {
+        $title = "Admin - Edit Koleksi";
         $collection = Collection::findOrFail($id);
-        return view('admin.koleksi.edit', compact('collection'));
+
+        return view('admin.koleksi.edit', compact('title', 'collection'));
     }
 
     /**

@@ -1,5 +1,7 @@
 @extends('layouts.admin.app')
 
+@section('title', $title)
+
 @section('content')
 <div class="max-w-6xl mx-auto py-8">
     <h2 class="text-2xl font-bold mb-6">Tambah Koleksi</h2>
