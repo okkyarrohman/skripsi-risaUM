@@ -15,13 +15,58 @@ class KoleksiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = "Admin - Data Koleksi";
-        $collections = Collection::orderBy('created_at', 'desc')->paginate(5);
+        $query = Collection::query();
+
+        // Handle pencarian jika ada
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('judul_tugas_akhir', 'like', "%$search%")
+                ->orWhere('nama_penulis', 'like', "%$search%")
+                ->orWhere('nama_pembimbing', 'like', "%$search%")
+                ->orWhere('program_studi', 'like', "%$search%")
+                ->orWhere('fakultas', 'like', "%$search%")
+                ->orWhere('tahun_terbit', 'like', "%$search%")
+                ->orWhere('tanggal_unggah', 'like', "%$search%");
+            });
+        }
+
+        // Sorting
+        switch ($request->input('sort')) {
+            case 'terlama':
+                $query->orderBy('tanggal_unggah', 'asc');
+                break;
+            case 'judul_asc':
+                $query->orderBy('judul_tugas_akhir', 'asc');
+                break;
+            case 'judul_desc':
+                $query->orderBy('judul_tugas_akhir', 'desc');
+                break;
+            case 'penulis_asc':
+                $query->orderBy('nama_penulis', 'asc');
+                break;
+            case 'penulis_desc':
+                $query->orderBy('nama_penulis', 'desc');
+                break;
+            case 'tahun_terbit_asc':
+                $query->orderBy('tahun_terbit', 'asc');
+                break;
+            case 'tahun_terbit_desc':
+                $query->orderBy('tahun_terbit', 'desc');
+                break;
+            case 'terbaru':
+            default:
+                $query->orderBy('tanggal_unggah', 'desc');
+                break;
+        }
+
+        $collections = $query->paginate(10)->withQueryString();
 
         return view('admin.koleksi.index', compact('title', 'collections'));
     }
+
 
     /**
      * Show the form for creating a new resource.

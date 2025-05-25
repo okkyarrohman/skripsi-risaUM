@@ -23,39 +23,53 @@
   </div>
 </div>
 
-<div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
-  <!-- Search input with icon -->
+<form method="GET" id="searchForm" class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
+  <!-- Search Input (optional, keep if needed) -->
   <div class="relative w-full md:w-1/2">
     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z" />
+      </svg>
     </span>
     <input
-        type="text"
-        name="search"
-        placeholder="Cari..."
-        class="pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+      id="searchInput"
+      type="text"
+      name="search"
+      value="{{ request('search') }}"
+      placeholder="Cari..."
+      class="pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
     >
   </div>
 
-  <!-- Sort select -->
-  <select name="sort" class="px-2 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto">
-    <option value="terbaru">Urutkan: Terbaru</option>
-    <option value="terlama">Urutkan: Terlama</option>
-    <option value="judul_asc">Judul A-Z</option>
-    <option value="judul_desc">Judul Z-A</option>
+  <!-- Sort select (no onchange) -->
+  <select
+    id="sortSelect"
+    name="sort"
+    class="px-2 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+  >
+    <option value="terbaru" {{ request('sort') === 'terbaru' ? 'selected' : '' }}>Urutkan: Terbaru</option>
+    <option value="terlama" {{ request('sort') === 'terlama' ? 'selected' : '' }}>Urutkan: Terlama</option>
+    <option value="judul_asc" {{ request('sort') === 'judul_asc' ? 'selected' : '' }}>Judul A-Z</option>
+    <option value="judul_desc" {{ request('sort') === 'judul_desc' ? 'selected' : '' }}>Judul Z-A</option>
+    <option value="tahun_terbit_desc" {{ request('sort') === 'tahun_terbit_desc' ? 'selected' : '' }}>Tahun Terbit Terbaru</option>
+    <option value="tahun_terbit_asc" {{ request('sort') === 'tahun_terbit_asc' ? 'selected' : '' }}>Tahun Terbit Terlama</option>
   </select>
 
-  <!-- Button with plus-style icon -->
-  <button class="p-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition cursor-pointer">
+  <!-- Submit sort manually on button click -->
+  <button
+    type="button"
+    id="sortButton"
+    class="p-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition cursor-pointer"
+  >
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-            d="M3 9h11M3 15h7M3 3h16m-.5 18V9m0 12c-.7 0-2.009-1.994-2.5-2.5m2.5 2.5c.7 0 2.009-1.994 2.5-2.5"
-            color="currentColor" />
+            d="M3 9h11M3 15h7M3 3h16m-.5 18V9m0 12c-.7 0-2.009-1.994-2.5-2.5m2.5 2.5c.7 0 2.009-1.994 2.5-2.5" />
     </svg>
   </button>
-</div>
+</form>
+
+
 
 {{-- Table --}}
 <h1 class="text-2xl font-semibold text-[#06003F] py-4 pt-8">Kelola Data Koleksi</h1>
@@ -195,6 +209,12 @@
     function closeModal(id) {
         document.getElementById(`modal-${id}`).classList.add('hidden');
     }
+</script>
+
+<script>
+  document.getElementById('sortButton').addEventListener('click', function () {
+    document.getElementById('searchForm').submit();
+  });
 </script>
 
 @endsection
