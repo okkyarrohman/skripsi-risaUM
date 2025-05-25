@@ -90,7 +90,7 @@
                 <td class="px-6 py-4">
                     <button
                         onclick="openModal({{ $collection->id }})"
-                        class="inline-flex items-center px-3 py-1 border border-gray-300 text-black bg-white rounded hover:bg-gray-100 transition"
+                        class="inline-flex items-center px-3 py-1 border cursor-pointer border-gray-300 text-black bg-white rounded hover:bg-gray-100 transition"
                         title="Detail"
                         type="button"
                     >

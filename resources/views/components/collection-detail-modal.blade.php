@@ -3,7 +3,7 @@
 <div id="modal-{{ $collection->id }}" class="hidden fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center">
     <!-- Backdrop -->
     <div
-        class="absolute top-0 left-0 w-full h-full bg-gray-100/10 bg-opacity-20 backdrop-blur-xs"
+        class="absolute top-0 left-0 w-full h-full bg-gray-800/60 bg-opacity-20 backdrop-blur-xs"
         onclick="closeModal({{ $collection->id }})"
     ></div>
     <!-- Modal content wrapper -->
