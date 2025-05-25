@@ -40,6 +40,7 @@
     </footer>
 
     @yield('script')
+    
     @if (session('success'))
     <script>
         Swal.fire({
@@ -51,6 +52,65 @@
         });
     </script>
     @endif
+
+    <script>
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Apakah kamu yakin?',
+                    text: "Aksi ini tidak bisa dibatalkan!.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#9ca3af',
+                    confirmButtonText: 'Ya, hapus',
+                    cancelButtonText: 'Batalkan'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+        
+        document.getElementById('ubah-btn').addEventListener('click', function () {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Perubahan akan disimpan.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#2563eb',
+                cancelButtonColor: '#9ca3af',
+                confirmButtonText: 'Ya, simpan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.closest('form').submit();
+                }
+            });
+        });
+
+        document.getElementById('tambah-btn').addEventListener('click', function(event) {
+            event.preventDefault(); // Stop default submit
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data koleksi akan disimpan.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#2563eb',
+                cancelButtonColor: '#9ca3af',
+                confirmButtonText: 'Ya, simpan!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the form manually if confirmed
+                    this.closest('form').submit();
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

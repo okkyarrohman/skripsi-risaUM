@@ -1,3 +1,15 @@
+@section('script')
+<script>
+    // Sidebar toggle for mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+    });
+</script>
+@endsection
+
 <nav class="bg-[#1E3A8A] text-white shadow">
     <div class="w-full flex justify-between px-4 py-3">
         {{-- Brand name with line break --}}
@@ -13,14 +25,7 @@
                 <div class="text-md font-bold">UPT Perpustakaan UM</div>
             </div>
         </a>
-
         <div class="space-x-8 text-sm sm:text-base font-bold flex items-center">
-            <button id="sidebarToggle" class="lg:hidden text-white focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
             <a href="{{ route('admin.guide') }}" 
             class="relative hidden sm:inline-block pb-1 border-b-3 border-transparent
                     {{ request()->routeIs('admin.guide') ? 'border-white' : 'hover:text-gray-300' }}">
@@ -44,5 +49,11 @@
                 </button>
             </form>
         </div>
+        <button id="sidebarToggle" class="lg:hidden text-white focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
     </div>
 </nav>
