@@ -56,17 +56,22 @@ class KoleksiController extends Controller
             case 'tahun_terbit_desc':
                 $query->orderBy('tahun_terbit', 'desc');
                 break;
+            case 'status_asc':
+                $query->orderBy('status', 'asc');
+                break;
+            case 'status_desc':
+                $query->orderBy('status', 'desc');
+                break;
             case 'terbaru':
             default:
                 $query->orderBy('tanggal_unggah', 'desc');
                 break;
         }
 
-        $collections = $query->paginate(10)->withQueryString();
+        $collections = $query->paginate(5)->withQueryString();
 
         return view('admin.koleksi.index', compact('title', 'collections'));
     }
-
 
     /**
      * Show the form for creating a new resource.

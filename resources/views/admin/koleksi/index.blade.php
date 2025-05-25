@@ -54,6 +54,8 @@
     <option value="judul_desc" {{ request('sort') === 'judul_desc' ? 'selected' : '' }}>Judul Z-A</option>
     <option value="tahun_terbit_desc" {{ request('sort') === 'tahun_terbit_desc' ? 'selected' : '' }}>Tahun Terbit Terbaru</option>
     <option value="tahun_terbit_asc" {{ request('sort') === 'tahun_terbit_asc' ? 'selected' : '' }}>Tahun Terbit Terlama</option>
+    <option value="status_desc" {{ request('sort') === 'status_desc' ? 'selected' : '' }}>Status: Tersedia</option>
+    <option value="status_asc" {{ request('sort') === 'status_asc' ? 'selected' : '' }}>Status: Belum Tersedia</option>
   </select>
 
   <!-- Submit sort manually on button click -->
@@ -68,8 +70,6 @@
     </svg>
   </button>
 </form>
-
-
 
 {{-- Table --}}
 <h1 class="text-2xl font-semibold text-[#06003F] py-4 pt-8">Kelola Data Koleksi</h1>
