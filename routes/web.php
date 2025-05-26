@@ -33,9 +33,11 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('koleksi', KoleksiController::class)->names('admin.koleksi');
     Route::get('/show/koleksi/import', [KoleksiController::class, 'showImport'])->name('admin.koleksi.show.import');
     Route::post('/store/koleksi/import', [KoleksiController::class, 'storeImport'])->name('admin.koleksi.store.import');
-
+    
     // Data Audio
     Route::resource('audio', AudioController::class)->names('admin.audio');
+    Route::get('/audio/create/{collectionId}', [AudioController::class, 'create'])->name('admin.audio.create');
+    Route::post('/audio/test-tts', [AudioController::class, 'testTTS'])->name('admin.audio.testTTS');
 
     // Data Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');

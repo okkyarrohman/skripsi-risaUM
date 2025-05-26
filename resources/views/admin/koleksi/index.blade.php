@@ -234,8 +234,6 @@
   </div>
 </div>
 
-
-
 <!-- JS -->
 <script>
   function openLangModal(collectionId, collectionTitle) {
@@ -266,14 +264,13 @@
         const collectionId = document.getElementById("hiddenCollectionId").value;
 
         if (selectedLanguage && collectionId) {
-          const url = `/admin/audio/${collectionId}?language=${selectedLanguage}`;
+          const url = `/admin/audio/create/${collectionId}?language=${selectedLanguage}`;
           window.location.href = url;
         }
       }
     });
   });
 </script>
-
 
 <script>
     function openModal(id) {
