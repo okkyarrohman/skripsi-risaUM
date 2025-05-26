@@ -8,11 +8,14 @@
 
     <div class="bg-white shadow-md rounded-lg p-8 space-y-6">
         {{-- Instruction --}}
-        <div class="text-gray-700">
+       <div class="text-gray-700">
             <p>Impor data secara massal dengan mengunggah file berformat <strong>.csv</strong>. Sebelum mengunggah, pastikan data Anda telah sesuai dengan template kolom yang disediakan.</p>
             <p>Anda dapat mengunduh contoh template CSV melalui tautan di bawah ini:</p>
-            <a href="{{ asset('template/Template CSV Koleksi VoiceLib v1 - Sheet1.csv') }}" class="text-indigo-600 font-bold underline mt-2 inline-block">
-                Download Template CSV
+            <a href="{{ asset('template/template-import-koleksi.csv') }}"
+                download
+                class="text-indigo-600 font-bold underline mt-2 inline-block"
+                >
+                    Download Template CSV
             </a>
         </div>
 
