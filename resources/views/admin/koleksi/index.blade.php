@@ -154,10 +154,15 @@
                         </form>
                     </div>
                     
-                    <!-- Swap Button -->
-                    <div class="">
-                        <a href="" class="" title="Bahasa">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M19.47 4.47a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.75.75 0 1 1-1.06-1.06l.72-.72h-1.793c-.844 0-1.424 0-1.88.045c-.44.043-.706.122-.927.247c-.22.125-.426.313-.689.668c-.272.368-.572.865-1.006 1.589l-2.523 4.205c-.41.685-.747 1.245-1.068 1.679c-.335.453-.688.816-1.155 1.08s-.96.38-1.52.435c-.538.052-1.191.052-1.99.052H2a.75.75 0 0 1 0-1.5h3.603c.844 0 1.424 0 1.88-.045c.44-.043.706-.122.927-.247c.22-.125.426-.313.689-.668c.272-.368.571-.865 1.006-1.589l2.523-4.205c.41-.685.747-1.245 1.068-1.679c.335-.453.688-.816 1.155-1.08s.96-.38 1.52-.435c.538-.052 1.191-.052 1.99-.052h1.828l-.72-.72a.75.75 0 0 1 0-1.06M7.73 7.79c-.196-.038-.418-.041-1.063-.041H2a.75.75 0 0 1 0-1.5h4.74c.546 0 .922 0 1.278.07a3.75 3.75 0 0 1 2.071 1.172c.243.27.436.592.717 1.06l.037.062a.75.75 0 1 1-1.286.772c-.332-.554-.45-.742-.583-.89a2.25 2.25 0 0 0-1.243-.705m5.683 6.566a.75.75 0 0 1 1.03.257c.331.554.448.742.582.89c.327.364.763.611 1.243.705c.196.038.418.041 1.063.041h2.857l-.72-.72a.75.75 0 1 1 1.061-1.06l2 2a.75.75 0 0 1 0 1.06l-2 2a.75.75 0 1 1-1.06-1.06l.72-.72h-2.931c-.545 0-.92 0-1.277-.07a3.75 3.75 0 0 1-2.071-1.172c-.243-.27-.436-.592-.717-1.06l-.037-.062a.75.75 0 0 1 .257-1.03" clip-rule="evenodd"/></svg>
+                    <!-- Trigger Button -->
+                    <div>
+                        <a href="javascript:void(0)" 
+                            onclick="openLangModal({{ $collection->id }}, '{{ addslashes($collection->judul_tugas_akhir) }}')" 
+                            title="Bahasa"
+                            class="inline-flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19.47 4.47a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.75.75 0 1 1-1.06-1.06l.72-.72h-1.793c-.844 0-1.424 0-1.88.045c-.44.043-.706.122-.927.247c-.22.125-.426.313-.689.668c-.272.368-.572.865-1.006 1.589l-2.523 4.205c-.41.685-.747 1.245-1.068 1.679c-.335.453-.688.816-1.155 1.08s-.96.38-1.52.435c-.538.052-1.191.052-1.99.052H2a.75.75 0 0 1 0-1.5h3.603c.844 0 1.424 0 1.88-.045c.44-.043.706-.122.927-.247c.22-.125.426-.313.689-.668c.272-.368.571-.865 1.006-1.589l2.523-4.205c.41-.685.747-1.245 1.068-1.679c.335-.453.688-.816 1.155-1.08s.96-.38 1.52-.435c.538-.052 1.191-.052 1.99-.052h1.828l-.72-.72a.75.75 0 0 1 0-1.06M7.73 7.79c-.196-.038-.418-.041-1.063-.041H2a.75.75 0 0 1 0-1.5h4.74c.546 0 .922 0 1.278.07a3.75 3.75 0 0 1 2.071 1.172c.243.27.436.592.717 1.06l.037.062a.75.75 0 1 1-1.286.772c-.332-.554-.45-.742-.583-.89a2.25 2.25 0 0 0-1.243-.705m5.683 6.566a.75.75 0 0 1 1.03.257c.331.554.448.742.582.89c.327.364.763.611 1.243.705c.196.038.418.041 1.063.041h2.857l-.72-.72a.75.75 0 1 1 1.061-1.06l2 2a.75.75 0 0 1 0 1.06l-2 2a.75.75 0 1 1-1.06-1.06l.72-.72h-2.931c-.545 0-.92 0-1.277-.07a3.75 3.75 0 0 1-2.071-1.172c-.243-.27-.436-.592-.717-1.06l-.037-.062a.75.75 0 0 1 .257-1.03"/>
+                            </svg>
                         </a>
                     </div>
                 </td>
@@ -200,6 +205,76 @@
     <x-collection-detail-modal :collection="$collection" />
 @endforeach
 
+<!-- Modal -->
+<div id="langModal" class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center" onclick="closeLangModal(event)">
+  <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-md" onclick="event.stopPropagation()">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-xl font-semibold">
+        Pilih Teks Untuk Aih Media<br />
+        <span id="collectionTitle" class="text-sm text-gray-500"></span>
+      </h3>
+      <button onclick="closeLangModal()" class="text-gray-500 hover:text-gray-700 text-2xl leading-none font-bold">&times;</button>
+    </div>
+    <form id="langForm">
+      <input type="hidden" name="collection_id" id="hiddenCollectionId" value="" />
+      <div class="space-y-5">
+       <!-- Bahasa Indonesia -->
+        <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" data-language="id" class="lang-checkbox form-checkbox h-5 w-5 text-[#090445] rounded focus:ring-[#090445]" />
+            <span class="text-sm font-medium text-gray-700">Bahasa Indonesia</span>
+        </label>
+
+        <!-- Bahasa Inggris -->
+        <label class="flex items-center space-x-3 cursor-pointer">
+            <input type="checkbox" data-language="en" class="lang-checkbox form-checkbox h-5 w-5 text-[#090445] rounded focus:ring-[#090445]" />
+            <span class="text-sm font-medium text-gray-700">Bahasa Inggris</span>
+        </label>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- JS -->
+<script>
+  function openLangModal(collectionId, collectionTitle) {
+    document.getElementById("langModal").classList.remove("hidden");
+    document.getElementById("collectionTitle").textContent = collectionTitle || "";
+    document.getElementById("hiddenCollectionId").value = collectionId || "";
+  }
+
+  function closeLangModal(event) {
+    const modal = document.getElementById("langModal");
+    if (event && event.target === modal) {
+      modal.classList.add("hidden");
+    } else if (!event) {
+      modal.classList.add("hidden");
+    }
+  }
+
+  // Make checkboxes behave like radio buttons + redirect
+  document.querySelectorAll('.lang-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+      if (this.checked) {
+        document.querySelectorAll('.lang-checkbox').forEach(other => {
+          if (other !== this) other.checked = false;
+        });
+
+        // Get selected language and collection ID
+        const selectedLanguage = this.dataset.language;
+        const collectionId = document.getElementById("hiddenCollectionId").value;
+
+        if (selectedLanguage && collectionId) {
+          const url = `/admin/audio/${collectionId}?language=${selectedLanguage}`;
+          window.location.href = url;
+        }
+      }
+    });
+  });
+</script>
+
+
 <script>
     function openModal(id) {
         document.getElementById(`modal-${id}`).classList.remove('hidden');
@@ -210,9 +285,9 @@
 </script>
 
 <script>
-  document.getElementById('sortButton').addEventListener('click', function () {
-    document.getElementById('searchForm').submit();
-  });
+    document.getElementById('sortButton').addEventListener('click', function () {
+        document.getElementById('searchForm').submit();
+    });
 </script>
 
 @endsection

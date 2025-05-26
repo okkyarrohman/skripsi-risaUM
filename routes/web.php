@@ -34,10 +34,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/show/koleksi/import', [KoleksiController::class, 'showImport'])->name('admin.koleksi.show.import');
     Route::post('/store/koleksi/import', [KoleksiController::class, 'storeImport'])->name('admin.koleksi.store.import');
 
-
-
     // Data Audio
-    Route::get('/audio', [AudioController::class, 'index'])->name('admin.audio');
+    Route::resource('audio', AudioController::class)->names('admin.audio');
 
     // Data Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');

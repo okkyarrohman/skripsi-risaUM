@@ -21,8 +21,8 @@
         Kelola Data Koleksi
     </a>
 
-    <a href="{{ route('admin.audio') }}"
-       class="flex items-center gap-2 px-2 py-2 rounded {{ request()->routeIs('admin.audio') ? 'bg-[#1C1A6F]' : '' }} hover:bg-[#1C1A6F]">
+    <a href="{{ route('admin.audio.index') }}"
+       class="flex items-center gap-2 px-2 py-2 rounded {{ request()->routeIs('admin.audio.index') ? 'bg-[#1C1A6F]' : '' }} hover:bg-[#1C1A6F]">
         <span class="bg-white p-1 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" class="text-[#06003F]" width="24" height="24" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M10.75 19q.95 0 1.6-.65t.65-1.6V13h3v-2h-4v3.875q-.275-.2-.587-.288t-.663-.087q-.95 0-1.6.65t-.65 1.6t.65 1.6t1.6.65M4 22V2h10l6 6v14zm9-13h5l-5-5z" />
