@@ -59,7 +59,7 @@
                 e.preventDefault();
                 Swal.fire({
                     title: 'Apakah kamu yakin?',
-                    text: "Aksi ini tidak bisa dibatalkan!.",
+                    text: "Aksi ini tidak bisa dibatalkan!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
