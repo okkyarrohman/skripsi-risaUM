@@ -3,6 +3,8 @@
 @section('title', $title)
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <div class="max-w-6xl mx-auto py-8">
     <h2 class="text-2xl font-bold">
         Text to speech
@@ -37,7 +39,7 @@
                 <textarea
                     id="abstrak"
                     name="abstrak"
-                    rows="5"
+                    rows="8"
                     class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-100"
                     readonly
                 >{{ $abstrakText }}</textarea>
@@ -50,15 +52,13 @@
             {{-- Cards --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                {{-- Left column: Voice Option + Output Format --}}
+                {{-- Left column --}}
                 <div class="space-y-6 md:col-span-2">
-
-                    {{-- Voice Option --}}
                     <div class="bg-white rounded-lg shadow p-6 space-y-4">
                         <h3 class="font-semibold mb-2">Voice Option</h3>
 
                         <div>
-                            <label for="language" class="block text-sm font-medium text-gray-700 mb-1">Language</label>
+                            <label for="language" class="block text-sm font-medium text-gray-700 mb-1">Bahasa</label>
                             <input
                                 type="text"
                                 id="language"
@@ -76,20 +76,18 @@
                                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                             @if ($language == 'id')
-                                <option value="FEMALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-A","ssmlGender":"FEMALE"}'>Female</option>
-                                <option value="MALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-B","ssmlGender":"MALE"}'>Male</option>
+                                <option value="FEMALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-A","ssmlGender":"FEMALE"}' {{ old('voice', $collection->voice ?? '') == 'FEMALE' ? 'selected' : '' }}>Female</option>
+                                <option value="MALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-B","ssmlGender":"MALE"}' {{ old('voice', $collection->voice ?? '') == 'MALE' ? 'selected' : '' }}>Male</option>
                             @elseif ($language == 'en')
-                                <option value="MALE" data-voice='{"languageCode":"en-US","name":"en-US-Standard-A","ssmlGender":"MALE"}'>Male</option>
-                                <option value="FEMALE" data-voice='{"languageCode":"en-US","name":"en-US-Standard-C","ssmlGender":"FEMALE"}'>Female</option>
+                                <option value="MALE" data-voice='{"languageCode":"en-US","name":"en-US-Standard-A","ssmlGender":"MALE"}' {{ old('voice', $collection->voice ?? '') == 'MALE' ? 'selected' : '' }}>Male</option>
+                                <option value="FEMALE" data-voice='{"languageCode":"en-US","name":"en-US-Standard-C","ssmlGender":"FEMALE"}' {{ old('voice', $collection->voice ?? '') == 'FEMALE' ? 'selected' : '' }}>Female</option>
                             @endif
                             </select>
                         </div>
                     </div>
 
-                    {{-- Output Format --}}
                     <div class="bg-white rounded-lg shadow p-6">
                         <h3 class="font-semibold mb-2">Output Format</h3>
-
                         <select name="output_format" id="output_format" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="MP3" {{ ($collection->output_format ?? '') === 'MP3' ? 'selected' : '' }}>MP3</option>
                             <option value="LINEAR16" {{ ($collection->output_format ?? '') === 'LINEAR16' ? 'selected' : '' }}>WAV</option>
@@ -97,62 +95,38 @@
                     </div>
                 </div>
 
-                {{-- Right column: Audio Settings --}}
+                {{-- Right column --}}
                 <div class="bg-white rounded-lg shadow p-6 space-y-6">
                     <h3 class="font-semibold mb-4 text-lg">Audio Settings</h3>
 
                     <div>
                         <label for="speakingRate" class="block font-semibold mb-2">
-                            Speaking Rate:
-                            <span id="speakingRateValue" class="text-blue-600 font-medium">
-                                {{ old('speakingRate', $collection->speakingRate ?? 1.0) }}
-                            </span>
+                            Speaking Rate: <span id="speakingRateValue" class="text-blue-600 font-medium">{{ old('speakingRate', $collection->speakingRate ?? 1.0) }}</span>
                         </label>
-                        <input
-                            type="range"
-                            step="0.01"
-                            min="0.25"
-                            max="4.0"
-                            name="speakingRate"
-                            id="speakingRate"
+                        <input type="range" step="0.01" min="0.25" max="4.0" name="speakingRate" id="speakingRate"
                             value="{{ old('speakingRate', $collection->speakingRate ?? 1.0) }}"
-                            class="w-full h-3 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 cursor-pointer accent-blue-600 focus:outline-none"
-                        >
+                            class="w-full h-3 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 cursor-pointer accent-blue-600 focus:outline-none">
                     </div>
 
                     <div>
                         <label for="pitch" class="block font-semibold mb-2">
-                            Pitch:
-                            <span id="pitchValue" class="text-blue-600 font-medium">
-                                {{ old('pitch', $collection->pitch ?? 0.0) }}
-                            </span>
+                            Pitch: <span id="pitchValue" class="text-blue-600 font-medium">{{ old('pitch', $collection->pitch ?? 0.0) }}</span>
                         </label>
-                        <input
-                            type="range"
-                            step="0.1"
-                            min="-20.0"
-                            max="20.0"
-                            name="pitch"
-                            id="pitch"
+                        <input type="range" step="0.1" min="-20.0" max="20.0" name="pitch" id="pitch"
                             value="{{ old('pitch', $collection->pitch ?? 0.0) }}"
-                            class="w-full h-3 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 cursor-pointer accent-blue-600 focus:outline-none"
-                        >
+                            class="w-full h-3 rounded-lg bg-gradient-to-r from-blue-400 to-blue-600 cursor-pointer accent-blue-600 focus:outline-none">
                     </div>
 
-                    <!-- Test Audio button here -->
                     <div>
-                        <button type="button" id="testAudioBtn" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 cursor-pointer">
-                            Test Audio
+                        <button type="button" id="testAudioBtn" class="w-full bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-800 cursor-pointer">
+                            <span id="testAudioText">Uji Audio</span>
                         </button>
                     </div>
                 </div>
-
-
             </div>
 
-            {{-- Buttons below --}}
             <div class="flex justify-end space-x-4 pt-6">
-                <a href="{{ route('admin.audio.index', ['collection' => $collection->id]) }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Cancel</a>
+                <a href="{{ route('admin.koleksi.index', ['collection' => $collection->id]) }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Kembali</a>
                 <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 cursor-pointer">Add Audio</button>
             </div>
         </form>
@@ -160,27 +134,13 @@
 </div>
 
 <script>
-    // Voice select change console log
-    document.getElementById('voice').addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
-        const voiceJson = selectedOption.getAttribute('data-voice');
-        const voiceObj = JSON.parse(voiceJson);
-    });
-
-    // Log initial voice selection on page load
-    window.addEventListener('DOMContentLoaded', () => {
-        const select = document.getElementById('voice');
-        const selectedOption = select.options[select.selectedIndex];
-        const voiceJson = selectedOption.getAttribute('data-voice');
-        const voiceObj = JSON.parse(voiceJson);
-        console.log({ voice: voiceObj });
-    });
-
-    // Update speaking rate and pitch display values
     const speakingRateSlider = document.getElementById('speakingRate');
     const speakingRateValue = document.getElementById('speakingRateValue');
     const pitchSlider = document.getElementById('pitch');
     const pitchValue = document.getElementById('pitchValue');
+    const testBtn = document.getElementById('testAudioBtn');
+    const testText = document.getElementById('testAudioText');
+    let currentAudio = null;
 
     speakingRateSlider.addEventListener('input', () => {
         speakingRateValue.textContent = speakingRateSlider.value;
@@ -190,17 +150,32 @@
         pitchValue.textContent = pitchSlider.value;
     });
 
-    // Test Audio button click event
     document.getElementById('testAudioBtn').addEventListener('click', async () => {
+        // Don't allow another test until current audio is cleared
+        if (currentAudio) {
+             Swal.fire({
+                icon: 'info',
+                title: 'Uji Audio Sudah Ada',
+                text: 'Silakan hapus audio saat ini sebelum mengetes suara yang baru.',
+                confirmButtonText: 'Mengerti'
+            });
+            return;
+        }
+
         const abstrakText = document.getElementById('abstrak').value.trim();
+        if (!abstrakText || abstrakText.length < 20) {
+            alert('Teks abstrak terlalu pendek untuk diproses.');
+            return;
+        }
+
         const voiceSelect = document.getElementById('voice');
         const selectedVoiceOption = voiceSelect.options[voiceSelect.selectedIndex];
         const voiceData = JSON.parse(selectedVoiceOption.getAttribute('data-voice'));
         const outputFormat = document.getElementById('output_format').value;
-        const speakingRate = parseFloat(document.getElementById('speakingRate').value);
-        const pitch = parseFloat(document.getElementById('pitch').value);
+        const speakingRate = parseFloat(speakingRateSlider.value);
+        const pitch = parseFloat(pitchSlider.value);
 
-        const audioTestPayload = {
+        const payload = {
             input: { text: abstrakText },
             voice: voiceData,
             audioConfig: {
@@ -211,29 +186,58 @@
         };
 
         try {
+            testBtn.disabled = true;
+            testText.textContent = 'Loading...';
+
             const response = await fetch("{{ route('admin.audio.testTTS') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
-                body: JSON.stringify(audioTestPayload)
+                body: JSON.stringify(payload)
             });
 
-            if (!response.ok) throw new Error('Backend error: ' + response.statusText);
-
+            if (!response.ok) throw new Error('Server error: ' + response.statusText);
             const data = await response.json();
 
             if (data.audioContent) {
-                const audio = new Audio(`data:audio/mp3;base64,${data.audioContent}`);
-                audio.play();
+                const mime = outputFormat === 'MP3' ? 'audio/mp3' : 'audio/wav';
+                const audioBlob = new Blob([Uint8Array.from(atob(data.audioContent), c => c.charCodeAt(0))], { type: mime });
+                const audioURL = URL.createObjectURL(audioBlob);
+
+                const container = document.createElement('div');
+                container.id = 'audioPreviewContainer';
+                container.className = 'mt-4 space-y-2';
+
+                currentAudio = new Audio(audioURL);
+                currentAudio.controls = true;
+                currentAudio.autoplay = true;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Hapus Uji Audio';
+                deleteButton.className = 'bg-red-600 text-white px-4 py-1 rounded hover:bg-red-800';
+                deleteButton.addEventListener('click', () => {
+                    currentAudio.pause();
+                    currentAudio.src = '';
+                    currentAudio = null;
+                    container.remove();
+                });
+
+                container.appendChild(currentAudio);
+                container.appendChild(deleteButton);
+                testBtn.insertAdjacentElement('afterend', container);
             } else {
-                alert('No audio received from backend');
+                alert('No audio received from backend.');
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to get audio from backend');
+            console.error('TTS Error:', error);
+            alert('Failed to generate Uji Audio.');
+        } finally {
+            testBtn.disabled = false;
+            testText.textContent = 'Uji Audio';
         }
     });
 </script>
+
 @endsection

@@ -211,7 +211,7 @@
     <div class="flex justify-between items-center mb-6">
       <h3 class="text-xl font-semibold">
         Pilih Teks Untuk Aih Media<br />
-        <span id="collectionTitle" class="text-sm text-gray-500"></span>
+        <span id="collectionTitle" class="text-sm text-gray-500 hidden"></span>
       </h3>
       <button onclick="closeLangModal()" class="text-gray-500 hover:text-gray-700 text-2xl leading-none font-bold">&times;</button>
     </div>
