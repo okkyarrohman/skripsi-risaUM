@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
     steps:
       - name: Checkout kode
         uses: actions/checkout@v3
@@ -16,14 +19,19 @@ jobs:
       - name: Setup SSH Key dan Known Hosts
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -p 64000 36.50.77.25 >> ~/.ssh/known_hosts
 
       - name: Deploy ke VPS
         run: |
           ssh -i ~/.ssh/id_ed25519 -p 64000 okkyproj@36.50.77.25 << 'EOF'
+            set -e
             cd laravel/skripsi-risaUM
+
+            # Pastikan repo pakai SSH, bukan HTTPS
+            git remote set-url origin git@github.com:okkyarrohman/skripsi-risaUM.git
+
             git pull origin main
             php artisan optimize:clear
             php artisan route:clear
