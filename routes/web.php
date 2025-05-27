@@ -44,4 +44,8 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Permintaan Full Akses
     Route::get('/permintaan', [PermintaanController::class, 'index'])->name('admin.permintaan');
+
+    Route::get('/hello', function () {
+        return 'Hello world';
+    });
 });
