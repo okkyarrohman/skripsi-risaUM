@@ -1,0 +1,33 @@
+name: Deploy ke main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Setup SSH Key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan -H 36.50.77.25 >> ~/.ssh/known_hosts
+
+    - name: Deploy ke VPS
+      run: |
+        ssh -i ~/.ssh/id_ed25519 okkyproj@36.50.77.25 << 'EOF'
+          cd /laravel/skripsi-risaUM
+          git pull origin main
+          composer install --no-interaction --prefer-dist --optimize-autoloader
+          php artisan migrate --force
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+        EOF
