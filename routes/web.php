@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminDashboardController; // Added this line
 use Illuminate\Support\Facades\Route;
 
 // Landing Page Controller
-Route::get('/a', [LandingController::class, 'index'])->name('landing.index');
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/tentang-kami', [LandingController::class, 'about'])->name('landing.about');
 Route::get('/panduan', [LandingController::class, 'guide'])->name('landing.guide');
 
