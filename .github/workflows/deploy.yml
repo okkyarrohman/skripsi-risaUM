@@ -18,11 +18,11 @@ jobs:
         mkdir -p $HOME/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
         chmod 600 $HOME/.ssh/id_ed25519
-        ssh-keyscan -H okkyprojects.com >> $HOME/.ssh/known_hosts
+        ssh-keyscan -p 64000 -H 36.50.77.25 >> $HOME/.ssh/known_hosts
 
     - name: Deploy ke VPS
       run: |
-        ssh -i $HOME/.ssh/id_ed25519 okkyproj@okkyprojects.com << 'EOF'
+        ssh -p 64000 -i $HOME/.ssh/id_ed25519 okkyproj@36.50.77.25 << 'EOF'
           cd /home/okkyproj/laravel/skripsi-risaUM
           git pull origin main
           composer install --no-interaction --prefer-dist --optimize-autoloader
