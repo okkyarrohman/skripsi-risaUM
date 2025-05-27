@@ -15,13 +15,14 @@ jobs:
 
     - name: Setup SSH Key
       run: |
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > /home/okkyproj/.ssh/id_ed25519
-        chmod 600 /home/okkyproj/.ssh/id_ed25519
-        ssh-keyscan -H okkyprojects.com >> /home/okkyproj/.ssh/known_hosts
+        mkdir -p $HOME/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
+        chmod 600 $HOME/.ssh/id_ed25519
+        ssh-keyscan -H okkyprojects.com >> $HOME/.ssh/known_hosts
 
     - name: Deploy ke VPS
       run: |
-        ssh -i /home/okkyproj/.ssh/id_ed25519 okkyproj@okkyprojects.com << 'EOF'
+        ssh -i $HOME/.ssh/id_ed25519 okkyproj@okkyprojects.com << 'EOF'
           cd /home/okkyproj/laravel/skripsi-risaUM
           git pull origin main
           composer install --no-interaction --prefer-dist --optimize-autoloader
