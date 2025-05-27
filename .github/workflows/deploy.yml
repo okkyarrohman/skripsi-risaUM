@@ -18,6 +18,7 @@ jobs:
         mkdir -p $HOME/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_ed25519
         chmod 600 $HOME/.ssh/id_ed25519
+        ssh-keyscan -p 64000 36.50.77.25 >> $HOME/.ssh/known_hosts
 
     - name: Deploy ke VPS
       run: |
