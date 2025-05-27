@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminDashboardController; // Added this line
 use Illuminate\Support\Facades\Route;
 
 // Landing Page Controller
-Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::get('/a', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/tentang-kami', [LandingController::class, 'about'])->name('landing.about');
 Route::get('/panduan', [LandingController::class, 'guide'])->name('landing.guide');
 
@@ -23,17 +23,17 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Admin Dashboard Controller
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    
+
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/guide-admin', [AdminDashboardController::class, 'guideAdmin'])->name('admin.guide');
     Route::get('/profile', [AdminDashboardController::class, 'profile'])->name('admin.profile');
-    
+
     // Kelola Data Koleksi
     Route::resource('koleksi', KoleksiController::class)->names('admin.koleksi');
     Route::get('/show/koleksi/import', [KoleksiController::class, 'showImport'])->name('admin.koleksi.show.import');
     Route::post('/store/koleksi/import', [KoleksiController::class, 'storeImport'])->name('admin.koleksi.store.import');
-    
+
     // Data Audio
     Route::resource('audio', AudioController::class)->names('admin.audio');
     Route::get('/audio/create/{collectionId}', [AudioController::class, 'create'])->name('admin.audio.create');
