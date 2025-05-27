@@ -164,7 +164,12 @@
 
         const abstrakText = document.getElementById('abstrak').value.trim();
         if (!abstrakText || abstrakText.length < 20) {
-            alert('Teks abstrak terlalu pendek untuk diproses.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Teks Terlalu Pendek',
+                text: 'Teks abstrak terlalu pendek untuk diproses.',
+                confirmButtonText: 'OK'
+            });
             return;
         }
 
@@ -228,11 +233,21 @@
                 container.appendChild(deleteButton);
                 testBtn.insertAdjacentElement('afterend', container);
             } else {
-                alert('No audio received from backend.');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Tidak Ada Audio',
+                    text: 'Tidak ada audio yang diterima dari backend.',
+                    confirmButtonText: 'OK'
+                });
             }
         } catch (error) {
             console.error('TTS Error:', error);
-            alert('Failed to generate Uji Audio.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Membuat Uji Audio',
+                text: 'Terjadi kesalahan saat menghasilkan audio. Silakan coba lagi.',
+                confirmButtonText: 'OK'
+            });
         } finally {
             testBtn.disabled = false;
             testText.textContent = 'Uji Audio';
