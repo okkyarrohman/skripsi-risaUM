@@ -23,7 +23,7 @@ jobs:
       - name: Deploy ke VPS
         run: |
           ssh -i ~/.ssh/id_ed25519 -p 64000 okkyproj@36.50.77.25 << 'EOF'
-            cd /home/okkyproj/laravel/skripsi-risaUM
+            cd /laravel/skripsi-risaUM
             git pull origin main
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
