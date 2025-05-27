@@ -15,7 +15,6 @@ jobs:
 
     - name: Setup SSH Key
       run: |
-        mkdir -p /home/okkyproj/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > /home/okkyproj/.ssh/id_ed25519
         chmod 600 /home/okkyproj/.ssh/id_ed25519
         ssh-keyscan -H 36.50.77.25 >> /home/okkyproj/.ssh/known_hosts
