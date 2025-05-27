@@ -26,6 +26,7 @@ jobs:
             cd laravel/skripsi-risaUM
             git pull origin main
             php artisan optimize:clear
+            php artisan route:clear
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
             php artisan config:cache
