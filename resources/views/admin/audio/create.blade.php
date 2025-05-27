@@ -76,8 +76,8 @@
                                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                             @if ($language == 'id')
+                            <option value="MALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-B","ssmlGender":"MALE"}' {{ old('voice', $collection->voice ?? '') == 'MALE' ? 'selected' : '' }}>Male</option>
                                 <option value="FEMALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-A","ssmlGender":"FEMALE"}' {{ old('voice', $collection->voice ?? '') == 'FEMALE' ? 'selected' : '' }}>Female</option>
-                                <option value="MALE" data-voice='{"languageCode":"id-ID","name":"id-ID-Standard-B","ssmlGender":"MALE"}' {{ old('voice', $collection->voice ?? '') == 'MALE' ? 'selected' : '' }}>Male</option>
                             @elseif ($language == 'en')
                                 <option value="MALE" data-voice='{"languageCode":"en-US","name":"en-US-Standard-A","ssmlGender":"MALE"}' {{ old('voice', $collection->voice ?? '') == 'MALE' ? 'selected' : '' }}>Male</option>
                                 <option value="FEMALE" data-voice='{"languageCode":"en-US","name":"en-US-Standard-C","ssmlGender":"FEMALE"}' {{ old('voice', $collection->voice ?? '') == 'FEMALE' ? 'selected' : '' }}>Female</option>
@@ -127,7 +127,7 @@
 
             <div class="flex justify-end space-x-4 pt-6">
                 <a href="{{ route('admin.koleksi.index', ['collection' => $collection->id]) }}" class="px-6 py-2 border rounded border-gray-400 hover:bg-gray-100">Kembali</a>
-                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 cursor-pointer">Add Audio</button>
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-800 cursor-pointer">Ubah ke Audio</button>
             </div>
         </form>
     </div>

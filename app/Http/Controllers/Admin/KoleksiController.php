@@ -218,7 +218,7 @@ class KoleksiController extends Controller
     public function storeImport(Request $request)
     {
         $request->validate([
-            'csv_file' => 'required|file|mimes:csv,txt|max:2048',
+            'csv_file' => 'required|file|mimes:csv,txt|max:5120',
         ], [
             'csv_file.required' => 'File CSV wajib diunggah.',
             'csv_file.file' => 'File yang diunggah tidak valid.',

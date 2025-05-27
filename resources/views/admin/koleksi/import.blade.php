@@ -47,7 +47,7 @@
                 >
                     Pilih file
                 </button>
-                <p class="text-sm text-gray-400 mt-2">Hanya file .csv yang diizinkan, maksimal ukuran file 2 MB</p>
+                <p class="text-sm text-gray-400 mt-2">Hanya file .csv yang diizinkan, maksimal ukuran file 5 MB</p>
                 <input type="file" id="csv_file" name="csv_file" accept=".csv" required class="hidden" />
             </div>
 
