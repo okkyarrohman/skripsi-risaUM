@@ -25,6 +25,7 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 -p 64000 okkyproj@36.50.77.25 << 'EOF'
             cd laravel/skripsi-risaUM
             git pull origin main
+            php artisan optimize:clear
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
             php artisan config:cache
