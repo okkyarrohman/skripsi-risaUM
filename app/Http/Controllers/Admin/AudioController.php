@@ -38,7 +38,7 @@ class AudioController extends Controller
         $collection = Collection::findOrFail($collectionId);
         $title = 'Admin - Create Audio';
 
-        return view('admin.audio.create', compact('title', 'collection', 'language'));
+        return view('admin.audio.by.koleksi.create', compact('title', 'collection', 'language'));
     }
 
     /**

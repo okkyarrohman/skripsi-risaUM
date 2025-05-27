@@ -36,7 +36,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Data Audio
     Route::resource('audio', AudioController::class)->names('admin.audio');
-    Route::get('/audio/create/{collectionId}', [AudioController::class, 'create'])->name('admin.audio.create');
+    Route::get('/audio/create/{collectionId}', [AudioController::class, 'create'])->name('admin.audio.by.koleksi.create');
     Route::post('/audio/test-tts', [AudioController::class, 'testTTS'])->name('admin.audio.testTTS');
 
     // Data Mahasiswa
