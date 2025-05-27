@@ -223,7 +223,7 @@ class KoleksiController extends Controller
             'csv_file.required' => 'File CSV wajib diunggah.',
             'csv_file.file' => 'File yang diunggah tidak valid.',
             'csv_file.mimes' => 'Format file harus berupa .csv atau .txt.',
-            'csv_file.max' => 'Ukuran file tidak boleh lebih dari 2MB.',
+            'csv_file.max' => 'Ukuran file tidak boleh lebih dari 5MB.',
         ]);
 
         $file = $request->file('csv_file');
