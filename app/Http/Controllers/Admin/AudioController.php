@@ -33,6 +33,11 @@ class AudioController extends Controller
      */
     public function create(Request $request, $collectionId)
     {
+
+    }
+
+    public function createByKoleksi(Request $request, $collectionId)
+    {
         $language = $request->query('language');  // language stays as query
 
         $collection = Collection::findOrFail($collectionId);
