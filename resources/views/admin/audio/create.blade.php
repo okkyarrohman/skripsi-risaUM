@@ -25,7 +25,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.audio.store', ['collection' => $collection->id]) }}" method="POST" class="space-y-6" enctype="multipart/form-data" id="ttsForm">
+        <form action="{{ route('admin.audio.by.koleksi.store', ['collectionId' => $collection->id]) }}" method="POST" class="space-y-6" enctype="multipart/form-data" id="ttsForm">
             @csrf
 
             {{-- Abstrak --}}
@@ -254,5 +254,160 @@
         }
     });
 </script>
+
+<script>
+function formatDuration(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+document.getElementById('ttsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Loading...';
+    submitButton.disabled = true;
+
+    const abstrakText = document.getElementById('abstrak').value.trim();
+    const voiceSelect = document.getElementById('voice');
+    const selectedVoiceOption = voiceSelect.options[voiceSelect.selectedIndex];
+    const voiceData = JSON.parse(selectedVoiceOption.getAttribute('data-voice'));
+    const outputFormat = document.getElementById('output_format').value;
+    const speakingRate = parseFloat(document.getElementById('speakingRate').value);
+    const pitch = parseFloat(document.getElementById('pitch').value);
+
+    const payload = {
+        input: { text: abstrakText },
+        voice: voiceData,
+        audioConfig: {
+            audioEncoding: outputFormat,
+            speakingRate: speakingRate,
+            pitch: pitch
+        }
+    };
+
+    try {
+        const response = await fetch("{{ route('admin.audio.testTTS') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error('Server error ' + response.status);
+
+        const data = await response.json();
+
+        if (!data.audioContent) throw new Error('No audioContent received');
+
+        const byteCharacters = atob(data.audioContent);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+
+        let mimeType = 'audio/mpeg';
+        if (outputFormat === 'LINEAR16') mimeType = 'audio/wav';
+
+        const audioBlob = new Blob([byteArray], { type: mimeType });
+        const audioURL = URL.createObjectURL(audioBlob);
+
+        const audio = new Audio();
+        audio.addEventListener('loadedmetadata', () => {
+            const formattedDuration = formatDuration(audio.duration);
+
+            // Build new form with required data
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = e.target.action;
+
+            const tokenInput = document.createElement('input');
+            tokenInput.type = 'hidden';
+            tokenInput.name = '_token';
+            tokenInput.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            form.appendChild(tokenInput);
+
+            const bahasaInput = document.createElement('input');
+            bahasaInput.type = 'hidden';
+            bahasaInput.name = 'bahasa';
+            bahasaInput.value = voiceData.languageCode;
+            form.appendChild(bahasaInput);
+
+            const durasiInput = document.createElement('input');
+            durasiInput.type = 'hidden';
+            durasiInput.name = 'durasi';
+            durasiInput.value = formattedDuration;
+            form.appendChild(durasiInput);
+
+            const formatInput = document.createElement('input');
+            formatInput.type = 'hidden';
+            formatInput.name = 'format';
+            formatInput.value = outputFormat;
+            form.appendChild(formatInput);
+
+            const collectionInput = document.createElement('input');
+            collectionInput.type = 'hidden';
+            collectionInput.name = 'collection_id';
+            collectionInput.value = {{ $collection->id }};
+            form.appendChild(collectionInput);
+
+            const base64Input = document.createElement('input');
+            base64Input.type = 'hidden';
+            base64Input.name = 'base64';
+            base64Input.value = data.audioContent;
+            form.appendChild(base64Input);
+
+            // New fields
+            const pitchInput = document.createElement('input');
+            pitchInput.type = 'hidden';
+            pitchInput.name = 'pitch';
+            pitchInput.value = pitch;
+            form.appendChild(pitchInput);
+
+            const speakingRateInput = document.createElement('input');
+            speakingRateInput.type = 'hidden';
+            speakingRateInput.name = 'speaking_rate';
+            speakingRateInput.value = speakingRate;
+            form.appendChild(speakingRateInput);
+
+            const tipeSuaraInput = document.createElement('input');
+            tipeSuaraInput.type = 'hidden';
+            tipeSuaraInput.name = 'tipe_suara';
+            tipeSuaraInput.value = voiceData.name || ''; // assuming voiceData has a 'name' property for voice type
+            form.appendChild(tipeSuaraInput);
+
+            document.body.appendChild(form);
+            form.submit();
+
+            URL.revokeObjectURL(audioURL);
+        });
+
+        audio.src = audioURL;
+
+        setTimeout(() => {
+            if (!audio.duration || isNaN(audio.duration)) {
+                alert('Audio metadata loading failed, submitting anyway');
+                e.target.submit();
+            }
+        }, 3000);
+
+    } catch (err) {
+        console.error('Error:', err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal Proses',
+            text: err.message || 'Terjadi kesalahan saat memproses audio.'
+        });
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    }
+});
+</script>
+
 
 @endsection

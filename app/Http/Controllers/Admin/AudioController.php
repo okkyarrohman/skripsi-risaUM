@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Audio;
 use App\Models\Collection;
 use Google\Cloud\TextToSpeech\V1\AudioEncoding;
 use Google\Cloud\TextToSpeech\V1\SsmlVoiceGender;
@@ -24,8 +25,9 @@ class AudioController extends Controller
      */
     public function index()
     {
-        $title = "Admin - Data Audio";
-        return view('admin.audio.index', compact('title'));
+        $audios = Audio::with('collection')->paginate(10);  // eager load 'collection' relation and paginate 10 per page
+        $title = "Data Audio";
+        return view('admin.audio.index', compact('audios', 'title'));
     }
 
     /**
@@ -81,9 +83,32 @@ class AudioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+   public function destroy(string $id)
     {
+        // Find the audio to delete
+        $audio = Audio::findOrFail($id);
         
+        // Get the collection ID before deleting the audio
+        $collectionId = $audio->collection_id;
+
+        // Delete the audio record
+        $audio->delete();
+
+        // Check the count of audios in the collection
+        $audioCount = Audio::where('collection_id', $collectionId)->count();
+
+        // If no audios left, update collection status
+        if ($audioCount === 0) {
+            $collection = Collection::find($collectionId);
+            if ($collection) {
+                $collection->status = 'Belum Tersedia';
+                $collection->save();
+            }
+        }
+
+        // Redirect back with success message
+        return redirect()->route('admin.audio.index')
+                        ->with('success', 'Audio berhasil dihapus.');
     }
 
     public function testTTS(Request $request)
@@ -145,4 +170,51 @@ class AudioController extends Controller
         }
     }
 
+    public function storeByKoleksi($collectionId, Request $request)
+    {
+        $validated = $request->validate([
+            'bahasa'         => 'required|string|max:10',
+            'durasi'         => 'nullable|string|max:10',
+            'format'         => 'required|string|max:20',
+            'base64'         => 'required|string',
+            'pitch'          => 'required|numeric',
+            'speaking_rate'  => 'required|numeric',
+            'tipe_suara'     => 'nullable|string|max:50',
+        ], [
+            'bahasa.required'         => 'Bahasa wajib diisi.',
+            'bahasa.string'           => 'Format bahasa tidak valid.',
+            'durasi.string'           => 'Format durasi tidak valid.',
+            'format.required'         => 'Format audio wajib diisi.',
+            'format.string'           => 'Format audio harus berupa teks.',
+            'base64.required'         => 'Data audio (base64) wajib diisi.',
+            'pitch.required'          => 'Pitch wajib diisi.',
+            'pitch.numeric'           => 'Pitch harus berupa angka.',
+            'speaking_rate.required'  => 'Kecepatan bicara wajib diisi.',
+            'speaking_rate.numeric'   => 'Kecepatan bicara harus berupa angka.',
+            'tipe_suara.string'       => 'Tipe suara harus berupa teks.',
+        ]);
+
+        try {
+            $collection = Collection::findOrFail($collectionId);
+            $validated['collection_id'] = $collection->id;
+
+            Audio::create($validated);
+
+            if ($collection->status !== 'Tersedia') {
+                $collection->status = 'Tersedia';
+                $collection->save();
+            }
+
+            return redirect()
+                ->route('admin.audio.index')
+                ->with('success', 'Audio berhasil disimpan dan status koleksi diperbarui.');
+
+        } catch (\Exception $e) {
+            Log::error('Gagal menyimpan audio: ' . $e->getMessage());
+
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan audio.']);
+        }
+    }
 }
