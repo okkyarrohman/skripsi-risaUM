@@ -7,7 +7,6 @@
   <h1 class="text-2xl font-semibold text-[#06003F]">Data Audio</h1>
 </div>
 <form method="GET" id="searchForm" class="flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
-  <!-- Search Input (optional, keep if needed) -->
   <div class="relative w-full md:w-1/2">
     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,28 +19,30 @@
       type="text"
       name="search"
       value="{{ request('search') }}"
-      placeholder="Cari..."
+      placeholder="Cari Judul atau Nomor Registrasi..."
       class="pl-10 pr-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
     >
   </div>
 
-  <!-- Sort select (no onchange) -->
   <select
     id="sortSelect"
     name="sort"
     class="px-2 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
   >
-    <option value="terbaru" {{ request('sort') === 'terbaru' ? 'selected' : '' }}>Urutkan: Terbaru</option>
-    <option value="terlama" {{ request('sort') === 'terlama' ? 'selected' : '' }}>Urutkan: Terlama</option>
-    <option value="judul_asc" {{ request('sort') === 'judul_asc' ? 'selected' : '' }}>Judul A-Z</option>
-    <option value="judul_desc" {{ request('sort') === 'judul_desc' ? 'selected' : '' }}>Judul Z-A</option>
-    <option value="tahun_terbit_desc" {{ request('sort') === 'tahun_terbit_desc' ? 'selected' : '' }}>Tahun Terbit Terbaru</option>
-    <option value="tahun_terbit_asc" {{ request('sort') === 'tahun_terbit_asc' ? 'selected' : '' }}>Tahun Terbit Terlama</option>
-    <option value="status_desc" {{ request('sort') === 'status_desc' ? 'selected' : '' }}>Status: Tersedia</option>
-    <option value="status_asc" {{ request('sort') === 'status_asc' ? 'selected' : '' }}>Status: Belum Tersedia</option>
+    <option value="terbaru" {{ request('sort') == 'terbaru' ? 'selected' : '' }}>Urutkan: Terbaru</option>
+    <option value="terlama" {{ request('sort') == 'terlama' ? 'selected' : '' }}>Urutkan: Terlama</option>
+    <option value="judul_asc" {{ request('sort') == 'judul_asc' ? 'selected' : '' }}>Judul A-Z</option>
+    <option value="judul_desc" {{ request('sort') == 'judul_desc' ? 'selected' : '' }}>Judul Z-A</option>
+    <option value="bahasa_asc" {{ request('sort') == 'bahasa_asc' ? 'selected' : '' }}>Bahasa A-Z</option>
+    <option value="bahasa_desc" {{ request('sort') == 'bahasa_desc' ? 'selected' : '' }}>Bahasa Z-A</option>
+    <option value="durasi_asc" {{ request('sort') == 'durasi_asc' ? 'selected' : '' }}>Durasi Terpendek</option>
+    <option value="durasi_desc" {{ request('sort') == 'durasi_desc' ? 'selected' : '' }}>Durasi Terpanjang</option>
+    <option value="format_asc" {{ request('sort') == 'format_asc' ? 'selected' : '' }}>Format A-Z</option>
+    <option value="format_desc" {{ request('sort') == 'format_desc' ? 'selected' : '' }}>Format Z-A</option>
+    <option value="tanggal_dibuat_asc" {{ request('sort') == 'tanggal_dibuat_asc' ? 'selected' : '' }}>Tanggal Dibuat Terlama</option>
+    <option value="tanggal_dibuat_desc" {{ request('sort') == 'tanggal_dibuat_desc' ? 'selected' : '' }}>Tanggal Dibuat Terbaru</option>
   </select>
 
-  <!-- Submit sort manually on button click -->
   <button
     type="button"
     id="sortButton"
@@ -53,6 +54,7 @@
     </svg>
   </button>
 </form>
+
 <h1 class="text-2xl font-semibold text-[#06003F] py-4 pt-8">Kelola Data Audio</h1>
 <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left text-gray-500">
@@ -139,4 +141,17 @@
 </div>
 @endif
 
+<script>
+  document.getElementById('sortButton').addEventListener('click', function() {
+    document.getElementById('searchForm').submit();
+  });
+
+  document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      document.getElementById('searchForm').submit();
+    }
+  });
+</script>
 @endsection
+

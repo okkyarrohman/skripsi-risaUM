@@ -23,10 +23,71 @@ class AudioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index(Request $request)
     {
-        $audios = Audio::with('collection')->paginate(10);  // eager load 'collection' relation and paginate 10 per page
+        $query = Audio::with('collection');
+
+        // Handle search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('collection', function ($q) use ($search) {
+                $q->where('nomer_reg', 'like', "%{$search}%")
+                ->orWhere('judul_tugas_akhir', 'like', "%{$search}%");
+            });
+        }
+
+        // Handle sorting
+        switch ($request->sort) {
+            case 'terbaru':
+                $query->orderBy('created_at', 'desc');
+                break;
+            case 'terlama':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'judul_asc':
+                $query->join('collections', 'audios.collection_id', '=', 'collections.id')
+                    ->orderBy('collections.judul_tugas_akhir', 'asc')
+                    ->select('audios.*');  // important to avoid column conflict
+                break;
+            case 'judul_desc':
+                $query->join('collections', 'audios.collection_id', '=', 'collections.id')
+                    ->orderBy('collections.judul_tugas_akhir', 'desc')
+                    ->select('audios.*');
+                break;
+            case 'bahasa_asc':
+                $query->orderBy('bahasa', 'asc');
+                break;
+            case 'bahasa_desc':
+                $query->orderBy('bahasa', 'desc');
+                break;
+            case 'durasi_asc':
+                $query->orderBy('durasi', 'asc');
+                break;
+            case 'durasi_desc':
+                $query->orderBy('durasi', 'desc');
+                break;
+            case 'format_asc':
+                $query->orderBy('format', 'asc');
+                break;
+            case 'format_desc':
+                $query->orderBy('format', 'desc');
+                break;
+            case 'tanggal_dibuat_asc':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'tanggal_dibuat_desc':
+                $query->orderBy('created_at', 'desc');
+                break;
+            default:
+                $query->orderBy('created_at', 'desc');
+                break;
+        }
+
+        // Paginate with query params preserved
+        $audios = $query->paginate(5)->appends($request->except('page'));
+
         $title = "Data Audio";
+
         return view('admin.audio.index', compact('audios', 'title'));
     }
 
