@@ -13,7 +13,7 @@
                 <p class="text-lg text-gray-700 font-medium leading-relaxed mb-8 text-justify">
                     VoiceLib hadir untuk mendukung layanan perpustakaan yang inklusif bagi mahasiswa disabilitas netra di Universitas Negeri Malang. Situs VoiceLib menghadirkan pengalaman baru dengan menyediakan abstrak tugas akhir yang telah diubah menjadi audio. Jelajahi kemudahan dalam mengakses informasi perpustakaan, kapan pun dan di mana pun.
                 </p>
-                <a href="#mulai" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+                <a href="{{ route('landing.select.language') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
                     Mulai Sekarang
                 </a>
             </div>
@@ -25,7 +25,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-[#06003F] mb-6">
                 Mulai Pencarian Referensi Sekarang
             </h2>
-            <a href="#mulai" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+            <a href="{{ route('landing.select.language') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
                 Mulai Sekarang
             </a>
         </div>

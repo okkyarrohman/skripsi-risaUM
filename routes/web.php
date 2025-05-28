@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/tentang-kami', [LandingController::class, 'about'])->name('landing.about');
 Route::get('/panduan', [LandingController::class, 'guide'])->name('landing.guide');
+Route::get('/select-language', [LandingController::class, 'selectLanguage'])->name('landing.select.language');
+Route::get('/cari-audio', [LandingController::class, 'cariAudio'])->name('cari.audio');
+
 
 // Auth Controller
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
