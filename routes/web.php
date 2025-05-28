@@ -48,4 +48,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/hello', function () {
         return 'Hello world';
     });
+    Route::get('/hello1', function () {
+        return 'Hello world1';
+    });
 });
