@@ -22,7 +22,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('auth.regist
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::get('/hello', function () {
-    return 'Hello world';
+    return 'Hello world 2';
 });
 
 // Admin Dashboard Controller
