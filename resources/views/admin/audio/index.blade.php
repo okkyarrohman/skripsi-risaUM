@@ -89,14 +89,17 @@
                             <span class="text-gray-500">No audio</span>
                         @endif
 
-                        <form action="{{ route('admin.audio.destroy', $audio->id) }}" method="POST" class="delete-form">
+                        <form 
+                            action="{{ route('admin.audio.destroy', $audio->id) }}" 
+                            method="POST" 
+                            class="delete-form"
+                        >
                             @csrf
                             @method('DELETE')
                             <button 
                                 type="submit" 
                                 class="text-red-600 hover:text-red-800 cursor-pointer" 
                                 title="Delete"
-                                onclick="return confirm('Are you sure you want to delete this audio?')"
                             >
                                 <svg 
                                     xmlns="http://www.w3.org/2000/svg" 
@@ -135,4 +138,5 @@
     </div>
 </div>
 @endif
+
 @endsection

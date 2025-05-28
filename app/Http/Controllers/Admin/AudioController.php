@@ -196,10 +196,25 @@ class AudioController extends Controller
 
         try {
             $collection = Collection::findOrFail($collectionId);
-            $validated['collection_id'] = $collection->id;
 
+            // ✅ Check if audio for this language and collection already exists
+            $existingAudio = Audio::where('collection_id', $collectionId)
+                ->where('bahasa', $validated['bahasa'])
+                ->first();
+
+            if ($existingAudio) {
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'error' => 'Audio dengan bahasa ' . $validated['bahasa'] . ' sudah ada untuk koleksi ini.'
+                    ]);
+            }
+
+            // Proceed with saving
+            $validated['collection_id'] = $collection->id;
             Audio::create($validated);
 
+            // Update collection status if not already 'Tersedia'
             if ($collection->status !== 'Tersedia') {
                 $collection->status = 'Tersedia';
                 $collection->save();
@@ -217,4 +232,5 @@ class AudioController extends Controller
                 ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan audio.']);
         }
     }
+
 }

@@ -153,16 +153,31 @@
                             </button>
                         </form>
                     </div>
-                    
+                    @php
+                        // Get existing audio bahasa codes for each collection, map to 'id' or 'en'
+                        // (Assuming you are inside a loop where $collection is available)
+                        $existingLanguages = \App\Models\Audio::where('collection_id', $collection->id)
+                            ->pluck('bahasa')
+                            ->map(function($lang) {
+                                if ($lang === 'id-ID') return 'id';
+                                if ($lang === 'en-US') return 'en';
+                                return null;
+                            })
+                            ->filter()
+                            ->unique()
+                            ->values()
+                            ->all();
+                    @endphp
                     <!-- Trigger Button -->
                     <div>
                         <a href="javascript:void(0)" 
-                            onclick="openLangModal({{ $collection->id }}, '{{ addslashes($collection->judul_tugas_akhir) }}')" 
-                            title="Bahasa"
-                            class="inline-flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                          onclick="openLangModal({{ $collection->id }}, '{{ addslashes($collection->judul_tugas_akhir) }}', {{ json_encode($existingLanguages) }})" 
+                          title="Bahasa"
+                          class="inline-flex items-center">
+                          <!-- Your SVG icon -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M19.47 4.47a.75.75 0 0 1 1.06 0l2 2a.75.75 0 0 1 0 1.06l-2 2a.75.75 0 1 1-1.06-1.06l.72-.72h-1.793c-.844 0-1.424 0-1.88.045c-.44.043-.706.122-.927.247c-.22.125-.426.313-.689.668c-.272.368-.572.865-1.006 1.589l-2.523 4.205c-.41.685-.747 1.245-1.068 1.679c-.335.453-.688.816-1.155 1.08s-.96.38-1.52.435c-.538.052-1.191.052-1.99.052H2a.75.75 0 0 1 0-1.5h3.603c.844 0 1.424 0 1.88-.045c.44-.043.706-.122.927-.247c.22-.125.426-.313.689-.668c.272-.368.571-.865 1.006-1.589l2.523-4.205c.41-.685.747-1.245 1.068-1.679c.335-.453.688-.816 1.155-1.08s.96-.38 1.52-.435c.538-.052 1.191-.052 1.99-.052h1.828l-.72-.72a.75.75 0 0 1 0-1.06M7.73 7.79c-.196-.038-.418-.041-1.063-.041H2a.75.75 0 0 1 0-1.5h4.74c.546 0 .922 0 1.278.07a3.75 3.75 0 0 1 2.071 1.172c.243.27.436.592.717 1.06l.037.062a.75.75 0 1 1-1.286.772c-.332-.554-.45-.742-.583-.89a2.25 2.25 0 0 0-1.243-.705m5.683 6.566a.75.75 0 0 1 1.03.257c.331.554.448.742.582.89c.327.364.763.611 1.243.705c.196.038.418.041 1.063.041h2.857l-.72-.72a.75.75 0 1 1 1.061-1.06l2 2a.75.75 0 0 1 0 1.06l-2 2a.75.75 0 1 1-1.06-1.06l.72-.72h-2.931c-.545 0-.92 0-1.277-.07a3.75 3.75 0 0 1-2.071-1.172c-.243-.27-.436-.592-.717-1.06l-.037-.062a.75.75 0 0 1 .257-1.03"/>
-                            </svg>
+                          </svg>
                         </a>
                     </div>
                 </td>
@@ -236,30 +251,44 @@
 
 <!-- JS -->
 <script>
-  function openLangModal(collectionId, collectionTitle) {
-    document.getElementById("langModal").classList.remove("hidden");
-    document.getElementById("collectionTitle").textContent = collectionTitle || "";
+  function openLangModal(collectionId, collectionTitle, existingLanguages = []) {
+    // Show modal
+    const modal = document.getElementById("langModal");
+    modal.classList.remove("hidden");
+
+    // Set collection title and hidden input value
+    const titleElem = document.getElementById("collectionTitle");
+    titleElem.textContent = collectionTitle || "";
+    titleElem.classList.remove("hidden");
     document.getElementById("hiddenCollectionId").value = collectionId || "";
+
+    // Uncheck all checkboxes first
+    document.querySelectorAll('.lang-checkbox').forEach(cb => cb.checked = false);
+
+    // Check checkboxes for existing languages
+    existingLanguages.forEach(lang => {
+      const checkbox = document.querySelector(`.lang-checkbox[data-language="${lang}"]`);
+      if (checkbox) checkbox.checked = true;
+    });
   }
 
   function closeLangModal(event) {
     const modal = document.getElementById("langModal");
-    if (event && event.target === modal) {
-      modal.classList.add("hidden");
-    } else if (!event) {
+    if (!event || event.target === modal) {
       modal.classList.add("hidden");
     }
   }
 
-  // Make checkboxes behave like radio buttons + redirect
+  // Checkbox behavior: only one can be selected at once, then redirect
   document.querySelectorAll('.lang-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function () {
       if (this.checked) {
+        // Uncheck others
         document.querySelectorAll('.lang-checkbox').forEach(other => {
           if (other !== this) other.checked = false;
         });
 
-        // Get selected language and collection ID
+        // Redirect with selected language and collection ID
         const selectedLanguage = this.dataset.language;
         const collectionId = document.getElementById("hiddenCollectionId").value;
 
