@@ -264,7 +264,7 @@
         const collectionId = document.getElementById("hiddenCollectionId").value;
 
         if (selectedLanguage && collectionId) {
-          const url = `/admin/audio/create/${collectionId}?language=${selectedLanguage}`;
+          const url = `/admin/audio/by-koleksi/create/${collectionId}?language=${selectedLanguage}`;
           window.location.href = url;
         }
       }
