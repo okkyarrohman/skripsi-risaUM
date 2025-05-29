@@ -17,8 +17,10 @@
                     Mulai Sekarang
                 </a>
             </div>
-            <div class="md:w-1/2 w-full">
-                <img src="{{ asset('images/hero.webp') }}" alt="VoiceLib Illustration" class="w-full rounded-xl shadow-lg">
+
+            <!-- Image Content -->
+            <div class="md:w-1/2 w-full flex justify-center items-center">
+                <img src="{{ asset('images/hero.webp') }}" alt="VoiceLib Illustration" class="w-full md:w-1/2">
             </div>
         </div>
         <div class="container mx-auto px-4 py-12 text-center">
