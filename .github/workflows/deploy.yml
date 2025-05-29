@@ -27,4 +27,5 @@ jobs:
             git pull origin main
             composer install --no-interaction --prefer-dist --optimize-autoloader
             php artisan migrate --force
+            npm run build
           EOF
