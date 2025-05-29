@@ -7,6 +7,7 @@ Warna Button = bg-[#090445]
 ======= Admin =======
 Background Login = bg-[#06003F]
 Background Sidebar = bg-[#06003F]
+Background Search = bg-[#BAC5DB]
 
 ======= Voices ======
 Indonesia

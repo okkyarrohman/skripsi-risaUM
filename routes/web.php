@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/tentang-kami', [LandingController::class, 'about'])->name('landing.about');
 Route::get('/panduan', [LandingController::class, 'guide'])->name('landing.guide');
-Route::get('/select-language', [LandingController::class, 'selectLanguage'])->name('landing.select.language');
+Route::get('/pilih-bahasa', [LandingController::class, 'selectLanguage'])->name('landing.pilih.bahasa');
 Route::get('/cari-audio', [LandingController::class, 'cariAudio'])->name('cari.audio');
+Route::get('/hasil-audio', [LandingController::class, 'hasilAudio'])->name('hasil.audio');
+
 
 
 // Auth Controller

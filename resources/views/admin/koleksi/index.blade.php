@@ -279,16 +279,9 @@
     }
   }
 
-  // Checkbox behavior: only one can be selected at once, then redirect
   document.querySelectorAll('.lang-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function () {
       if (this.checked) {
-        // Uncheck others
-        document.querySelectorAll('.lang-checkbox').forEach(other => {
-          if (other !== this) other.checked = false;
-        });
-
-        // Redirect with selected language and collection ID
         const selectedLanguage = this.dataset.language;
         const collectionId = document.getElementById("hiddenCollectionId").value;
 
