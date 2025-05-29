@@ -133,8 +133,6 @@ class LandingController extends Controller
                 'status'   => 'Belum Dikirim',
             ]);
         } catch (\Exception $e) {
-            \Log::error('Failed to create TextRequest: ' . $e->getMessage());
-
             return redirect()->back()
                 ->withInput()
                 ->with('error', 'Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.');

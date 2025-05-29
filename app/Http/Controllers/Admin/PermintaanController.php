@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\TextRequest;
 use Illuminate\Http\Request;
-// use App\Models\Permintaan; // Uncomment jika kamu sudah punya model
 
 class PermintaanController extends Controller
 {

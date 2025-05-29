@@ -174,7 +174,6 @@ class AudioController extends Controller
 
     public function testTTS(Request $request)
     {
-        Log::info('testTTS called', ['request_data' => $request->all()]);
 
         $request->validate([
             'input.text' => 'required|string',
@@ -187,7 +186,6 @@ class AudioController extends Controller
         ]);
 
         $keyFilePath = public_path('images/credentials-tts.json');
-        Log::info('Using credentials file', ['path' => $keyFilePath]);
 
         $client = new TextToSpeechClient([
             'credentials' => $keyFilePath,
@@ -195,7 +193,6 @@ class AudioController extends Controller
 
         try {
             $inputText = $request->input('input.text');
-            Log::info('Synthesizing speech for text', ['text' => $inputText]);
 
             $input = (new SynthesisInput())->setText($inputText);
 
@@ -217,17 +214,14 @@ class AudioController extends Controller
             $response = $client->synthesizeSpeech($requestObject);
 
             $audioContent = $response->getAudioContent();
-            Log::info('Received audio content', ['length' => strlen($audioContent)]);
 
             return response()->json([
                 'audioContent' => base64_encode($audioContent),
             ]);
         } catch (\Exception $e) {
-            Log::error('TTS Error', ['message' => $e->getMessage()]);
             return response()->json(['error' => 'TTS Error: ' . $e->getMessage()], 500);
         } finally {
             $client->close();
-            Log::info('TextToSpeechClient closed');
         }
     }
 
@@ -286,8 +280,6 @@ class AudioController extends Controller
                 ->with('success', 'Audio berhasil disimpan dan status koleksi diperbarui.');
 
         } catch (\Exception $e) {
-            Log::error('Gagal menyimpan audio: ' . $e->getMessage());
-
             return redirect()
                 ->back()
                 ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan audio.']);
