@@ -19,16 +19,11 @@
 
             <div class="relative flex-grow">
                 <!-- Mic Icon -->
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5.5-3a5.5 5.5 0 0 1-11 0H5a7 7 0 0 0 14 0h-1.5ZM11 19v2h2v-2h-2Z"/>
-                    </svg>
-                </div>
                 <input
                     type="text"
                     name="keyword"
                     placeholder="Ketik kata kunci judul, atau penulis ..."
-                    class="w-full border border-gray-400 rounded-md pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445]"
+                    class="w-full border border-gray-400 rounded-md pl-3 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445]"
                     required
                 >
             </div>
