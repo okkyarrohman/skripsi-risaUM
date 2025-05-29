@@ -16,6 +16,8 @@ Route::get('/panduan', [LandingController::class, 'guide'])->name('landing.guide
 Route::get('/pilih-bahasa', [LandingController::class, 'selectLanguage'])->name('landing.pilih.bahasa');
 Route::get('/cari-audio', [LandingController::class, 'cariAudio'])->name('cari.audio');
 Route::get('/hasil-audio', [LandingController::class, 'hasilAudio'])->name('hasil.audio');
+Route::get('/permintaan-teks-lengkap/{audioId}', [LandingController::class, 'mintaPermintaanTeksLengkap'])->name('permintaan.teks.lengkap');
+Route::post('/permintaan-teks-lengkap/{audioId}', [LandingController::class, 'kirimPermintaanTeksLengkap'])->name('kirim.permintaan.teks.lengkap');
 
 
 
@@ -53,5 +55,5 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('admin.mahasiswa');
 
     // Permintaan Full Akses
-    Route::get('/permintaan', [PermintaanController::class, 'index'])->name('admin.permintaan');
+    Route::resource('permintaan', PermintaanController::class)->names('admin.permintaan');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Audio;
+use App\Models\TextRequest;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -39,53 +40,108 @@ class LandingController extends Controller
     }
 
    public function hasilAudio(Request $request)
-{
-    $title = 'Pilih Bahasa';
-    $keyword = $request->input('keyword');
-    $language = $request->input('language');
+    {
+        $title = 'Pilih Bahasa';
+        $keyword = $request->input('keyword');
+        $language = $request->input('language');
 
-    $query = \App\Models\Audio::with('collection');
+        $query = Audio::with('collection');
 
-    // Filter language by prefix (id-ID, en-US, etc)
-    if ($language && in_array($language, ['id', 'en'])) {
-        $query->where('bahasa', 'like', $language . '%');
+        // Filter language by prefix (id-ID, en-US, etc)
+        if ($language && in_array($language, ['id', 'en'])) {
+            $query->where('bahasa', 'like', $language . '%');
+        }
+
+        if ($keyword) {
+            $keyword = trim($keyword);
+
+            $query->whereHas('collection', function ($q) use ($keyword, $language) {
+                if ($language === 'id') {
+                    $q->where(function ($subQ) use ($keyword) {
+                        $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
+                            ->orWhere('nama_penulis', 'like', "%$keyword%")
+                            ->orWhere('abstrak_indo', 'like', "%$keyword%")
+                            ->orWhere('kata_kunci', 'like', "%$keyword%");
+                    });
+                } elseif ($language === 'en') {
+                    $q->where(function ($subQ) use ($keyword) {
+                        $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
+                            ->orWhere('nama_penulis', 'like', "%$keyword%")
+                            ->orWhere('abstrak_eng', 'like', "%$keyword%")
+                            ->orWhere('kata_kunci', 'like', "%$keyword%");
+                    });
+                } else {
+                    $q->where(function ($subQ) use ($keyword) {
+                        $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
+                            ->orWhere('nama_penulis', 'like', "%$keyword%")
+                            ->orWhere('abstrak_indo', 'like', "%$keyword%")
+                            ->orWhere('abstrak_eng', 'like', "%$keyword%")
+                            ->orWhere('kata_kunci', 'like', "%$keyword%");
+                    });
+                }
+            });
+        }
+
+        $results = $query->paginate(10)->withQueryString();
+
+        return view('user.hasil-audio', compact('title', 'language', 'keyword', 'results'));
     }
+    
+    public function mintaPermintaanTeksLengkap($audioId)
+    {
+        $title = 'Minta Teks Lengkap';
+        $audio = Audio::findOrFail($audioId); // Get the audio by ID or fail
 
-    if ($keyword) {
-        $keyword = trim($keyword);
-
-        $query->whereHas('collection', function ($q) use ($keyword, $language) {
-            if ($language === 'id') {
-                $q->where(function ($subQ) use ($keyword) {
-                    $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
-                        ->orWhere('nama_penulis', 'like', "%$keyword%")
-                        ->orWhere('abstrak_indo', 'like', "%$keyword%")
-                        ->orWhere('kata_kunci', 'like', "%$keyword%");
-                });
-            } elseif ($language === 'en') {
-                $q->where(function ($subQ) use ($keyword) {
-                    $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
-                        ->orWhere('nama_penulis', 'like', "%$keyword%")
-                        ->orWhere('abstrak_eng', 'like', "%$keyword%")
-                        ->orWhere('kata_kunci', 'like', "%$keyword%");
-                });
-            } else {
-                $q->where(function ($subQ) use ($keyword) {
-                    $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
-                        ->orWhere('nama_penulis', 'like', "%$keyword%")
-                        ->orWhere('abstrak_indo', 'like', "%$keyword%")
-                        ->orWhere('abstrak_eng', 'like', "%$keyword%")
-                        ->orWhere('kata_kunci', 'like', "%$keyword%");
-                });
-            }
-        });
+        return view('user.permintaan-teks-lengkap', compact('audio', 'title'));
     }
+    public function kirimPermintaanTeksLengkap(Request $request, $audioId)
+    {
+        // Custom messages in Indonesian
+        $messages = [
+            'nama.required'     => 'Nama wajib diisi.',
+            'nama.string'       => 'Nama harus berupa teks.',
+            'nama.max'          => 'Nama maksimal :max karakter.',
 
-    $results = $query->paginate(10)->withQueryString();
+            'nim.required'      => 'NIM wajib diisi.',
+            'nim.string'        => 'NIM harus berupa teks.',
+            'nim.max'           => 'NIM maksimal :max karakter.',
 
-    return view('user.hasil-audio', compact('title', 'language', 'keyword', 'results'));
-}
+            'prodi.required'    => 'Program Studi/Fakultas wajib diisi.',
+            'prodi.string'      => 'Program Studi/Fakultas harus berupa teks.',
+            'prodi.max'         => 'Program Studi/Fakultas maksimal :max karakter.',
 
+            'whatsapp.required' => 'Nomor WhatsApp wajib diisi.',
+            'whatsapp.string'   => 'Nomor WhatsApp harus berupa teks.',
+            'whatsapp.max'      => 'Nomor WhatsApp maksimal :max karakter.',
+        ];
+
+        // Validate with custom messages
+        $validatedData = $request->validate([
+            'nama'     => ['required', 'string', 'max:255'],
+            'nim'      => ['required', 'string', 'max:50'],
+            'prodi'    => ['required', 'string', 'max:255'],
+            'whatsapp' => ['required', 'string', 'max:20'],
+        ], $messages);
+
+        try {
+            TextRequest::create([
+                'audio_id' => $audioId,
+                'nama'     => $validatedData['nama'],
+                'nim'      => $validatedData['nim'],
+                'prodi'    => $validatedData['prodi'],
+                'whatsapp' => $validatedData['whatsapp'],
+                'status'   => 'Belum Dikirim',
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Failed to create TextRequest: ' . $e->getMessage());
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.');
+        }
+
+        return redirect()->back()->with('success', 'Permintaan teks lengkap berhasil dikirim!');
+    }
 
 
 }

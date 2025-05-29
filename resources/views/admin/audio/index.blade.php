@@ -39,8 +39,6 @@
     <option value="durasi_desc" {{ request('sort') == 'durasi_desc' ? 'selected' : '' }}>Durasi Terpanjang</option>
     <option value="format_asc" {{ request('sort') == 'format_asc' ? 'selected' : '' }}>Format A-Z</option>
     <option value="format_desc" {{ request('sort') == 'format_desc' ? 'selected' : '' }}>Format Z-A</option>
-    <option value="tanggal_dibuat_asc" {{ request('sort') == 'tanggal_dibuat_asc' ? 'selected' : '' }}>Tanggal Dibuat Terlama</option>
-    <option value="tanggal_dibuat_desc" {{ request('sort') == 'tanggal_dibuat_desc' ? 'selected' : '' }}>Tanggal Dibuat Terbaru</option>
   </select>
 
   <button

@@ -43,8 +43,8 @@
         Data Mahasiswa
     </a> --}}
 
-    <a href="{{ route('admin.permintaan') }}"
-       class="flex items-center gap-2 px-2 py-2 rounded {{ request()->routeIs('admin.permintaan') ? 'bg-[#1C1A6F]' : '' }} hover:bg-[#1C1A6F]">
+    <a href="{{ route('admin.permintaan.index') }}"
+       class="flex items-center gap-2 px-2 py-2 rounded {{ request()->routeIs('admin.permintaan.index') ? 'bg-[#1C1A6F]' : '' }} hover:bg-[#1C1A6F]">
         <span class="bg-white p-1 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" class="text-[#06003F]" width="24" height="24" viewBox="0 0 24 24">
                 <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">

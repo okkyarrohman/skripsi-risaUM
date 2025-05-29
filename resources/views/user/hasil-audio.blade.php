@@ -63,12 +63,12 @@
                     </div>
 
                     <div>
-                        <button
-                            type="button"
+                        <a
+                            href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id]) }}"
                             class="px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0] focus:outline-none"
                         >
                             Minta Teks Lengkap
-                        </button>
+                        </a>
                     </div>
                 </div>
 
