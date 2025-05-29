@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
-    
-    <!-- Meta Description -->
     <meta name="description" content="VoiceLib adalah layanan perpustakaan inklusif Universitas Negeri Malang untuk mahasiswa disabilitas netra, menyediakan abstrak tugas akhir dalam bentuk audio.">
+    <title>@yield('title')</title>
 
     {{-- Font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
