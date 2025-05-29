@@ -74,7 +74,7 @@
                 @endphp
                 <tr class="bg-white border-b hover:bg-gray-100">
                     <td class="px-6 py-4">{{ $audios->firstItem() + $index }}</td>
-                    <td class="px-6 py-4">{{ $item->created_at?->format('Y-m-d') ?? '-' }}</td>
+                    <td class="px-6 py-4">{{ $item->created_at->locale('id')->translatedFormat('d F Y') ?? '-' }}</td>
                     <td class="px-6 py-4">{{ $item->nim }}</td>
                     <td class="px-6 py-4">{{ $item->nama }}</td>
                     <td class="px-6 py-4">{{ $collection->judul_tugas_akhir ?? '-' }}</td>
