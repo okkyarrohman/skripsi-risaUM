@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id"> {{-- Ganti bahasa menjadi "id" untuk Bahasa Indonesia --}}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,11 +14,16 @@
     
     @vite('resources/css/app.css')
 </head>
-<body class="flex flex-col min-h-screen bg-white text-gray-900 ">
+<body class="flex flex-col min-h-screen bg-white text-gray-900 scroll-smooth">
+
+    {{-- Tautan Aksesibilitas: Lewati ke Konten --}}
+    <a href="#konten-utama" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-blue-800 font-semibold px-4 py-2 rounded shadow z-50">
+        Lewati ke konten utama
+    </a>
 
     @include('partials.navbar')
 
-    <main class="">
+    <main id="konten-utama" class="">
         @yield('content')
     </main>
 

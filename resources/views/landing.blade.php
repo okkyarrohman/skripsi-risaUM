@@ -39,7 +39,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-[#06003F] mb-8">Tentang Kami</h2>
             <div class="max-w-3xl mx-auto">
                 <p class="text-gray-800 text-lg leading-relaxed font-medium text-justify">
-                    VoiceLib adalah platform “perpustakaan digital” yang mengonversi teks menjadi audio secara otomatis. Dikembangkan untuk mendukung mahasiswa disabilitas netra di Universitas Negeri Malang, VoiceLib diharapkan dapat menghadirkan akses informasi akademik yang lebih mudah, fleksibel, dan user-friendly.
+                    <strong>VoiceLib</strong> adalah platform perpustakaan digital yang secara otomatis mengonversi teks menjadi format audio. Dikembangkan untuk mendukung mahasiswa tunanetra di Universitas Negeri Malang, VoiceLib diharapkan dapat menghadirkan akses informasi akademik yang lebih mudah, inklusif, fleksibel, dan ramah pengguna.
                 </p>
                 <a href="{{ route('landing.about') }}" class="inline-block mt-10 py-4 px-6 bg-[#090445] text-white text-md font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
                     Simak lebih lanjut tentang kami

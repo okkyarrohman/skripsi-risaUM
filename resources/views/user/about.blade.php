@@ -8,18 +8,20 @@
 
     <article class="prose lg:prose-lg text-lg text-[#06003F] space-y-6 mb-4 prose-p:text-justify text-justify">
         <p>
-            <strong>VoiceLib</strong> dirancang khusus untuk mahasiswa disabilitas netra Universitas Negeri Malang. VoiceLib memanfaatkan teknologi alih media yang otomatis akan mengonversi teks abstrak tugas akhir menjadi audio, sekaligus menerapkan pedoman WCAG. Dengan demikian, VoiceLib diharapkan dapat menyajikan akses informasi akademik menjadi lebih mudah kapan saja dan di mana saja.
+            <strong>VoiceLib</strong> merupakan akronim dari kata <strong>“Voice”</strong> dan <strong>“Library”</strong>. Platform ini hadir sebagai jembatan informasi bagi mahasiswa tunanetra di Universitas Negeri Malang, guna memenuhi kebutuhan informasi akademik mereka secara adil dan setara.
         </p>
         <p>
-            Nama VoiceLib merupakan gabungan kata <strong>“Voice”</strong> dan <strong>“Library”</strong>, mencerminkan sebuah misi utama yaitu menghadirkan suara dari koleksi perpustakaan dalam layanan yang lebih inklusif, setara, dan mudah diakses.
+            VoiceLib adalah wujud nyata dari transformasi layanan perpustakaan berbasis inklusi, yang memungkinkan seluruh sivitas akademika—termasuk mahasiswa tunanetra—untuk mengakses informasi tanpa hambatan. 
         </p>
         <p>
-            Sebagai perantara kebutuhan informasi mahasiswa tuna netra, VoiceLib diharapkan dapat mengimplementasikan transformasi layanan perpustakaan inklusif di area kampus, sehingga setiap orang tanpa terkecuali mahasiswa tuna netra, dapat mengakses informasi dengan adil.
+            Platform ini memanfaatkan teknologi alih media <em>text-to-speech</em> yang secara otomatis mengonversi teks, seperti abstrak tugas akhir, menjadi format audio. Dengan fitur ini, informasi akademik dapat diakses dengan lebih mudah, kapan saja dan di mana saja.
         </p>
         <p>
-            Proyek ini dikembangkan oleh <strong>Risa Annisa</strong> di bawah bimbingan <strong>Ibu Inawati, S.I.P., M.M</strong> sebagai bagian dari tugas akhir Program Studi D4 Perpustakaan Digital, Universitas Negeri Malang.
+            Pengembangan VoiceLib juga memperhatikan <em>Web Content Accessibility Guidelines</em> (WCAG) untuk memastikan bahwa setiap fitur dalam platform ini ramah bagi semua pengguna, khususnya pengguna dengan kebutuhan aksesibilitas.
+        </p>
+        <p>
+            Produk ini dikembangkan oleh <strong>Risa Annisa</strong> sebagai bagian dari tugas akhirnya pada Program Studi D4 Perpustakaan Digital, Universitas Negeri Malang, di bawah bimbingan <strong>Ibu Inawati, S.I.P., M.M</strong>.
         </p>
     </article>
 </section>
 @endsection
-
