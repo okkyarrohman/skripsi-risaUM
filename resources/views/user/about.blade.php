@@ -15,6 +15,5 @@
         </p>
     </article>
 
-
 </section>
 @endsection
