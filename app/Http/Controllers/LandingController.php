@@ -34,14 +34,14 @@ class LandingController extends Controller
 
     public function cariAudio(Request $request)
     {
-        $title = 'Pilih Bahasa';
+        $title = 'Cari Audio';
         $language = $request->query('language', 'id'); // default ke 'id'
         return view('user.cari-audio', compact('language', 'title'));
     }
 
    public function hasilAudio(Request $request)
     {
-        $title = 'Pilih Bahasa';
+        $title = 'Hasil Pencarian Audio';
         $keyword = $request->input('keyword');
         $language = $request->input('language');
 
