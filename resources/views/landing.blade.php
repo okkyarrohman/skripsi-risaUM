@@ -24,11 +24,14 @@
             </div>
         </div>
         <div class="container mx-auto px-4 py-12 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-[#06003F] mb-6">
-                Mulai Pencarian Referensi Sekarang
+            <h2 class="text-3xl md:text-4xl font-bold text-[#06003F]">
+                Panduan Penggunaan VoiceLib
             </h2>
-            <a href="{{ route('landing.pilih.bahasa') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-900 transition duration-300">
-                Mulai Sekarang
+            <p class="text-gray-900 text-lg leading-relaxed font-medium py-6">
+                Pelajari langkah-langkah menggunakan VoiceLib untuk mencari dan mendengarkan koleksi audio
+            </p>
+            <a href="{{ route('landing.guide') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-900 transition duration-300">
+                Pelajari Lebih Lanjut
             </a>
         </div>
     </section>
