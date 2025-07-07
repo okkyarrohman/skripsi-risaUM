@@ -23,8 +23,7 @@
                     type="text"
                     name="keyword"
                     placeholder="Ketik kata kunci judul, atau penulis ..."
-                    class="w-full border border-gray-400 rounded-md pl-3 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445]"
-                    required
+                    class="w-full border border-gray-900 rounded-md pl-3 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445]"
                 >
             </div>
 
