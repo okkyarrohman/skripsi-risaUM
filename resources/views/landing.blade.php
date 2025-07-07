@@ -10,10 +10,10 @@
                 <h1 class="text-5xl font-bold text-[#06003F] leading-tight mb-6">
                     Selamat Datang di <span class="text-[#090445]">VoiceLib</span>
                 </h1>
-                <p class="text-lg text-gray-700 font-medium leading-relaxed mb-8 text-justify">
+                <p class="text-lg text-gray-900 font-medium leading-relaxed mb-8 text-justify">
                     VoiceLib hadir untuk mendukung layanan perpustakaan yang inklusif bagi mahasiswa disabilitas netra di Universitas Negeri Malang. Situs VoiceLib menghadirkan pengalaman baru dengan menyediakan abstrak tugas akhir yang telah diubah menjadi audio. Jelajahi kemudahan dalam mengakses informasi perpustakaan, kapan pun dan di mana pun.
                 </p>
-                <a href="{{ route('landing.pilih.bahasa') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+                <a href="{{ route('landing.pilih.bahasa') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-900 transition duration-300">
                     Mulai Sekarang
                 </a>
             </div>
@@ -27,7 +27,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-[#06003F] mb-6">
                 Mulai Pencarian Referensi Sekarang
             </h2>
-            <a href="{{ route('landing.pilih.bahasa') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+            <a href="{{ route('landing.pilih.bahasa') }}" class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-900 transition duration-300">
                 Mulai Sekarang
             </a>
         </div>
@@ -38,10 +38,10 @@
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-[#06003F] mb-8">Tentang Kami</h2>
             <div class="max-w-3xl mx-auto">
-                <p class="text-gray-800 text-lg leading-relaxed font-medium text-justify">
+                <p class="text-gray-900 text-lg leading-relaxed font-medium text-justify">
                     <strong>VoiceLib</strong> adalah platform “perpustakaan digital” yang mengonversi teks menjadi audio secara otomatis. Dikembangkan untuk mendukung mahasiswa tunanetra di Universitas Negeri Malang, VoiceLib diharapkan dapat menghadirkan akses informasi akademik yang lebih mudah, fleksibel, dan ramah pengguna.
                 </p>
-                <a href="{{ route('landing.about') }}" class="inline-block mt-10 py-4 px-6 bg-[#090445] text-white text-md font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+                <a href="{{ route('landing.about') }}" class="inline-block mt-10 py-4 px-6 bg-[#090445] text-white text-md font-semibold rounded-lg hover:bg-indigo-900 transition duration-300">
                     Simak lebih lanjut tentang kami
                 </a>
             </div>

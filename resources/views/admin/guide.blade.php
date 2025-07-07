@@ -7,13 +7,13 @@
     <h1 class="text-center text-4xl font-bold mb-10">Panduan Admin</h1>
 
     <ol class="list-decimal list-inside space-y-4 prose prose-lg text-justify text-lg mx-auto max-w-3xl mb-4">
-        <li>Masuk ke sistem VoiceLib melalui akun admin.</li>
-        <li>Gunakan menu navigasi di sebelah kiri untuk memilih halaman yang ingin dikelola.</li>
-        <li>Pada menu <strong>Dashboard</strong>, Anda dapat melihat ringkasan aktivitas sistem.</li>
-        <li>Gunakan menu <strong>Kelola Data Koleksi</strong> untuk menambahkan, mengedit, atau menghapus data tugas akhir.</li>
-        <li>Pada menu <strong>Data Audio</strong>, Anda dapat mengunggah atau mengelola file audio abstrak.</li>
-        <li>Pada menu <strong>Permintaan Full Akses</strong>, tinjau permintaan teks lengkap dari mahasiswa dan verifikasi kelayakannya.</li>
-        <li>Setelah verifikasi, kirim tautan dokumen lengkap ke WhatsApp mahasiswa sesuai permintaan.</li>
+        <li><strong>Masuk ke Sistem</strong> "VoiceLib" menggunakan akun admin yang telah terdaftar.</li>
+        <li><strong>Gunakan Menu Navigasi</strong> di sebelah kiri layar untuk memilih halaman yang ingin Anda kelola.</li>
+        <li>Pada menu <strong>Dashboard</strong>, Anda dapat memantau ringkasan aktivitas sistem secara visual, seperti jumlah koleksi dan total audio.</li>
+        <li>Gunakan menu <strong>Kelola Data Koleksi</strong> untuk melakukan manajemen data abstrak, seperti menambah, mengedit, atau menghapus data. Di halaman ini Anda juga dapat melakukan fungsi inti, yaitu <strong>mengalihmediakan (konversi) teks menjadi audio</strong>.</li>
+        <li>Pada menu <strong>Data Audio</strong>, Anda dapat meninjau dan mengelola semua file audio yang telah berhasil dibuat, termasuk memutar pratinjau (preview) atau menghapusnya.</li>
+        <li>Pada menu <strong>Permintaan Full Akses</strong> Anda dapat melihat dan melacak semua permohonan akses teks lengkap yang telah diajukan oleh mahasiswa.</li>
+        <li>Setelah melakukan verifikasi secara langsung di perpustakaan, Anda dapat mengirimkan tautan dokumen lengkap kepada mahasiswa melalui nomor WhatsApp yang tertera pada data permintaan.</li>
     </ol>
 </section>
 @endsection
