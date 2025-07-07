@@ -92,6 +92,9 @@ class LandingController extends Controller
         $title = 'Minta Teks Lengkap';
         $audio = Audio::findOrFail($audioId); // Get the audio by ID or fail
 
+        // Simpan URL sebelumnya (hasil-audio, dsb) di session
+        session(['redirect_url' => url()->previous()]);
+
         return view('user.permintaan-teks-lengkap', compact('audio', 'title'));
     }
     public function kirimPermintaanTeksLengkap(Request $request, $audioId)
@@ -141,7 +144,9 @@ class LandingController extends Controller
                 ->with('error', 'Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.');
         }
 
-        return redirect()->back()->with('success', 'Permintaan teks lengkap berhasil dikirim!');
+        return redirect(session('redirect_url', route('hasil.audio')))
+        ->with('success', 'Permintaan teks lengkap berhasil dikirim!');
+
     }
 
 
