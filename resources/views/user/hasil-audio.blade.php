@@ -43,8 +43,9 @@
         @endif
 
         <div class="bg-white shadow-md rounded-lg p-4 sm:p-6">
-            @forelse ($results as $audio)
+            @forelse ($results as $index => $audio)
                 <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 py-4">
+                    <!-- Metadata -->
                     <div class="flex-1">
                         <p class="text-base font-semibold break-words">
                             {{ \Illuminate\Support\Str::limit($audio->collection->judul_tugas_akhir, 100) }}
@@ -54,14 +55,26 @@
                         </p>
                     </div>
 
-                   <div class="w-full md:w-64 flex-shrink-0">
-                        <audio controls class="w-full rounded-md">
+                    <!-- Play Button -->
+                    <div class="w-full md:w-64 flex-shrink-0 flex justify-end items-center gap-4">
+                        <audio id="audio-{{ $index }}">
                             <source src="data:audio/{{ strtolower($audio->format) }};base64,{{ $audio->base64 }}" 
                                     type="audio/{{ $audio->format === 'LINEAR16' ? 'wav' : strtolower($audio->format) }}">
                             Your browser does not support the audio element.
                         </audio>
+
+                        <button 
+                            data-audio-id="audio-{{ $index }}" 
+                            id="btn-{{ $index }}" 
+                            class="w-13 h-13 rounded-full bg-[#090445] text-white flex items-center justify-center shadow-md transition duration-300 hover:bg-[#090445]"
+                        >
+                            <svg id="icon-{{ $index }}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" /> <!-- Play Icon -->
+                            </svg>
+                        </button>
                     </div>
 
+                    <!-- Request Text Button -->
                     <div class="w-full md:w-auto">
                         <a
                             href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id]) }}"
@@ -72,12 +85,40 @@
                     </div>
                 </div>
 
+                <script>
+                    (() => {
+                        const audio = document.getElementById('audio-{{ $index }}');
+                        const button = document.getElementById('btn-{{ $index }}');
+                        const icon = document.getElementById('icon-{{ $index }}');
+                        let isPlaying = false;
+
+                        button.addEventListener('click', () => {
+                            if (isPlaying) {
+                                audio.pause();
+                            } else {
+                                audio.play();
+                            }
+                        });
+
+                        audio.addEventListener('play', () => {
+                            isPlaying = true;
+                            icon.innerHTML = '<path d="M6 4h4v16H6zm8 0h4v16h-4z" />'; // Pause
+                        });
+
+                        audio.addEventListener('pause', () => {
+                            isPlaying = false;
+                            icon.innerHTML = '<path d="M8 5v14l11-7z" />'; // Play
+                        });
+                    })();
+                </script>
+
                 @if (!$loop->last)
                     <hr class="border-t border-gray-300" />
                 @endif
             @empty
                 <p class="mt-4 text-gray-600">Tidak ada hasil ditemukan.</p>
             @endforelse
+
         </div>
 
         <div class="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between text-sm text-gray-700 gap-2">
