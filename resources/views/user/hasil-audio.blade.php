@@ -77,7 +77,7 @@
                     <!-- Request Text Button -->
                     <div class="w-full md:w-auto">
                         <a
-                            href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id, 'redirect' => request()->fullUrl()]) }}"
+                            href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id]) }}"
                             class="block text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0] focus:outline-none"
                         >
                             Minta Teks Lengkap

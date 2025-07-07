@@ -125,7 +125,7 @@ class LandingController extends Controller
 
         $validatedData['whatsapp'] = preg_replace('/^0|^62/', '', $validatedData['whatsapp']);
         $validatedData['whatsapp'] = '62' . $validatedData['whatsapp'];
-
+         
         try {
             TextRequest::create([
                 'audio_id' => $audioId,
@@ -141,8 +141,8 @@ class LandingController extends Controller
                 ->with('error', 'Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.');
         }
 
-        $redirectUrl = $request->input('redirect') ?? url()->previous();
-
-        return redirect($redirectUrl)->with('success', 'Permintaan teks lengkap berhasil dikirim!');
+        return redirect()->back()->with('success', 'Permintaan teks lengkap berhasil dikirim!');
     }
+
+
 }

@@ -15,7 +15,6 @@
 
         <form aria-describedby="deskripsiForm" method="POST" action="{{ route('kirim.permintaan.teks.lengkap', ['audioId' => $audio->id]) }}">
             @csrf
-            <input type="hidden" name="redirect" value="{{ request('redirect') }}">
             <div class="mb-4">
                 <label for="nama" class="block text-gray-700 font-semibold mb-1">Nama</label>
                 <input id="nama" name="nama" type="text" 

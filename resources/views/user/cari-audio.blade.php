@@ -16,7 +16,6 @@
         <form method="GET" action="{{ route('hasil.audio') }}" class="flex items-center gap-3">
             <!-- Include language as hidden input -->
             <input type="hidden" name="language" value="{{ $language }}">
-
             <div class="relative flex-grow">
                 <!-- Mic Icon -->
                 <input
