@@ -4,14 +4,14 @@
         {{-- Logo + Credit Section --}}
         <div class="flex flex-col items-start">
             <div class="flex items-center">
-                <img src="{{ asset('images/logoum-2.webp') }}" alt="Logo" class="h-26 mb-2">
+                <img src="{{ asset('images/logoum-2.webp') }}" alt="Logo Universitas Negeri Malang Logo Fakultas Vokasi Universitas Negeri Malang" class="h-26 mb-2">
                 <div class="ml-4 text-left leading-tight">
                     <p class="font-bold text-3xl leading-snug">FAKULTAS<br>VOKASI</p>
                 </div>
             </div>
             <div class="text-left text-xs sm:text-sm mt-4 ml-3">
-                <div class="flex gap-2">
-                    <p class="mb-1 font-bold text-lg">&copy; 2025</p>
+                <div class="flex gap-1">
+                    <p class="mb-1 font-bold text-lg">&copy; {{ date('Y') }}</p>
                     <p class="mb-1 font-bold text-lg">VoiceLib</p>
                 </div>
                 <p class="font-bold text-md">Desain dan Konsep oleh Risa Annisa | Pembimbing: Inawati, S.I.P., M.M.</p>
