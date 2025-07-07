@@ -119,7 +119,7 @@
                 </tr>
             @empty
                 <tr class="bg-white border-b border-gray-200">
-                    <td colspan="8" class="px-6 py-4 text-center">No audio data found.</td>
+                    <td colspan="8" class="px-6 py-4 text-center">Tidak ada data audio.</td>
                 </tr>
             @endforelse
         </tbody>
