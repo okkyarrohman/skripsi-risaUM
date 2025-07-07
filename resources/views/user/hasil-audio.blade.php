@@ -16,13 +16,12 @@
                     value="{{ $keyword }}"
                     placeholder="Ketik kata kunci judul, atau penulis ..."
                     class="w-full border border-gray-900 rounded-md pl-3 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445]"
-                    required
                 >
             </div>
 
             <button
                 type="submit"
-                class="flex items-center justify-center gap-2 bg-[#090445] text-white px-4 py-2 rounded-md hover:bg-[#090445e0]"
+                class="flex hover:cursor-pointer items-center justify-center gap-2 bg-[#090445] text-white px-4 py-2 rounded-md hover:bg-[#090445e0]"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

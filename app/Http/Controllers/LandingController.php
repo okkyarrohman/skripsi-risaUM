@@ -61,21 +61,33 @@ class LandingController extends Controller
                         $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
                             ->orWhere('nama_penulis', 'like', "%$keyword%")
                             ->orWhere('abstrak_indo', 'like', "%$keyword%")
+                            ->orWhere('nama_pembimbing', 'like', "%$keyword%")
+                            ->orWhere('program_studi', 'like', "%$keyword%")
+                            ->orWhere('fakultas', 'like', "%$keyword%")
+                            ->orWhere('tahun_terbit', 'like', "%$keyword%")
                             ->orWhere('kata_kunci', 'like', "%$keyword%");
                     });
                 } elseif ($language === 'en') {
                     $q->where(function ($subQ) use ($keyword) {
                         $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
-                            ->orWhere('nama_penulis', 'like', "%$keyword%")
                             ->orWhere('abstrak_eng', 'like', "%$keyword%")
+                            ->orWhere('nama_penulis', 'like', "%$keyword%")
+                            ->orWhere('nama_pembimbing', 'like', "%$keyword%")
+                            ->orWhere('program_studi', 'like', "%$keyword%")
+                            ->orWhere('fakultas', 'like', "%$keyword%")
+                            ->orWhere('tahun_terbit', 'like', "%$keyword%")
                             ->orWhere('kata_kunci', 'like', "%$keyword%");
                     });
                 } else {
                     $q->where(function ($subQ) use ($keyword) {
                         $subQ->where('judul_tugas_akhir', 'like', "%$keyword%")
-                            ->orWhere('nama_penulis', 'like', "%$keyword%")
                             ->orWhere('abstrak_indo', 'like', "%$keyword%")
                             ->orWhere('abstrak_eng', 'like', "%$keyword%")
+                            ->orWhere('nama_penulis', 'like', "%$keyword%")
+                            ->orWhere('nama_pembimbing', 'like', "%$keyword%")
+                            ->orWhere('program_studi', 'like', "%$keyword%")
+                            ->orWhere('fakultas', 'like', "%$keyword%")
+                            ->orWhere('tahun_terbit', 'like', "%$keyword%")
                             ->orWhere('kata_kunci', 'like', "%$keyword%");
                     });
                 }
