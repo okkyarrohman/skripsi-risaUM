@@ -26,7 +26,7 @@ class AudioController extends Controller
    public function index(Request $request)
     {
         $query = Audio::with('collection');
-
+        session(['redirect_url' => url()->full()]);
         // Handle search
         if ($request->filled('search')) {
             $search = $request->search;
@@ -144,7 +144,7 @@ class AudioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy(string $id)
+    public function destroy(string $id)
     {
         // Find the audio to delete
         $audio = Audio::findOrFail($id);
@@ -152,24 +152,29 @@ class AudioController extends Controller
         // Get the collection ID before deleting the audio
         $collectionId = $audio->collection_id;
 
-        // Delete the audio record
-        $audio->delete();
+        try {
+            // Delete the audio record
+            $audio->delete();
 
-        // Check the count of audios in the collection
-        $audioCount = Audio::where('collection_id', $collectionId)->count();
+            // Check the count of remaining audios in the collection
+            $audioCount = Audio::where('collection_id', $collectionId)->count();
 
-        // If no audios left, update collection status
-        if ($audioCount === 0) {
-            $collection = Collection::find($collectionId);
-            if ($collection) {
-                $collection->status = 'Belum Tersedia';
-                $collection->save();
+            // If no audios left, update collection status
+            if ($audioCount === 0) {
+                $collection = Collection::find($collectionId);
+                if ($collection) {
+                    $collection->status = 'Belum Tersedia';
+                    $collection->save();
+                }
             }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus audio.');
         }
 
-        // Redirect back with success message
-        return redirect()->route('admin.audio.index')
-                        ->with('success', 'Audio berhasil dihapus.');
+        // Get redirect URL from session or fallback
+        $redirect = session()->pull('redirect_url', route('admin.audio.index'));
+
+        return redirect($redirect)->with('success', 'Audio berhasil dihapus.');
     }
 
     public function testTTS(Request $request)

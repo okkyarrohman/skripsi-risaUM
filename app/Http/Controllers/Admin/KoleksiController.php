@@ -19,7 +19,7 @@ class KoleksiController extends Controller
     {
         $title = "Admin - Data Koleksi";
         $query = Collection::query();
-
+        session(['redirect_url' => url()->full()]);
         // Handle pencarian jika ada
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
@@ -205,11 +205,18 @@ class KoleksiController extends Controller
      */
     public function destroy(string $id)
     {
-        $koleksi = Collection::findOrFail($id); // Find or 404 if not found
-        $koleksi->delete(); // Delete the record
+        $koleksi = Collection::findOrFail($id);
 
-        return redirect()->route('admin.koleksi.index')
-                        ->with('success', 'Koleksi berhasil dihapus.');
+        try {
+            $koleksi->delete();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus koleksi.');
+        }
+
+        // Get redirect URL from session
+        $redirect = session()->pull('redirect_url', route('admin.koleksi.index'));
+
+        return redirect($redirect)->with('success', 'Koleksi berhasil dihapus.');
     }
 
     public function showImport()
