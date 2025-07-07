@@ -144,9 +144,11 @@ class LandingController extends Controller
                 ->with('error', 'Terjadi kesalahan saat mengirim permintaan. Silakan coba lagi.');
         }
 
-        return redirect(session('redirect_url', route('hasil.audio')))
-        ->with('success', 'Permintaan teks lengkap berhasil dikirim!');
+        $redirect = session('redirect_url', route('hasil.audio'));
+        session()->forget('redirect_url');
 
+        return redirect($redirect)
+            ->with('success', 'Permintaan teks lengkap berhasil dikirim!');
     }
 
 

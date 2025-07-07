@@ -146,6 +146,7 @@ class KoleksiController extends Controller
         $title = "Admin - Edit Koleksi";
         $collection = Collection::findOrFail($id);
 
+        session(['redirect_url' => url()->previous()]);
         return view('admin.koleksi.edit', compact('title', 'collection'));
     }
 
@@ -193,7 +194,10 @@ class KoleksiController extends Controller
         $collection = Collection::findOrFail($id);
         $collection->update($request->all());
 
-        return redirect()->route('admin.koleksi.index')->with('success', 'Data berhasil diperbarui!');
+        $redirect = session('redirect_url', route('admin.koleksi.index'));
+
+        session()->forget('redirect_url');
+        return redirect($redirect)->with('success', 'Koleksi berhasil diperbarui!');
     }
 
     /**
