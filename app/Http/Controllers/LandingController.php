@@ -123,6 +123,9 @@ class LandingController extends Controller
             'whatsapp' => ['required', 'string', 'max:20'],
         ], $messages);
 
+        $validatedData['whatsapp'] = preg_replace('/^0|^62/', '', $validatedData['whatsapp']);
+        $validatedData['whatsapp'] = '62' . $validatedData['whatsapp'];
+         
         try {
             TextRequest::create([
                 'audio_id' => $audioId,
