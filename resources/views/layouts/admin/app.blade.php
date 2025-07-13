@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title')</title>
 
+    {{-- Tab Icon --}}
+    <link rel="icon" href="{{ asset('images/logoum.webp') }}" type="image/webp">
+
     {{-- Fonts & Tailwind CSS --}}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

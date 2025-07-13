@@ -6,6 +6,9 @@
     <meta name="description" content="VoiceLib adalah layanan perpustakaan inklusif Universitas Negeri Malang untuk mahasiswa disabilitas netra, menyediakan abstrak tugas akhir dalam bentuk audio.">
     <title>@yield('title')</title>
 
+    {{-- Tab Icon --}}
+    <link rel="icon" href="{{ asset('images/logoum.webp') }}" type="image/webp">
+
     {{-- Font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
