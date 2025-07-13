@@ -116,6 +116,10 @@
                                     >Kecepatan 1.5x</button>
                                     <button
                                         class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 1.75)"
+                                    >Kecepatan 1.75x</button>
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
                                         onclick="setPlaybackRate('audio-{{ $index }}', 2.0)"
                                     >Kecepatan 2.0x</button>
                                     @php
