@@ -130,7 +130,7 @@
 
                     <!-- Delete Button -->
                     <div class="py-1">
-                        <form action="{{ route('admin.koleksi.destroy', $collection->id) }}" method="POST" class="delete-form" onsubmit="return confirm('Yakin ingin menghapus koleksi ini?')">
+                        <form action="{{ route('admin.koleksi.destroy', $collection->id) }}" method="POST" class="delete-form">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="redirect_url" value="{{ url()->current() }}">
