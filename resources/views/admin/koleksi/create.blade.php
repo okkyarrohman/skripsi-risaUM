@@ -84,14 +84,6 @@
                         value="{{ old('tanggal_unggah') }}" 
                         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">
                 </div>
-
-                <div class="flex flex-col md:flex-row md:items-center md:justify-end md:space-x-4 space-y-1 md:space-y-0">
-                    <label for="status" class="font-medium md:text-right w-full md:w-48 whitespace-nowrap">Status</label>
-                    <select id="status" name="status" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow">
-                        <option value="Belum Tersedia" {{ old('status') == 'Belum Tersedia' ? 'selected' : '' }}>Belum Tersedia</option>
-                        <option value="Tersedia" {{ old('status') == 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
-                    </select>
-                </div>
             </div>
 
             {{-- Full width textareas --}}
