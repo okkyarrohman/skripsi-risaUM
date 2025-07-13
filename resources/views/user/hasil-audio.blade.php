@@ -43,7 +43,7 @@
 
         <div class="bg-white shadow-md rounded-lg p-4 sm:p-6">
             @forelse ($results as $index => $audio)
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 py-4">
+                <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-4">
                     <!-- Metadata -->
                     <div class="flex-1">
                         <p class="text-base font-semibold break-words">
@@ -56,14 +56,16 @@
                         </p>
                     </div>
 
-                    <!-- Play Button -->
-                    <div class="w-full md:w-64 flex-shrink-0 flex justify-end items-center gap-4">
+                    <!-- Play Button + Ellipsis -->
+                    <div class="w-full md:w-64 flex-shrink-0 flex justify-end items-center gap-2 relative">
+                        <!-- Audio Player -->
                         <audio id="audio-{{ $index }}">
                             <source src="data:audio/{{ strtolower($audio->format ?? 'mp3') }};base64,{{ $audio->base64 ?? '' }}"
                                     type="audio/{{ ($audio->format ?? '') === 'LINEAR16' ? 'wav' : strtolower($audio->format ?? 'mp3') }}">
                             Your browser does not support the audio element.
                         </audio>
 
+                        <!-- Play Button -->
                         <button
                             data-audio-id="audio-{{ $index }}"
                             id="btn-{{ $index }}"
@@ -73,24 +75,79 @@
                                 <path d="M8 5v14l11-7z" /> <!-- Play Icon -->
                             </svg>
                         </button>
+
+                        <!-- Ellipsis Menu Button -->
+                        <div class="relative inline-block text-left">
+                            <button
+                                type="button"
+                                id="menu-button-{{ $index }}"
+                                class="text-[#090445] focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-12">
+                                    <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div
+                                id="dropdown-{{ $index }}"
+                                class="hidden absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            >
+                                <div class="py-1 text-sm text-gray-700">
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 0.75)"
+                                    >Kecepatan 0.75x</button>
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 1.0)"
+                                    >Kecepatan Normal</button>
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 1.5)"
+                                    >Kecepatan 1.5x</button>
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 2.0)"
+                                    >Kecepatan 2.0x</button>
+                                    @php
+                                        $audioFormat = strtoupper($audio->format ?? 'MP3');
+                                        $downloadExt = $audioFormat === 'LINEAR16' ? 'wav' : strtolower($audioFormat);
+                                        $mimeType = $downloadExt;
+                                    @endphp
+
+                                    <a
+                                        href="data:audio/{{ $mimeType }};base64,{{ $audio->base64 ?? '' }}"
+                                        download="audio_{{ $index }}.{{ $downloadExt }}"
+                                        class="block px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                    >
+                                        Unduh Audio
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Request Text Button -->
                     <div class="w-full md:w-auto">
                         <a
                             href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id ?? 0]) }}"
-                            class="block focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0] focus:outline-none"
+                            class="block focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0]"
                         >
                             Minta Teks Lengkap
                         </a>
                     </div>
                 </div>
 
+                <!-- Script per item -->
                 <script>
                     (() => {
                         const audio = document.getElementById('audio-{{ $index }}');
                         const button = document.getElementById('btn-{{ $index }}');
                         const icon = document.getElementById('icon-{{ $index }}');
+                        const menuButton = document.getElementById('menu-button-{{ $index }}');
+                        const dropdown = document.getElementById('dropdown-{{ $index }}');
+
                         let isPlaying = false;
 
                         button.addEventListener('click', () => {
@@ -110,7 +167,25 @@
                             isPlaying = false;
                             icon.innerHTML = '<path d="M8 5v14l11-7z" />';
                         });
+
+                        menuButton.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            dropdown.classList.toggle('hidden');
+                        });
+
+                        document.addEventListener('click', (e) => {
+                            if (!dropdown.contains(e.target) && !menuButton.contains(e.target)) {
+                                dropdown.classList.add('hidden');
+                            }
+                        });
                     })();
+
+                    function setPlaybackRate(audioId, rate) {
+                        const audio = document.getElementById(audioId);
+                        if (audio) {
+                            audio.playbackRate = rate;
+                        }
+                    }
                 </script>
 
                 @if (!$loop->last)
@@ -119,6 +194,7 @@
             @empty
                 <p class="mt-4 text-gray-600">Tidak ada hasil ditemukan.</p>
             @endforelse
+
         </div>
 
         <div class="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between text-sm text-gray-700 gap-2">
