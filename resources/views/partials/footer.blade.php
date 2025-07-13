@@ -1,6 +1,6 @@
 <footer class="bg-[#1E3A8A] text-white shadow-inner">
     <div
-        class="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between gap-6 px-4 sm:px-6 md:px-12 lg:px-20 py-8 text-sm">
+        class="w-full max-w-screen-xl mx-auto flex flex-col lg:flex-row justify-between gap-6 px-4 sm:px-6 md:px-12 lg:px-20 py-8 text-sm">
 
         {{-- Logo + Credit Section --}}
         <div class="flex flex-col items-start">
