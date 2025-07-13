@@ -23,7 +23,7 @@ class CollectionSeeder extends Seeder
             'Fakultas Kedokteran' => ['Pendidikan Dokter', 'Kedokteran Gigi'],
         ];
 
-        for ($i = 1; $i <= 1000; $i++) {
+        for ($i = 1; $i <= 500; $i++) {
             // Pilih fakultas secara acak
             $fakultas = Arr::random(array_keys($fakultasProdi));
 
