@@ -29,7 +29,7 @@
             <!-- Search Button with Icon -->
             <button
                 type="submit"
-                class="flex items-center gap-2 bg-[#090445] text-white px-6 py-2 rounded-md hover:bg-[#090445e0] hover:cursor-pointer"
+                class="focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex items-center gap-2 bg-[#090445] text-white px-6 py-2 rounded-md hover:bg-[#090445e0] hover:cursor-pointer"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

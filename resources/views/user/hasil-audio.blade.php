@@ -21,7 +21,7 @@
 
             <button
                 type="submit"
-                class="flex hover:cursor-pointer items-center justify-center gap-2 bg-[#090445] text-white px-4 py-2 rounded-md hover:bg-[#090445e0]"
+                class="focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex hover:cursor-pointer items-center justify-center gap-2 bg-[#090445] text-white px-4 py-2 rounded-md hover:bg-[#090445e0]"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -67,7 +67,7 @@
                         <button
                             data-audio-id="audio-{{ $index }}"
                             id="btn-{{ $index }}"
-                            class="w-13 h-13 hover:cursor-pointer rounded-full bg-[#090445] text-white flex items-center justify-center shadow-md transition duration-300 hover:bg-[#090445]"
+                            class="w-13 h-13 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 hover:cursor-pointer rounded-full bg-[#090445] text-white flex items-center justify-center shadow-md transition duration-300 hover:bg-[#090445]"
                         >
                             <svg id="icon-{{ $index }}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z" /> <!-- Play Icon -->
@@ -79,7 +79,7 @@
                     <div class="w-full md:w-auto">
                         <a
                             href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id ?? 0]) }}"
-                            class="block text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0] focus:outline-none"
+                            class="block focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0] focus:outline-none"
                         >
                             Minta Teks Lengkap
                         </a>

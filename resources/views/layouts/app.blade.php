@@ -17,8 +17,8 @@
 <body class="flex flex-col min-h-screen bg-white text-gray-900 scroll-smooth">
 
     {{-- Tautan Aksesibilitas: Lewati ke Konten --}}
-    <a href="#konten-utama" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-blue-800 font-semibold px-4 py-2 rounded shadow z-50">
-        Lewati ke konten utama
+    <a href="#konten-utama" class="p-2 sr-only focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white text-blue-800 font-semibold px-4 py-2 rounded shadow z-50">
+        Lewati Ke Konten Utama
     </a>
 
     @include('partials.navbar')

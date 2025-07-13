@@ -72,7 +72,7 @@
 
             <button
                 type="submit"
-                class="w-1/2 mx-auto block bg-[#090445] text-white font-semibold px-4 py-2 hover:cursor-pointer rounded-md hover:bg-[#090445] focus:outline-none"
+                class="w-1/2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 mx-auto block bg-[#090445] text-white font-semibold px-4 py-2 hover:cursor-pointer rounded-md hover:bg-[#090445] focus:outline-none"
             >
                 Kirim
             </button>
