@@ -17,12 +17,20 @@ class AdminDashboardController extends Controller
         $audioCollectionsCount = Audio::count();
         $pendingRequestsCount = TextRequest::where('status', 'Belum Dikirim')->count();
 
-        // Data for the past 7 days (conversion activity)
-        $conversionData = Audio::selectRaw('DATE(created_at) as date, COUNT(*) as total')
+        $rawConversionData = Audio::selectRaw('DATE(created_at) as date, COUNT(*) as total')
             ->where('created_at', '>=', now()->subDays(6)->startOfDay())
             ->groupBy('date')
             ->orderBy('date')
-            ->get();
+            ->pluck('total', 'date');
+
+        $conversionData = collect();
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i)->toDateString();
+            $conversionData->push((object)[
+                'date' => $date,
+                'total' => $rawConversionData[$date] ?? 0,
+            ]);
+        }
 
         return view('admin.index', compact(
             'title',
