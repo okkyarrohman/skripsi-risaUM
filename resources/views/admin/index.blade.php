@@ -50,17 +50,17 @@
 
     <!-- Aktivitas Konversi Card -->
     <div class="bg-white shadow rounded-2xl p-6">
-        <h2 class="text-lg font-semibold mb-4 text-gray-700">Aktivitas Konversi Audio 7 Hari Terakhir</h2>
-        
-        <!-- Grid Summary -->
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-6">
-            @foreach ($conversionData as $item)
-                <div class="bg-gray-100 p-4 rounded-xl text-center">
-                    <p class="text-sm text-gray-600">{{ \Carbon\Carbon::parse($item->date)->format('d M Y') }}</p>
-                    <p class="text-xl font-bold text-gray-800">{{ $item->total }}</p>
-                    <p class="text-xs text-gray-500">Konversi</p>
-                </div>
-            @endforeach
+        @php
+            $currentRange = request('range', 7);
+        @endphp
+        <h2 class="text-lg font-semibold mb-4 text-gray-700">Aktivitas Konversi Audio {{ $currentRange }} Hari Terakhir</h2>
+        <div class="flex gap-2 mb-4">
+            <a href="?range=7" class="px-4 py-2 rounded-lg text-sm font-medium {{ $currentRange == 7 ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700' }}">
+                7 Hari
+            </a>
+            <a href="?range=30" class="px-4 py-2 rounded-lg text-sm font-medium {{ $currentRange == 30 ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700' }}">
+                30 Hari
+            </a>
         </div>
 
         <!-- Line Chart -->
