@@ -96,6 +96,14 @@
                                 <div class="py-1 text-sm text-gray-700">
                                     <button
                                         class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 0.25)"
+                                    >Kecepatan 0.25x</button>
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                        onclick="setPlaybackRate('audio-{{ $index }}', 0.5)"
+                                    >Kecepatan 0.5x</button>
+                                    <button
+                                        class="block w-full text-left px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
                                         onclick="setPlaybackRate('audio-{{ $index }}', 0.75)"
                                     >Kecepatan 0.75x</button>
                                     <button
