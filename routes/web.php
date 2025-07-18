@@ -9,6 +9,18 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController; // Added this line
 use Illuminate\Support\Facades\Route;
 
+Route::get('/create-storage-link', function () {
+    $target = '../laravel/skripsi-risaUM/storage';
+    $link = '../public_html/storage';
+
+    if (file_exists($link)) {
+        return 'Link sudah ada.';
+    }
+
+    symlink($target, $link);
+    return 'Symbolic link berhasil dibuat.';
+});
+
 // Landing Page Controller
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/tentang-kami', [LandingController::class, 'about'])->name('landing.about');
