@@ -260,10 +260,22 @@ class AudioController extends Controller
             // Decode base64 audio and store file
             $audioData = base64_decode(preg_replace('/^data:audio\/\w+;base64,/', '', $validated['base64']));
 
-            $fileName = 'audio_' . uniqid() . '.' . strtolower($validated['format']);
+            // 🧠 Determine correct file extension
+            $extension = strtolower($validated['format']) === 'linear16' ? 'wav' : strtolower($validated['format']);
+
+            // 🧾 Generate unique filename with proper extension
+            $fileName = 'audio_' . uniqid() . '.' . $extension;
+
+            // 📁 Build relative path in storage/app/public/audios/
             $filePath = 'audios/' . $fileName;
 
+            // 💾 Save decoded audio to public disk
             Storage::disk('public')->put($filePath, $audioData);
+
+            // ✅ Save the file path to the database instead of base64
+            $validated['file_path'] = $filePath;
+            unset($validated['base64']); // remove large payload
+
 
             // 💡 Overwrite base64 field to now contain file path
             $validated['base64'] = $filePath;
