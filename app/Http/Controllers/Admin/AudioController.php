@@ -149,18 +149,22 @@ class AudioController extends Controller
     {
         // Find the audio to delete
         $audio = Audio::findOrFail($id);
-        
+
         // Get the collection ID before deleting the audio
         $collectionId = $audio->collection_id;
 
         try {
-            // Delete the audio record
+            // ✅ Delete the audio file from storage if it exists
+            if ($audio->base64 && Storage::disk('public')->exists($audio->base64)) {
+                Storage::disk('public')->delete($audio->base64);
+            }
+
+            // ✅ Delete the audio record from DB
             $audio->delete();
 
-            // Check the count of remaining audios in the collection
+            // ✅ Check if collection should be marked 'Belum Tersedia'
             $audioCount = Audio::where('collection_id', $collectionId)->count();
 
-            // If no audios left, update collection status
             if ($audioCount === 0) {
                 $collection = Collection::find($collectionId);
                 if ($collection) {
@@ -168,15 +172,17 @@ class AudioController extends Controller
                     $collection->save();
                 }
             }
+
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus audio.');
+            return redirect()->back()->with('error', 'Gagal menghapus audio. ' . $e->getMessage());
         }
 
-        // Get redirect URL from session or fallback
+        // Redirect to previous or default page
         $redirect = session()->pull('redirect_url', route('admin.audio.index'));
 
         return redirect($redirect)->with('success', 'Audio berhasil dihapus.');
     }
+
 
     public function testTTS(Request $request)
     {
