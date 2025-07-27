@@ -81,10 +81,10 @@
                     <td class="px-6 py-4 flex items-center space-x-4">
                         @if (!empty($audio->base64))
                            <audio controls class="max-w-xs">
-                                <source src="data:audio/{{ strtolower($audio->format) }};base64,{{ $audio->base64 }}" 
-                                        type="audio/{{ $audio->format === 'LINEAR16' ? 'wav' : strtolower($audio->format) }}">
-                                Your browser does not support the audio element.
-                            </audio>
+                              <source src="{{ asset('storage/' . $audio->base64) }}" 
+                                      type="audio/{{ $audio->format === 'LINEAR16' ? 'wav' : strtolower($audio->format) }}">
+                              Your browser does not support the audio element.
+                          </audio>
                         @else
                             <span class="text-gray-500">No audio</span>
                         @endif

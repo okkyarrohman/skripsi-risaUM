@@ -16,6 +16,7 @@ use Google\Cloud\TextToSpeech\V1\Client\TextToSpeechClient;
 use Google\Cloud\TextToSpeech\V1\SynthesisInput;
 use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
 use Google\Cloud\TextToSpeech\V1\AudioConfig;
+use Illuminate\Support\Facades\Storage;
 
 
 class AudioController extends Controller
@@ -236,28 +237,16 @@ class AudioController extends Controller
             'bahasa'         => 'required|string|max:10',
             'durasi'         => 'nullable|string|max:10',
             'format'         => 'required|string|max:20',
-            'base64'         => 'required|string',
+            'base64'         => 'required|string', // still required
             'pitch'          => 'required|numeric',
             'speaking_rate'  => 'required|numeric',
             'tipe_suara'     => 'nullable|string|max:50',
-        ], [
-            'bahasa.required'         => 'Bahasa wajib diisi.',
-            'bahasa.string'           => 'Format bahasa tidak valid.',
-            'durasi.string'           => 'Format durasi tidak valid.',
-            'format.required'         => 'Format audio wajib diisi.',
-            'format.string'           => 'Format audio harus berupa teks.',
-            'base64.required'         => 'Data audio (base64) wajib diisi.',
-            'pitch.required'          => 'Pitch wajib diisi.',
-            'pitch.numeric'           => 'Pitch harus berupa angka.',
-            'speaking_rate.required'  => 'Kecepatan bicara wajib diisi.',
-            'speaking_rate.numeric'   => 'Kecepatan bicara harus berupa angka.',
-            'tipe_suara.string'       => 'Tipe suara harus berupa teks.',
         ]);
 
         try {
             $collection = Collection::findOrFail($collectionId);
 
-            // ✅ Check if audio for this language and collection already exists
+            // Prevent duplicate
             $existingAudio = Audio::where('collection_id', $collectionId)
                 ->where('bahasa', $validated['bahasa'])
                 ->first();
@@ -265,16 +254,26 @@ class AudioController extends Controller
             if ($existingAudio) {
                 return redirect()
                     ->back()
-                    ->withErrors([
-                        'error' => 'Audio dengan bahasa ' . $validated['bahasa'] . ' sudah ada untuk koleksi ini.'
-                    ]);
+                    ->withErrors(['error' => 'Audio dengan bahasa ' . $validated['bahasa'] . ' sudah ada untuk koleksi ini.']);
             }
 
-            // Proceed with saving
+            // Decode base64 audio and store file
+            $audioData = base64_decode(preg_replace('/^data:audio\/\w+;base64,/', '', $validated['base64']));
+
+            $fileName = 'audio_' . uniqid() . '.' . strtolower($validated['format']);
+            $filePath = 'audios/' . $fileName;
+
+            Storage::disk('public')->put($filePath, $audioData);
+
+            // 💡 Overwrite base64 field to now contain file path
+            $validated['base64'] = $filePath;
+
             $validated['collection_id'] = $collection->id;
+
+            // Save to DB
             Audio::create($validated);
 
-            // Update collection status if not already 'Tersedia'
+            // Update collection status
             if ($collection->status !== 'Tersedia') {
                 $collection->status = 'Tersedia';
                 $collection->save();
@@ -285,10 +284,10 @@ class AudioController extends Controller
                 ->with('success', 'Audio berhasil disimpan dan status koleksi diperbarui.');
 
         } catch (\Exception $e) {
+            \Log::error('Gagal menyimpan audio', ['error_message' => $e->getMessage()]);
             return redirect()
                 ->back()
                 ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan audio.']);
         }
     }
-
 }

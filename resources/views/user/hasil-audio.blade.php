@@ -60,11 +60,10 @@
                     <div class="w-full md:w-64 flex-shrink-0 flex justify-end items-center gap-2 relative">
                         <!-- Audio Player -->
                         <audio id="audio-{{ $index }}">
-                            <source src="data:audio/{{ strtolower($audio->format ?? 'mp3') }};base64,{{ $audio->base64 ?? '' }}"
+                            <source src="{{ asset('storage/' . $audio->base64) }}"
                                     type="audio/{{ ($audio->format ?? '') === 'LINEAR16' ? 'wav' : strtolower($audio->format ?? 'mp3') }}">
                             Your browser does not support the audio element.
                         </audio>
-
                         <!-- Play Button -->
                         <button
                             data-audio-id="audio-{{ $index }}"
@@ -129,7 +128,7 @@
                                     @endphp
 
                                     <a
-                                        href="data:audio/{{ $mimeType }};base64,{{ $audio->base64 ?? '' }}"
+                                        href="{{ asset('storage/' . $audio->base64) }}"
                                         download="audio_{{ $index }}.{{ $downloadExt }}"
                                         class="block px-4 py-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
                                     >
