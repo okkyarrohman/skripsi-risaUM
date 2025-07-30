@@ -47,7 +47,7 @@
                     <!-- Metadata -->
                     <div class="flex-1">
                         <p class="text-base font-semibold break-words">
-                            {{ \Illuminate\Support\Str::limit($audio->collection->judul_tugas_akhir ?? 'Judul tidak tersedia', 100) }}
+                            {{ ($audio->collection->judul_tugas_akhir ?? 'Judul tidak tersedia') }}
                         </p>
                         <p class="text-sm text-gray-600 mt-1 italic">
                             {{ $audio->collection->nama_penulis ?? 'Penulis tidak tersedia' }} |

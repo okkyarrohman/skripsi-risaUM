@@ -6,7 +6,7 @@
 <section class="max-w-6xl mx-auto px-4 py-10 text-[#06003F]">
     <h1 class="text-center text-4xl font-bold mb-10">Panduan Admin</h1>
 
-    <ol class="list-decimal list-inside space-y-4 prose prose-lg text-justify text-lg mx-auto max-w-3xl mb-4">
+    <ol class="list-decimal list-inside space-y-4 prose prose-lg text-justify text-lg mx-auto max-w-3xl mb-4 leading-loose">
         <li><strong>Masuk ke Sistem</strong> "VoiceLib" menggunakan akun admin yang telah terdaftar.</li>
         <li><strong>Gunakan Menu Navigasi</strong> di sebelah kiri layar untuk memilih halaman yang ingin Anda kelola.</li>
         <li>Pada menu <strong>Dashboard</strong>, Anda dapat memantau ringkasan aktivitas sistem secara visual, seperti jumlah koleksi dan total audio.</li>
