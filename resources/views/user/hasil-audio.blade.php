@@ -69,23 +69,32 @@
                             data-audio-id="audio-{{ $index }}"
                             id="btn-{{ $index }}"
                             class="w-13 h-13 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 hover:cursor-pointer rounded-full bg-[#090445] text-white flex items-center justify-center shadow-md transition duration-300 hover:bg-[#090445]"
+                            aria-label="Mulai Audio"
+                            aria-pressed="false"
+                            onclick="toggleAudio(this, {{ $index }})"
                         >
                             <svg id="icon-{{ $index }}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z" /> <!-- Play Icon -->
                             </svg>
                         </button>
 
+
                         <!-- Ellipsis Menu Button -->
                         <div class="relative inline-block text-left">
-                            <button
+                           <button
                                 type="button"
                                 id="menu-button-{{ $index }}"
                                 class="text-[#090445] focus:outline-none hover:cursor-pointer focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2"
+                                aria-label="Buka menu audio untuk opsi lainnya"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                                onclick="toggleMenu(this)"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-12">
                                     <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm0 6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clip-rule="evenodd" />
                                 </svg>
                             </button>
+
 
                             <!-- Dropdown Menu -->
                             <div
@@ -149,7 +158,32 @@
                         </a>
                     </div>
                 </div>
+                <script>
+                    function toggleAudio(button, index) {
+                        const audio = document.getElementById(`audio-${index}`);
+                        const icon = document.getElementById(`icon-${index}`);
+                        const isPlaying = button.getAttribute("aria-pressed") === "true";
 
+                        if (isPlaying) {
+                            audio.pause();
+                            button.setAttribute("aria-pressed", "false");
+                            button.setAttribute("aria-label", "Mulai Audio");
+                            icon.innerHTML = '<path d="M8 5v14l11-7z" />'; // Play icon
+                        } else {
+                            audio.play();
+                            button.setAttribute("aria-pressed", "true");
+                            button.removeAttribute("aria-label"); // Don't say anything
+                            icon.innerHTML = '<path d="M6 4h4v16H6zm8 0h4v16h-4z" />'; // Pause icon
+                        }
+
+                        // Reset when audio ends
+                        audio.onended = () => {
+                            button.setAttribute("aria-pressed", "false");
+                            button.setAttribute("aria-label", "Mulai Audio");
+                            icon.innerHTML = '<path d="M8 5v14l11-7z" />';
+                        };
+                    }
+                </script>
                 <!-- Script per item -->
                 <script>
                     (() => {

@@ -61,6 +61,7 @@
                     <input id="whatsapp" name="whatsapp" type="text"
                         placeholder="81234567890"
                         autocomplete="tel"
+                        inputmode="numeric"
                         value="{{ old('whatsapp') }}"
                         class="w-full border border-gray-700 rounded-r-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445] @error('whatsapp') border-red-500 @enderror"
                         oninput="cleanWhatsApp(this)">
