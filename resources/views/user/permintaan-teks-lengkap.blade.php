@@ -15,17 +15,19 @@
 
         <form aria-describedby="deskripsiForm" method="POST" action="{{ route('kirim.permintaan.teks.lengkap', ['audioId' => $audio->id]) }}">
             @csrf
+
             <div class="mb-4">
                 <label for="nama" class="block text-gray-700 font-semibold mb-1">Nama</label>
                 <input id="nama" name="nama" type="text" 
                        placeholder="Masukkan Nama"
                        autocomplete="name"
                        value="{{ old('nama') }}"
-                       class="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445] @error('nama') border-red-500 @enderror">
+                       class="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 @error('nama') border-red-500 @enderror">
                 @error('nama')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
             <div class="mb-4">
                 <label for="nim" class="block text-gray-700 font-semibold mb-1">NIM</label>
                 <input id="nim" name="nim" 
@@ -35,12 +37,11 @@
                     placeholder="Masukkan NIM"
                     autocomplete="username"
                     value="{{ old('nim') }}"
-                    class="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445] @error('nim') border-red-500 @enderror">
+                    class="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 @error('nim') border-red-500 @enderror">
                 @error('nim')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
 
             <div class="mb-4">
                 <label for="prodi" class="block text-gray-700 font-semibold mb-1">Program Studi / Fakultas</label>
@@ -48,7 +49,7 @@
                        placeholder="Masukkan Program Studi"
                        autocomplete="organization"
                        value="{{ old('prodi') }}"
-                       class="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445] @error('prodi') border-red-500 @enderror">
+                       class="w-full border border-gray-700 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 @error('prodi') border-red-500 @enderror">
                 @error('prodi')
                     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                 @enderror
@@ -63,7 +64,7 @@
                         autocomplete="tel"
                         inputmode="numeric"
                         value="{{ old('whatsapp') }}"
-                        class="w-full border border-gray-700 rounded-r-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445] @error('whatsapp') border-red-500 @enderror"
+                        class="w-full border border-gray-700 rounded-r-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 @error('whatsapp') border-red-500 @enderror"
                         oninput="cleanWhatsApp(this)">
                 </div>
                 @error('whatsapp')
@@ -73,7 +74,7 @@
 
             <button
                 type="submit"
-                class="w-1/2 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 mx-auto block bg-[#090445] text-white font-semibold px-4 py-2 hover:cursor-pointer rounded-md hover:bg-[#090445] focus:outline-none"
+                class="w-1/2 mx-auto block bg-[#090445] text-white font-semibold px-4 py-2 hover:cursor-pointer rounded-md hover:bg-[#090445] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
                 Kirim
             </button>
@@ -93,19 +94,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById('nim').addEventListener('input', function (e) {
-    this.value = this.value.replace(/\D/g, ''); // Remove non-digits
+    this.value = this.value.replace(/\D/g, '');
 });
 
 document.getElementById('whatsapp').addEventListener('input', function () {
-    this.value = this.value.replace(/\D/g, ''); // Remove all non-digit characters
+    this.value = this.value.replace(/\D/g, '');
 });
 
 function cleanWhatsApp(input) {
     let val = input.value;
-    // Remove all non-digit characters
     val = val.replace(/\D/g, '');
 
-    // Remove leading 0 or 62
     if (val.startsWith('0')) {
         val = val.slice(1);
     } else if (val.startsWith('62')) {

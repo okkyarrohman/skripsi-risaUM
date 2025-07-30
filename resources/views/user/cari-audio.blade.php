@@ -10,26 +10,31 @@
     <h1 class="text-4xl text-white max-w-xl text-center font-bold">
         Cari Audio Abstrak
     </h1>
-    <p class="text-lg font-bold mt-2 mb-6 text-white text-center">Ketik kata kunci judul, penulis, atau topik untuk menemukan audio abstrak yang ingin kamu cari</p>
+    <p class="text-lg font-bold mt-2 mb-6 text-white text-center">
+        Ketik kata kunci judul, penulis, atau topik untuk menemukan audio abstrak yang ingin kamu cari
+    </p>
 
     <div class="bg-white shadow-md rounded-lg px-6 py-6 w-full max-w-lg">
         <form method="GET" action="{{ route('hasil.audio') }}" class="flex items-center gap-3">
             <!-- Include language as hidden input -->
             <input type="hidden" name="language" value="{{ $language }}">
+
+            <!-- Input Field -->
             <div class="relative flex-grow">
-                <!-- Mic Icon -->
                 <input
                     type="text"
                     name="keyword"
                     placeholder="Ketik kata kunci judul, atau penulis ..."
-                    class="w-full border border-gray-900 rounded-md pl-3 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#090445]"
+                    class="w-full border border-gray-900 rounded-md pl-3 pr-4 py-2
+                           focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
                 >
             </div>
 
-            <!-- Search Button with Icon -->
+            <!-- Search Button -->
             <button
                 type="submit"
-                class="focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 flex items-center gap-2 bg-[#090445] text-white px-6 py-2 rounded-md hover:bg-[#090445e0] hover:cursor-pointer"
+                class="flex items-center gap-2 bg-[#090445] text-white px-6 py-2 rounded-md hover:bg-[#090445e0] hover:cursor-pointer
+                       focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
