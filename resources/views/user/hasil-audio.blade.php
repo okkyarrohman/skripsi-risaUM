@@ -22,7 +22,8 @@
 
             <button
                 type="submit"
-                class="flex hover:cursor-pointer items-center justify-center gap-2 bg-[#090445] text-white px-4 py-2 rounded-md hover:bg-[#090445e0]
+                class="flex hover:cursor-pointer items-center justify-center gap-2 bg-[#090445] text-white px-4 py-2 rounded-md
+                       hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
                        focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,10 +47,9 @@
         <div class="bg-white shadow-md rounded-lg p-4 sm:p-6">
             @forelse ($results as $index => $audio)
                 <div class="flex flex-col md:flex-row items-start md:items-center md:gap-2 py-4">
-                    <!-- Metadata -->
                     <div class="flex-1">
                         <p class="text-base font-semibold break-words">
-                            {{ ($audio->collection->judul_tugas_akhir ?? 'Judul tidak tersedia') }}
+                            {{ $audio->collection->judul_tugas_akhir ?? 'Judul tidak tersedia' }}
                         </p>
                         <p class="text-sm text-gray-600 mt-1 italic">
                             {{ $audio->collection->nama_penulis ?? 'Penulis tidak tersedia' }} |
@@ -58,32 +58,30 @@
                         </p>
                     </div>
 
-                    <!-- Play Button + Ellipsis -->
                     <div class="w-full md:w-64 flex-shrink-0 flex justify-end items-center gap-2 relative">
-                        <!-- Audio Player -->
                         <audio id="audio-{{ $index }}">
                             <source src="{{ asset('storage/' . $audio->base64) }}"
                                     type="audio/{{ ($audio->format ?? '') === 'LINEAR16' ? 'wav' : strtolower($audio->format ?? 'mp3') }}">
                             Your browser does not support the audio element.
                         </audio>
-                        <!-- Play Button -->
+
                         <button
                             data-audio-id="audio-{{ $index }}"
                             id="btn-{{ $index }}"
-                            class="w-13 h-13 rounded-full bg-[#090445] text-white flex items-center justify-center shadow-md transition duration-300 hover:bg-[#090445]
+                            class="w-13 h-13 rounded-full bg-[#090445] text-white flex items-center justify-center shadow-md
+                                   hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
                                    focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
                             aria-label="Mulai Audio"
                             aria-pressed="false"
                             onclick="toggleAudio(this, {{ $index }})"
                         >
                             <svg id="icon-{{ $index }}" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-current" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z" /> <!-- Play Icon -->
+                                <path d="M8 5v14l11-7z" />
                             </svg>
                         </button>
 
-                        <!-- Ellipsis Menu Button -->
                         <div class="relative inline-block text-left">
-                           <button
+                            <button
                                 type="button"
                                 id="menu-button-{{ $index }}"
                                 class="text-[#090445] hover:cursor-pointer
@@ -98,7 +96,6 @@
                                 </svg>
                             </button>
 
-                            <!-- Dropdown Menu -->
                             <div
                                 id="dropdown-{{ $index }}"
                                 class="hidden absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -130,11 +127,11 @@
                         </div>
                     </div>
 
-                    <!-- Request Text Button -->
                     <div class="w-full md:w-auto">
                         <a
                             href="{{ route('permintaan.teks.lengkap', ['audioId' => $audio->id ?? 0]) }}"
-                            class="block text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold hover:bg-[#090445e0]
+                            class="block text-center px-4 py-2 rounded-md bg-[#090445] text-white font-semibold
+                                   hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
                                    focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
                         >
                             Minta Teks Lengkap
@@ -169,9 +166,7 @@
 
                     function setPlaybackRate(audioId, rate) {
                         const audio = document.getElementById(audioId);
-                        if (audio) {
-                            audio.playbackRate = rate;
-                        }
+                        if (audio) audio.playbackRate = rate;
                     }
 
                     (() => {
@@ -180,15 +175,11 @@
                         const menuButton = document.getElementById('menu-button-{{ $index }}');
                         const dropdown = document.getElementById('dropdown-{{ $index }}');
 
-                        let isPlaying = false;
-
                         audio.addEventListener('play', () => {
-                            isPlaying = true;
                             icon.innerHTML = '<path d="M6 4h4v16H6zm8 0h4v16h-4z" />';
                         });
 
                         audio.addEventListener('pause', () => {
-                            isPlaying = false;
                             icon.innerHTML = '<path d="M8 5v14l11-7z" />';
                         });
 

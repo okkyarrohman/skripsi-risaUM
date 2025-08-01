@@ -14,8 +14,9 @@
                     VoiceLib hadir untuk mendukung layanan perpustakaan yang inklusif bagi mahasiswa disabilitas netra di Universitas Negeri Malang. Situs VoiceLib menghadirkan pengalaman baru dengan menyediakan abstrak tugas akhir yang telah diubah menjadi audio. Jelajahi kemudahan dalam mengakses informasi perpustakaan, kapan pun dan di mana pun.
                 </p>
                 <a href="{{ route('landing.pilih.bahasa') }}"
-                   class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-900 transition duration-300
-                          focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-gray-50">
+                   class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg 
+                          hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
+                          focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white">
                     Mulai Sekarang
                 </a>
             </div>
@@ -29,6 +30,7 @@
         </div>
     </section>
 
+    {{-- Section: Guide --}}
     <section class="bg-gray-50 pt-18 px-6 mt-4">
         <div class="container mx-auto px-4 py-12 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-[#06003F]">
@@ -38,8 +40,9 @@
                 Pelajari langkah-langkah menggunakan VoiceLib untuk mencari dan mendengarkan koleksi audio
             </p>
             <a href="{{ route('landing.guide') }}"
-               class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg hover:bg-indigo-900 transition duration-300
-                      focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-gray-50">
+               class="inline-block py-4 px-6 bg-[#090445] text-white text-lg font-semibold rounded-lg 
+                      hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
+                      focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white">
                 Pelajari Lebih Lanjut
             </a>
         </div>
@@ -54,8 +57,9 @@
                     <strong>VoiceLib</strong> adalah platform “perpustakaan digital” yang mengonversi teks menjadi audio secara otomatis. Dikembangkan untuk mendukung mahasiswa tunanetra di Universitas Negeri Malang, VoiceLib diharapkan dapat menghadirkan akses informasi akademik yang lebih mudah, fleksibel, dan ramah pengguna.
                 </p>
                 <a href="{{ route('landing.about') }}"
-                   class="inline-block mt-10 py-4 px-6 bg-[#090445] text-white text-md font-semibold rounded-lg hover:bg-indigo-900 transition duration-300
-                          focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-gray-100">
+                   class="inline-block mt-10 py-4 px-6 bg-[#090445] text-white text-md font-semibold rounded-lg 
+                          hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
+                          focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white">
                     Simak lebih lanjut tentang kami
                 </a>
             </div>

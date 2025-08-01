@@ -72,9 +72,12 @@
                 @enderror
             </div>
 
-            <button
+           <button
                 type="submit"
-                class="w-1/2 mx-auto block bg-[#090445] text-white font-semibold px-4 py-2 hover:cursor-pointer rounded-md hover:bg-[#090445] focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                class="w-1/2 mx-auto block bg-[#090445] text-white font-semibold px-4 py-2 rounded-md 
+                    hover:bg-[#090445e0]
+                    focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:bg-[#1119B3] focus:ring-offset-white 
+                    transition duration-300"
             >
                 Kirim
             </button>

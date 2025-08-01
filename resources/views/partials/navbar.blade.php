@@ -9,6 +9,7 @@
 
 <nav class="bg-[#1E3A8A] text-white shadow relative">
     <div class="container mx-auto flex items-center justify-between px-4 py-3">
+
         {{-- Brand --}}
         <a href="{{ route('landing.index') }}"
            class="block no-underline text-inherit focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]">
@@ -37,19 +38,23 @@
         {{-- Desktop Menu --}}
         <div class="hidden lg:flex space-x-8 text-sm sm:text-base font-bold">
             <a href="{{ route('landing.index') }}"
-               class="relative pb-1 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A] {{ request()->routeIs('landing.index') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
+               class="relative pb-1 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                      {{ request()->routeIs('landing.index') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white focus:border-b-3 focus:border-white' }}">
                 Beranda
             </a>
             <a href="{{ route('landing.guide') }}"
-               class="relative pb-1 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A] {{ request()->routeIs('landing.guide') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
+               class="relative pb-1 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                      {{ request()->routeIs('landing.guide') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white focus:border-b-3 focus:border-white' }}">
                 Panduan
             </a>
             <a href="{{ route('landing.about') }}"
-               class="relative pb-1 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A] {{ request()->routeIs('landing.about') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
+               class="relative pb-1 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                      {{ request()->routeIs('landing.about') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white focus:border-b-3 focus:border-white' }}">
                 Tentang Kami
             </a>
             <a href="{{ route('login') }}"
-               class="relative pb-1 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A] {{ request()->is('login') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white' }}">
+               class="relative pb-1 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                      {{ request()->is('login') ? 'border-b-3 border-white' : 'hover:border-b-3 hover:border-white focus:border-b-3 focus:border-white' }}">
                 Masuk Admin
             </a>
         </div>
@@ -59,23 +64,23 @@
     <div id="mobileMenu"
          class="lg:hidden -translate-x-full transform transition-transform duration-300 absolute top-full left-0 w-full px-4 pb-3 flex flex-col gap-2 bg-[#1E3A8A] text-sm font-bold z-50">
         <a href="{{ route('landing.index') }}"
-           class="relative pb-1 border-b-3 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
-                  {{ request()->routeIs('landing.index') ? 'border-white' : 'border-transparent hover:border-white' }}">
+           class="relative pb-1 border-b-3 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                  {{ request()->routeIs('landing.index') ? 'border-white' : 'border-transparent hover:border-white focus:border-white' }}">
             Beranda
         </a>
         <a href="{{ route('landing.guide') }}"
-           class="relative pb-1 border-b-3 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
-                  {{ request()->routeIs('landing.guide') ? 'border-white' : 'border-transparent hover:border-white' }}">
+           class="relative pb-1 border-b-3 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                  {{ request()->routeIs('landing.guide') ? 'border-white' : 'border-transparent hover:border-white focus:border-white' }}">
             Panduan
         </a>
         <a href="{{ route('landing.about') }}"
-           class="relative pb-1 border-b-3 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
-                  {{ request()->routeIs('landing.about') ? 'border-white' : 'border-transparent hover:border-white' }}">
+           class="relative pb-1 border-b-3 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                  {{ request()->routeIs('landing.about') ? 'border-white' : 'border-transparent hover:border-white focus:border-white' }}">
             Tentang Kami
         </a>
         <a href="{{ route('login') }}"
-           class="relative pb-1 border-b-3 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
-                  {{ request()->is('login') ? 'border-white' : 'border-transparent hover:border-white' }}">
+           class="relative pb-1 border-b-3 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-[#1E3A8A]
+                  {{ request()->is('login') ? 'border-white' : 'border-transparent hover:border-white focus:border-white' }}">
             Masuk Admin
         </a>
     </div>

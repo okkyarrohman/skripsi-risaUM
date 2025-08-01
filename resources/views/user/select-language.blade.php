@@ -9,7 +9,8 @@
 
     <div class="flex flex-col sm:flex-row justify-center gap-16">
         <a href="{{ route('cari.audio', ['language' => 'id']) }}" 
-           class="w-full sm:w-48 h-48 bg-[#090445] rounded-2xl p-3 flex flex-col items-center justify-center shadow-lg text-center hover:scale-110 hover:bg-[#1119B3] transition-transform
+           class="w-full sm:w-48 h-48 bg-[#090445] rounded-2xl p-3 flex flex-col items-center justify-center shadow-lg text-center 
+                  hover:scale-110 focus:scale-110 hover:bg-[#1119B3] focus:bg-[#1119B3] transition-transform
                   focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
            role="button"
            aria-label="Pilih Bahasa Indonesia">
@@ -18,7 +19,8 @@
         </a>
 
         <a href="{{ route('cari.audio', ['language' => 'en']) }}" 
-           class="w-full sm:w-48 h-48 bg-[#090445] rounded-2xl p-3 flex flex-col items-center justify-center shadow-lg text-center hover:scale-110 hover:bg-[#1119B3] transition-transform
+           class="w-full sm:w-48 h-48 bg-[#090445] rounded-2xl p-3 flex flex-col items-center justify-center shadow-lg text-center 
+                  hover:scale-110 focus:scale-110 hover:bg-[#1119B3] focus:bg-[#1119B3] transition-transform
                   focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
            role="button"
            aria-label="Pilih Bahasa Inggris">

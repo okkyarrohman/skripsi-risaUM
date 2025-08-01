@@ -33,7 +33,8 @@
             <!-- Search Button -->
             <button
                 type="submit"
-                class="flex items-center gap-2 bg-[#090445] text-white px-6 py-2 rounded-md hover:bg-[#090445e0] hover:cursor-pointer
+                class="flex items-center gap-2 bg-[#090445] text-white px-6 py-2 rounded-md 
+                       hover:bg-[#1119B3] focus:bg-[#1119B3] transition-colors
                        focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-offset-4 focus:ring-offset-white"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
