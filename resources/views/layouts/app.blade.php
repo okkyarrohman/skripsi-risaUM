@@ -49,5 +49,23 @@
     </script>
     @endif
 
+    <script>
+    // Smooth scroll to focused element (e.g., button) on keyboard tabbing
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                setTimeout(() => {
+                    const focused = document.activeElement;
+                    if (focused && typeof focused.scrollIntoView === 'function') {
+                        focused.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'nearest'
+                        });
+                    }
+                }, 10); // Delay ensures focus has updated
+            }
+        });
+    </script>
+
 </body>
 </html>
