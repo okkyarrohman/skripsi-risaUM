@@ -17,7 +17,7 @@
         </div>
 
         <!-- Audio Panduan -->
-        <audio id="guideAudio" src="{{ asset('audio/panduan-pengguna.mp3') }}"></audio>
+        <audio id="guideAudio" src="{{ asset('images/audio/guide.mp3') }}"></audio>
 
         <ol class="list-decimal list-inside space-y-4 prose prose-lg text-justify text-lg mx-auto max-w-3xl mb-4 leading-loose">
             <li>Buka situs VoiceLib melalui browser pada perangkat Anda.</li>
